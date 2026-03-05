@@ -1,0 +1,21 @@
+# Зависимости
+node_modules/
+
+# Сборка
+dist/
+build/
+
+# Логи
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Окружение
+.env
+.env.local
+.env.*.local
+
+# IDE/ОС
+.DS_Store
+.vscode/
+.idea/
