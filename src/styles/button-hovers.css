@@ -1,0 +1,41 @@
+/* Hover эффекты для кнопок в замененной карточке финансирования */
+
+/* Кнопка "Изменить" */
+[data-name="[D] CustomButton"].btn-edit {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+[data-name="[D] CustomButton"].btn-edit:hover {
+  background-color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Кнопка "В корзине" в замененной карточке */
+[data-name="[D] CustomButton"].btn-in-cart {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+[data-name="[D] CustomButton"].btn-in-cart:hover {
+  background-color: rgb(11, 176, 67) !important; /* #0bb043 */
+}
+
+/* Кнопка "Добавить" в черной карточке финансирования */
+[data-name="wip6 / D_CredCard"] [data-name="Button_1"] {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+[data-name="wip6 / D_CredCard"] [data-name="Button_1"]:hover {
+  background-color: rgb(220, 43, 32) !important; /* Темнее чем #ef3124 */
+}
+
+/* Кнопки "Добавить" в карточках продуктов */
+[data-name="wip6 / ProdCard"] [data-name="[D] Button"] {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+[data-name="wip6 / ProdCard"] [data-name="[D] Button"]:hover {
+  background-color: rgb(220, 43, 32) !important; /* Темнее чем #ef3124 */
+}

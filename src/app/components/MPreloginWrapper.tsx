@@ -1,0 +1,423 @@
+import { useState, useEffect } from 'react';
+import MPreloginBase from '../../imports/MPrelogin';
+import MCredCardFast from '../../imports/MCredCardFast';
+import MCredCard from '../../imports/MCredCard';
+import { useCart } from '../contexts/CartContext';
+import { PRODUCTS } from './ProductCard';
+import { MobileFinancingSidebar } from './MobileFinancingSidebar';
+import { FINANCING_SUBTITLES, FINANCING_ICON_POSITIONS } from '../constants/financing';
+import { FINANCING_IMAGES, FINANCING_MASKS } from '../constants/financingImages';
+import { formatAmount } from '../utils/formatAmount';
+
+interface MPreloginWrapperProps {
+  onOpenFinancing: () => void;
+  onOpenProductModal: (productId: string) => void;
+  onOpenFinancingModal: (financingType: string) => void;
+  onOpenCart?: () => void;
+}
+
+export default function MPreloginWrapper({
+  onOpenFinancing,
+  onOpenProductModal,
+  onOpenFinancingModal,
+  onOpenCart,
+}: MPreloginWrapperProps) {
+  const { toggleItem, isInCart, addItem, items } = useCart();
+  const [mounted, setMounted] = useState(false);
+  const [isFinancingSidebarOpen, setIsFinancingSidebarOpen] = useState(false);
+  const [isReady, setIsReady] = useState(false);
+
+  // Проверяем, есть ли финансирование в корзине
+  const financingItem = items.find((item) => item.id === "financing");
+  const showCredCard = Boolean(financingItem);
+
+  useEffect(() => {
+    setMounted(true);
+
+    // Скрываем оригинальную иконку корзины из Figma
+    const hideOriginalBasket = () => {
+      const fixedFooter = document.querySelector('[data-name="fixed_footer"]') as HTMLElement;
+      if (fixedFooter) {
+        fixedFooter.style.display = 'none';
+      }
+    };
+
+    // Добавляем подчеркивание к заголовкам продуктов
+    const addUnderlineToTitles = () => {
+      const cards = Array.from(document.querySelectorAll('[data-name="CardPure"]'));
+      cards.forEach(card => {
+        const titleElement = card.querySelector('[data-name="Text Content"] p:first-child');
+        if (titleElement) {
+          titleElement.classList.add('underline', 'cursor-pointer');
+        }
+      });
+    };
+
+    // Убираем ограничение ширины 360px из импортированных компонентов
+    const removeWidthConstraints = () => {
+      // Находим все элементы с фиксированной шириной 360px (кроме body - обрабатываем отдельно)
+      const elements = document.querySelectorAll('[data-name="MobileHeader"], [data-name="Footer"], [data-name="wip6 / M_CredCard"]');
+      elements.forEach((el) => {
+        const element = el as HTMLElement;
+        element.style.width = '100%';
+        element.style.maxWidth = '600px';
+      });
+      
+      // Отдельно обрабатываем body - только если это мобильный элемент (с w-[360px])
+      const bodyElements = document.querySelectorAll('[data-name="body"]');
+      bodyElements.forEach((el) => {
+        const element = el as HTMLElement;
+        // Проверяем, что это элемент из мобильной версии (имеет w-[360px] в classList)
+        if (element.classList.contains('w-[360px]')) {
+          element.style.width = '100%';
+          element.style.maxWidth = '600px';
+        }
+      });
+    };
+
+    // Даем время на рендер
+    setTimeout(() => {
+      hideOriginalBasket();
+      addUnderlineToTitles();
+      removeWidthConstraints();
+      setIsReady(true);
+    }, 100);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
+    // Обработчик кликов для кнопок "Добавить" на карточках продуктов
+    const handleProductClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const button = target.closest('[data-name="[M] CustomButton"]');
+      
+      if (!button) return;
+
+      // Определяем, какой продукт был кликнут
+      const productCard = button.closest('[data-name="CardPure"]');
+      if (!productCard) return;
+
+      // Ищем заголовок продукта
+      const titleElement = productCard.querySelector('[data-name="Text Content"] p:first-child');
+      if (!titleElement?.textContent) return;
+
+      // Нормализуем текст: заменяем все пробельные символы (включая переносы строк) на один пробел
+      const title = titleElement.textContent.trim().replace(/\s+/g, ' ');
+      
+      // Находим продукт по заголовку
+      const product = PRODUCTS.find(p => p.title === title);
+      if (!product) {
+        console.warn('Product not found:', title, 'Available products:', PRODUCTS.map(p => p.title));
+        return;
+      }
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      // Переключаем состояние продукта в корзине
+      toggleItem({
+        id: product.id,
+        title: product.title,
+        icon: product.icon,
+        productId: product.id,
+      });
+    };
+
+    // Обработчик для кнопки "Добавить" в карточке финансирования
+    const handleFinancingClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const button = target.closest('[data-name="Button_1"]');
+      
+      if (!button) return;
+
+      // Проверяем, что это кнопка из черной карточки финансирования
+      const cardMain = button.closest('[data-name="CardMain"]');
+      if (!cardMain) return;
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      // Открываем сайдбар финансирования
+      setIsFinancingSidebarOpen(true);
+    };
+
+    // Обработчик для кликов на плашки с финансированием (для открытия BottomSheet)
+    const handleFinancingCardClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      
+      // Проверяем, кликнули ли мы на плашку финансирования
+      const financingCard = target.closest('[data-name="selectFlow"]');
+      if (!financingCard) return;
+
+      // Определяем, на какую плашку кликнули по тексту статуса
+      const statusElement = target.closest('[data-name="Status"]');
+      if (!statusElement) return;
+
+      const statusText = statusElement.textContent?.toLowerCase().replace(/\s+/g, ' ').trim();
+
+      if (statusText?.includes('быстро и без проверок')) {
+        e.preventDefault();
+        e.stopPropagation();
+        // Открываем BottomSheet для быстрого финансирования (Кредитная линия)
+        onOpenFinancingModal('Кредитная линия');
+      } else if (statusText?.includes('потребуются проверки')) {
+        e.preventDefault();
+        e.stopPropagation();
+        // Открываем BottomSheet для финансирования с проверками (Банковская гарантия)
+        onOpenFinancingModal('Банковская гарантия');
+      }
+    };
+
+    // Обработчик кликов на заголовки продуктов (для открытия модалок)
+    const handleTitleClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      
+      // Проверяем, кликнули ли мы на заголовок продукта
+      if (target.classList.contains('underline') && target.tagName === 'P') {
+        const title = target.textContent?.trim().replace(/\s+/g, ' ');
+        if (title) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          // Находим productId по названию
+          const product = PRODUCTS.find(p => p.title === title);
+          if (product) {
+            onOpenProductModal(product.id);
+          }
+        }
+      }
+    };
+
+    document.addEventListener('click', handleProductClick);
+    document.addEventListener('click', handleFinancingClick);
+    document.addEventListener('click', handleTitleClick);
+    document.addEventListener('click', handleFinancingCardClick);
+
+    return () => {
+      document.removeEventListener('click', handleProductClick);
+      document.removeEventListener('click', handleFinancingClick);
+      document.removeEventListener('click', handleTitleClick);
+      document.removeEventListener('click', handleFinancingCardClick);
+    };
+  }, [mounted, toggleItem, onOpenFinancing, onOpenProductModal, onOpenFinancingModal]);
+
+  // Обновляем текст кнопок в зависимости от состояния корзины
+  useEffect(() => {
+    if (!mounted) return;
+
+    const updateButtons = () => {
+      PRODUCTS.forEach(product => {
+        const inCart = isInCart(product.id);
+        
+        // Находим все карточки продуктов
+        const cards = Array.from(document.querySelectorAll('[data-name="CardPure"]'));
+        
+        cards.forEach(card => {
+          const titleElement = card.querySelector('[data-name="Text Content"] p:first-child');
+          // Нормализуем текст для сравнения
+          const normalizedTitle = titleElement?.textContent?.trim().replace(/\s+/g, ' ');
+          if (normalizedTitle === product.title) {
+            // Находим кнопку и текст внутри
+            const button = card.querySelector('[data-name="[M] CustomButton"]') as HTMLElement;
+            const textElement = button?.querySelector('[data-name="Text"] p') as HTMLElement;
+            
+            if (button && textElement) {
+              if (inCart) {
+                // Состояние "В корзине"
+                textElement.textContent = 'В корзине';
+                // Зеленый фон
+                button.style.backgroundColor = '#0cc44d';
+                // Б��лый текст
+                textElement.style.color = 'rgba(255, 255, 255, 0.94)';
+              } else {
+                // Состояние "Добавить"
+                textElement.textContent = 'Добавить';
+                // Белый фон
+                button.style.backgroundColor = 'white';
+                // Темный текст
+                textElement.style.color = 'rgba(3, 3, 6, 0.88)';
+              }
+            }
+
+            // Меняем иконку и её цвет
+            const iconContainer = button?.querySelector('[data-name="LeftAddon"]');
+            if (iconContainer) {
+              const svg = iconContainer.querySelector('svg path') as SVGPathElement;
+              if (svg) {
+                if (inCart) {
+                  // Иконка галочки (из Figma)
+                  svg.setAttribute('d', 'M13.3331 5.01281L6.60166 11.3331L3.3331 8.21789L4.29892 7.21594L6.6124 9.42102L12.379 4.00012L13.3331 5.01281Z');
+                  // Белый цвет иконки
+                  svg.setAttribute('fill', 'white');
+                  svg.setAttribute('fill-opacity', '0.94');
+                } else {
+                  // Иконка плюса (из Figma)
+                  svg.setAttribute('d', 'M8.66708 3.33313V7.33313H12.6671V8.66711H8.66708V12.6671H7.3331V8.66711H3.3331V7.33313H7.3331V3.33313H8.66708Z');
+                  // Темный цвет иконки
+                  svg.setAttribute('fill', '#030306');
+                  svg.setAttribute('fill-opacity', '0.88');
+                }
+              }
+            }
+          }
+        });
+      });
+    };
+
+    updateButtons();
+  }, [mounted, isInCart]);
+
+  // Эффект для подмены черной карточки финансирования
+  useEffect(() => {
+    if (!isReady) return;
+
+    try {
+      const blackCard = document.querySelector('[data-name="wip6 / M_CredCard"]');
+      const replacedCard = document.querySelector('[data-name="wip6 / M_CredCard-replaced"]');
+
+      if (showCredCard && financingItem) {
+        if (blackCard) {
+          (blackCard as HTMLElement).style.display = "none";
+        }
+
+        if (replacedCard) {
+          replacedCard.remove();
+        }
+
+        if (blackCard) {
+          const container = document.createElement("div");
+          container.setAttribute("data-name", "wip6 / M_CredCard-replaced");
+          container.classList.add("w-full", "max-w-[600px]");
+          blackCard.after(container);
+
+          const skeleton = document.createElement("div");
+          skeleton.className = "w-full animate-pulse";
+          skeleton.style.height = "212px";
+          skeleton.style.background = "var(--neutral-100, #F2F3F5)";
+          skeleton.style.borderRadius = "24px";
+          container.appendChild(skeleton);
+
+          import("react-dom/client")
+            .then(({ createRoot }) => {
+              container.innerHTML = "";
+              const root = createRoot(container);
+              root.render(
+                financingItem.financingType === "longfin" 
+                  ? <div className="mx-4"><MCredCard onOpenFinancing={onOpenFinancing} onOpenCart={onOpenCart} /></div> 
+                  : <div className="mx-4"><MCredCardFast onOpenFinancing={onOpenFinancing} onOpenCart={onOpenCart} /></div>
+              );
+
+              setTimeout(() => {
+                updateTitleAndSubtitle(container, financingItem.selectedFinancingType || "Кредитная линия");
+                updateFinancingIcon(container, financingItem.selectedFinancingType || "Кредитная линия");
+                updateFinancingData(container, financingItem.loanAmount || "1000000", financingItem.loanTerm || "1");
+                makeFinancingTitleClickable(container, financingItem.selectedFinancingType || "Кредитная линия");
+              }, 0);
+            })
+            .catch((err) => console.error("Failed to render financing card:", err));
+        }
+      } else {
+        if (blackCard) {
+          (blackCard as HTMLElement).style.display = "";
+        }
+        if (replacedCard) {
+          replacedCard.remove();
+        }
+      }
+    } catch (error) {
+      console.error("Error in card replacement:", error);
+    }
+  }, [showCredCard, financingItem, isReady, onOpenFinancingModal]);
+
+  const updateTitleAndSubtitle = (container: Element, financingType: string) => {
+    const subtitle = FINANCING_SUBTITLES[financingType];
+    if (!subtitle) return;
+    const wrapDiv = container.querySelector('[data-name="wrap"]');
+    if (!wrapDiv) return;
+    const paragraphs = wrapDiv.querySelectorAll("p");
+    if (paragraphs.length >= 2) {
+      paragraphs[0].textContent = financingType;
+      paragraphs[1].textContent = subtitle;
+    }
+  };
+
+  const updateFinancingIcon = (container: Element, financingType: string) => {
+    const posData = FINANCING_ICON_POSITIONS[financingType];
+    const imgSrc = FINANCING_IMAGES[financingType];
+    const maskSrc = FINANCING_MASKS[financingType];
+    if (!posData || !imgSrc || !maskSrc) return;
+    const iconView = container.querySelector('[data-name="IconView"]');
+    if (!iconView) return;
+    const img = iconView.querySelector('img');
+    if (!img) return;
+    img.src = imgSrc;
+    img.style.left = posData.left;
+    img.style.top = posData.top;
+    if (posData.width) img.style.width = posData.width;
+    if (posData.height) img.style.height = posData.height;
+    if (posData.maxWidth) img.style.maxWidth = posData.maxWidth;
+    const shapeContent = iconView.querySelector('[data-name="ShapeContent"]') as HTMLElement;
+    if (shapeContent) {
+      shapeContent.style.maskImage = `url('${maskSrc}')`;
+    }
+  };
+
+  const updateFinancingData = (container: Element, loanAmount: string, loanTerm: string) => {
+    const allParagraphs = container.querySelectorAll("p");
+    allParagraphs.forEach((el) => {
+      const text = el.textContent?.trim();
+      if (text && text.includes("₽") && text.match(/^\d+\s.*₽$/)) {
+        el.textContent = `${formatAmount(loanAmount)} ₽`;
+      }
+      if (text && text.includes("мес") && text.match(/^\d+\s*мес\.?$/)) {
+        el.textContent = `${loanTerm} мес.`;
+      }
+    });
+  };
+
+  const makeFinancingTitleClickable = (container: Element, financingType: string) => {
+    const wrapDiv = container.querySelector('[data-name="wrap"]');
+    if (!wrapDiv) return;
+    const titleParagraph = wrapDiv.querySelector("p");
+    if (!titleParagraph) return;
+    titleParagraph.classList.add("underline-financing-title-mobile");
+    titleParagraph.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      onOpenFinancingModal(financingType);
+    });
+  };
+
+  const handleAddFinancingToCart = (productName: string, financingType: 'fastfin' | 'longfin', amount: number, term: number) => {
+    // Добавляем выбранный продукт финансирования в корзину
+    addItem({
+      id: "financing",
+      title: productName,
+      icon: '💰',
+      productId: "financing",
+      financingType: financingType,
+      selectedFinancingType: productName,
+      loanAmount: amount.toString(),
+      loanTerm: term.toString(),
+    });
+  };
+
+  return (
+    <>
+      <div className="w-full max-w-[600px] mx-auto">
+        <MPreloginBase />
+      </div>
+      
+      <MobileFinancingSidebar 
+        isOpen={isFinancingSidebarOpen}
+        onClose={() => setIsFinancingSidebarOpen(false)}
+        onAddToCart={handleAddFinancingToCart}
+        initialFinancingType={financingItem?.financingType}
+        initialProductName={financingItem?.selectedFinancingType}
+        initialAmount={financingItem?.loanAmount ? parseInt(financingItem.loanAmount) : undefined}
+        initialTerm={financingItem?.loanTerm ? parseInt(financingItem.loanTerm) : undefined}
+      />
+    </>
+  );
+}
