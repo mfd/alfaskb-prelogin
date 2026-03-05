@@ -1,7 +1,7 @@
 import svgPaths from "./svg-8rxqz1wqhb";
-import imgIconView from "figma:asset/7186d95bd7ca1e12cf93fa27d3d2e711c96d8bb5.png";
-import imgBgColor from "figma:asset/ec52c19b2669c27ba77ce2d6f8355a19c63d202c.png";
-import imgBgColor1 from "figma:asset/71b9c1e95247e5e9370f3c1ce50f01847964bd61.png";
+import imgIconView from "../assets/7186d95bd7ca1e12cf93fa27d3d2e711c96d8bb5.png";
+import imgBgColor from "../assets/ec52c19b2669c27ba77ce2d6f8355a19c63d202c.png";
+import imgBgColor1 from "../assets/71b9c1e95247e5e9370f3c1ce50f01847964bd61.png";
 import { imgShapeContent, imgShapeContent1, imgShapeContent3, imgVector, imgVector1 } from "./svg-xqvb8";
 import { MobileProductCard } from "../app/components/MobileProductCard";
 import { MOBILE_PRODUCTS } from "../app/constants/products";
