@@ -1,7 +1,8 @@
-import svgPaths from "../../imports/svg-ojwadded7q";
+import { useCart } from '../contexts/CartContext';
+import svgPaths from "../../imports/svg-a5942q3te2";
 import { imgSidePanel1 } from "../../imports/svg-o3edg";
 import { PRODUCTS, PRODUCT_ICONS } from './ProductCard';
-import { PRODUCT_DATA } from '../constants/products';
+import { PRODUCT_DATA } from '../constants/modals';
 import { ALL_MODALS_DATA } from '../constants/modals';
 import { FINANCING_IMAGES } from '../constants/financingImages';
 import { formatAmount } from '../utils/formatAmount';
@@ -93,7 +94,7 @@ export default function MobileCartContent({ items, onRemoveItem, onItemClick, on
                         {title}
                       </p>
                       {description && (
-                        <p className="font-['SF_Pro_Text:Regular',sans-serif] leading-[20px] not-italic relative shrink-0 text-[14px] text-[rgba(4,4,19,0.55)] w-full whitespace-pre-wrap">
+                        <p className="font-['SF_Pro_Text:Regular',sans-serif] leading-[20px] not-italic relative shrink-0 text-[14px] text-[rgba(4,4,19,0.55)] w-full whitespace-nowrap overflow-hidden text-ellipsis">
                           {description}
                         </p>
                       )}

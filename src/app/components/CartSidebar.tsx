@@ -6,9 +6,8 @@ import svgPathsCart from "../../imports/svg-ojwadded7q";
 import { imgD1 } from "../../imports/svg-qw21c";
 import imgFaceThinking from "figma:asset/0b7600ba10ccefdd829b525e4cfd2a18ac97c830.png";
 import imgSidePanel from "figma:asset/6878f065873d30757849f54fc518cb914868a499.png";
-import { UI_TEXT, PRODUCT_DATA } from '../constants/products';
+import { PRODUCT_DATA, UI_TEXT, ALL_MODALS_DATA } from '../constants/modals';
 import { FINANCING_IMAGES } from '../constants/financingImages';
-import { ALL_MODALS_DATA } from '../constants/modals';
 import { PRODUCTS } from './ProductCard';
 import { COMPANY_INFO } from '../constants/company';
 import { formatAmount } from '../utils/formatAmount';
@@ -113,7 +112,7 @@ function Fixer() {
 
 function Footer({ onCancel, onSubmit }: { onCancel: () => void, onSubmit: () => void }) {
   return (
-    <div className="bg-white content-stretch flex gap-[12px] items-end justify-end pb-[40px] pt-[24px] px-[40px] relative shrink-0 w-[500px]" data-name="⥂ Footer">
+    <div className="bg-white content-stretch flex gap-[12px] items-end justify-end pb-[40px] pt-[24px] px-[40px] relative shrink-0 w-[500px]" data-name=" Canadiens Footer">
       <button 
         onClick={onCancel}
         className="backdrop-blur-[40px] bg-[rgba(15,25,55,0.1)] flex-[1_0_0] min-h-[48px] min-w-[104px] relative rounded-[8px] hover:bg-[rgba(15,25,55,0.15)] transition-colors cursor-pointer" 
@@ -138,7 +137,7 @@ function Footer({ onCancel, onSubmit }: { onCancel: () => void, onSubmit: () => 
           <div className="content-stretch flex gap-[4px] items-center justify-center min-h-[inherit] min-w-[inherit] px-[20px] py-[4px] relative w-full">
             <div className="content-stretch flex flex-col items-center px-[4px] relative shrink-0" data-name="Text">
               <div className="flex flex-col font-sf-text-medium justify-center leading-[0] not-italic relative shrink-0 text-[16px] text-white whitespace-nowrap">
-                <p className="leading-[24px]">Отправить заявку</p>
+                <p className="leading-[24px]">Отправить за��вку</p>
               </div>
             </div>
           </div>
@@ -473,7 +472,7 @@ export default function CartSidebar({ onOpenFinancing, onOpenProductModal }: { o
                   <DesktopCallSuccess phoneNumber={COMPANY_INFO.phone} />
                   
                   {/* Footer для Success экрана */}
-                  <div className="bg-white content-stretch flex items-end justify-end min-h-[40px] pt-[24px] relative shrink-0 w-[500px]" data-name="⥂ Footer">
+                  <div className="bg-white content-stretch flex items-end justify-end min-h-[40px] pt-[24px] relative shrink-0 w-[500px]" data-name=" Canadiens Footer">
                     <Fixer />
                   </div>
                 </>

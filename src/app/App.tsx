@@ -83,14 +83,14 @@ export default function App() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  if (isMobile) {
-    return <MobileApp />;
-  }
-
   return (
     <ErrorBoundary>
       <CartProvider>
-        <AppContent />
+        {isMobile ? (
+          <MobileApp />
+        ) : (
+          <AppContent />
+        )}
       </CartProvider>
     </ErrorBoundary>
   );

@@ -3,7 +3,7 @@ import imgWip6DCredCard from "figma:asset/42c1815a218a3d04336231b42bf5ce9f92b014
 import { imgWip6DCredCard1 } from "./svg-sbhrw";
 import StatusBadge from "../app/components/StatusBadge";
 
-export default function Wip6DCredCard() {
+export default function DCredCardFast() {
   return (
     <div className="bg-[#1c1c1e] content-stretch flex items-start justify-between overflow-clip p-[32px] relative rounded-[32px] size-full" data-name="wip6 / D_CredCard">
       <div className="content-stretch flex flex-[1_0_0] gap-[48px] items-start min-h-px min-w-px relative" data-name="content">

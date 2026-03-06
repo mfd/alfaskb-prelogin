@@ -1,7 +1,7 @@
 import { useCart } from "../contexts/CartContext";
 import DPrelogin from "../../imports/DPrelogin";
-import Wip6DCredCardFast from "../../imports/Wip6DCredCard-16-10914";
-import Wip6DCredCardVerified from "../../imports/Wip6DCredCard-16-11527";
+import DCredCardFast from "../../imports/DCredCardFast";
+import DCredCardLong from "../../imports/DCredCardLong";
 import { PRODUCTS } from "./ProductCard";
 import { useEffect, useState } from "react";
 import svgPaths from "../../imports/svg-w578t1oyss";
@@ -80,8 +80,8 @@ export default function DPreloginWrapper({
               const root = createRoot(container);
               root.render(
                 financingItem.financingType === "longfin" 
-                  ? <Wip6DCredCardVerified /> 
-                  : <Wip6DCredCardFast />
+                  ? <DCredCardLong /> 
+                  : <DCredCardFast />
               );
 
               // Ждем пока карточка отрендерится в DOM
@@ -200,7 +200,7 @@ export default function DPreloginWrapper({
         el.textContent = `${formatAmount(loanAmount)} ₽`;
       }
 
-      // Обновляем срок кредита - ищем параграф с "мес"
+      // Обновляем срок кредита - ищем параграф с "ме��"
       if (text && text.match(/^\d+\s*мес\.?$/)) {
         el.textContent = `${loanTerm} мес`;
       }
@@ -407,12 +407,13 @@ function updateButtonState(button: HTMLElement, inCart: boolean) {
 
     const svg = button.querySelector("svg");
     if (svg) {
-      const path = svg.querySelector("path");
-      if (path) {
+      // Находим все path элементы в SVG
+      const paths = svg.querySelectorAll("path");
+      paths.forEach((path) => {
         path.setAttribute("d", svgPaths.p28d167f0);
         path.setAttribute("fill", "var(--fill-0, white)");
         path.setAttribute("fill-opacity", "0.94");
-      }
+      });
     }
 
     const textElement = button.querySelector("p");
@@ -427,12 +428,13 @@ function updateButtonState(button: HTMLElement, inCart: boolean) {
 
     const svg = button.querySelector("svg");
     if (svg) {
-      const path = svg.querySelector("path");
-      if (path) {
+      // Находим все path элементы в SVG
+      const paths = svg.querySelectorAll("path");
+      paths.forEach((path) => {
         path.setAttribute("d", svgPathsPlus.p25f6ce40);
         path.setAttribute("fill", "var(--fill-0, white)");
         path.setAttribute("fill-opacity", "0.94");
-      }
+      });
     }
 
     const textElement = button.querySelector("p");

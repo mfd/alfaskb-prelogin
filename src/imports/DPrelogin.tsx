@@ -8,6 +8,9 @@ import imgIconView5 from "figma:asset/1f419c8ea7101b3f8b826ac9e399696f51a0e351.p
 import imgIconView6 from "figma:asset/0ea90dc395def68741ab5acac4eae35370fa3187.png";
 import { imgPrimaryDarkColor, imgPrimaryDarkColor1, imgShapeContent } from "./svg-073oh";
 import StatusBadge from "../app/components/StatusBadge";
+import { DesktopProductCard } from "../app/components/DesktopProductCard";
+import { DESKTOP_PRODUCTS } from "../app/constants/products";
+import { DesktopProductIcon } from "../app/components/DesktopProductIcon";
 
 function LogoContainer() {
   return (
@@ -1317,60 +1320,15 @@ function Text19() {
 function Cards() {
   return (
     <div className="content-stretch flex flex-col gap-[24px] items-start relative shrink-0 w-full" data-name="cards">
-      <div className="bg-[#f2f3f5] content-stretch flex h-[172px] items-start justify-between overflow-clip p-[32px] relative rounded-[32px] shrink-0 w-[1140px]" data-name="wip6 / ProdCard">
-        <Content4 />
-        <div className="content-stretch flex gap-[24px] items-center justify-end relative shrink-0" data-name="wip5 / Btns-wip5">
-          <div className="bg-[#ef3124] content-stretch flex gap-[4px] items-center justify-center min-h-[48px] min-w-[104px] overflow-clip px-[20px] py-[4px] relative rounded-[8px] shrink-0" data-name="[D] Button">
-            <LeftAddon2 />
-            <Text9 />
-          </div>
-        </div>
-      </div>
-      <div className="bg-[#f2f3f5] content-stretch flex h-[172px] items-start justify-between overflow-clip p-[32px] relative rounded-[32px] shrink-0 w-[1140px]" data-name="wip6 / ProdCard">
-        <Content6 />
-        <div className="content-stretch flex gap-[24px] items-center justify-end relative shrink-0" data-name="wip5 / Btns-wip5">
-          <div className="bg-[#ef3124] content-stretch flex gap-[4px] items-center justify-center min-h-[48px] min-w-[104px] overflow-clip px-[20px] py-[4px] relative rounded-[8px] shrink-0" data-name="[D] Button">
-            <LeftAddon3 />
-            <Text11 />
-          </div>
-        </div>
-      </div>
-      <div className="bg-[#f2f3f5] content-stretch flex h-[172px] items-start justify-between overflow-clip p-[32px] relative rounded-[32px] shrink-0 w-[1140px]" data-name="wip6 / ProdCard">
-        <Content8 />
-        <div className="content-stretch flex items-start justify-end relative shrink-0" data-name="wip6 / prodBtns-wip6">
-          <div className="bg-[#ef3124] content-stretch flex gap-[4px] items-center justify-center min-h-[48px] min-w-[104px] overflow-clip px-[20px] py-[4px] relative rounded-[8px] shrink-0" data-name="[D] Button">
-            <LeftAddon4 />
-            <Text13 />
-          </div>
-        </div>
-      </div>
-      <div className="bg-[#f2f3f5] content-stretch flex h-[172px] items-start justify-between overflow-clip p-[32px] relative rounded-[32px] shrink-0 w-[1140px]" data-name="wip6 / ProdCard">
-        <Content10 />
-        <div className="content-stretch flex items-start justify-end relative shrink-0" data-name="wip6 / prodBtns-wip6">
-          <div className="bg-[#ef3124] content-stretch flex gap-[4px] items-center justify-center min-h-[48px] min-w-[104px] overflow-clip px-[20px] py-[4px] relative rounded-[8px] shrink-0" data-name="[D] Button">
-            <LeftAddon5 />
-            <Text15 />
-          </div>
-        </div>
-      </div>
-      <div className="bg-[#f2f3f5] content-stretch flex h-[172px] items-start justify-between overflow-clip p-[32px] relative rounded-[32px] shrink-0 w-[1140px]" data-name="wip6 / ProdCard">
-        <Content12 />
-        <div className="content-stretch flex items-start justify-end relative shrink-0" data-name="wip6 / prodBtns-wip6">
-          <div className="bg-[#ef3124] content-stretch flex gap-[4px] items-center justify-center min-h-[48px] min-w-[104px] overflow-clip px-[20px] py-[4px] relative rounded-[8px] shrink-0" data-name="[D] Button">
-            <LeftAddon6 />
-            <Text17 />
-          </div>
-        </div>
-      </div>
-      <div className="bg-[#f2f3f5] content-stretch flex h-[172px] items-start justify-between overflow-clip p-[32px] relative rounded-[32px] shrink-0 w-[1140px]" data-name="wip6 / ProdCard">
-        <Content14 />
-        <div className="content-stretch flex items-start justify-end relative shrink-0" data-name="wip6 / prodBtns-wip6">
-          <div className="bg-[#ef3124] content-stretch flex gap-[4px] items-center justify-center min-h-[48px] min-w-[104px] overflow-clip px-[20px] py-[4px] relative rounded-[8px] shrink-0" data-name="[D] Button">
-            <LeftAddon7 />
-            <Text19 />
-          </div>
-        </div>
-      </div>
+      {DESKTOP_PRODUCTS.map((product) => (
+        <DesktopProductCard
+          key={product.id}
+          icon={<DesktopProductIcon data={product} />}
+          title={product.title}
+          description={product.description}
+          benefits={product.benefits}
+        />
+      ))}
     </div>
   );
 }

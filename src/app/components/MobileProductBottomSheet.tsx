@@ -8,6 +8,7 @@ import imgIconView3 from "figma:asset/7e8511301674d39f8cd176578d253954d9e47842.p
 import imgIconView4 from "figma:asset/1f419c8ea7101b3f8b826ac9e399696f51a0e351.png";
 import imgIconView5 from "figma:asset/0ea90dc395def68741ab5acac4eae35370fa3187.png";
 import { imgShapeContent } from "../../imports/svg-3q426";
+import { ALL_MODALS_DATA } from '../constants/modals';
 
 interface MobileProductBottomSheetProps {
   isOpen: boolean;
@@ -25,86 +26,53 @@ const PRODUCT_ID_TO_NAME: Record<string, string> = {
   "deposits": "Депозиты для бизнеса",
 };
 
-// Данные для каждого продукта
-const PRODUCTS_DATA: Record<string, {
-  title: string;
-  subtitle: string;
-  description: string;
-  icon: string;
-  benefits: Array<{ icon: string; title: string; description: string }>;
-}> = {
-  "acquiring": {
-    title: "Торговый эквайринг",
-    subtitle: "Приём платежей онлайн и в торговых точках",
-    description: "Принимайте оплату картами выгодно",
-    icon: imgIconView,
-    benefits: [
-      { icon: "icon1", title: "Гибкие условия", description: "С учётом вашей сферы деятельности" },
-      { icon: "icon2", title: "Терминалы на выбор", description: "Можно интегрировать с кассой" },
-      { icon: "icon3", title: "Все способы оплаты", description: "Картами, через СБП и бесконтактно" },
-      { icon: "icon4", title: "Поддержка 24/7 ", description: "Выделенная горячая линия для среднего и крупного бизнеса" },
-    ]
-  },
-  "salary": {
-    title: "Зарплатный проект",
-    subtitle: "Управляйте корпоративным зарплатным проектом онлайн",
-    description: "Экономьте ресурсы для развития предприятия",
-    icon: imgIconView1,
-    benefits: [
-      { icon: "icon5", title: "От 1 минуты", description: "Зачисление зарплаты на счёт" },
-      { icon: "icon6", title: "До 23:30", description: "Увеличенный операционный день" },
-      { icon: "icon7", title: "Круглосуточная поддержка", description: "Персональный зарплатный менеджер" },
-      { icon: "icon8", title: "Бесплатно", description: "Снятие наличных в любом банкомате России" },
-    ]
-  },
-  "ved": {
-    title: "ВЭД",
-    subtitle: "Валютные переводы между юридическими лицами",
-    description: "В иностранной валюте онлайн",
-    icon: imgIconView2,
-    benefits: [
-      { icon: "icon9", title: "GPI-трекер", description: "Отслеживайте статус платежей в реальном времени бесплатно" },
-      { icon: "icon10", title: "Всего 1 час", description: "Занимает отправка валютных платежей от подписания" },
-      { icon: "icon11", title: "Интернет-банк", description: "Система сама заполнит часть полей и проведёт валидации" },
-      { icon: "icon12", title: "Уведомления", description: "Бесплатно уведомим контрагента по e‑mail о совершении платежа" },
-    ]
-  },
-  "cards": {
-    title: "Бизнес-карты",
-    subtitle: "Единая корпоративная карта",
-    description: "Настраивается под ваши потребности, другие карты не нужны",
-    icon: imgIconView3,
-    benefits: [
-      { icon: "icon13", title: "Неограниченное количество карт", description: "Заменяет подотчётные средства и командировочные" },
-      { icon: "icon14", title: "Карта на выбор", description: "Пластиковая, металл, стикер, виртуальная с возможностью довыпуска в любое время" },
-      { icon: "icon15", title: "Управление расходами онлайн", description: "Настраивайте лимиты по картам и ограничивайте круг трат" },
-      { icon: "icon16", title: "Переводы с карты", description: "На другие карты до 1,5 млн ₽ в месяц с назначением платежа" },
-    ]
-  },
-  "rko": {
-    title: "РКО для бизнеса",
-    subtitle: "Расчётно-кассовое обслуживание для вашего бизнеса",
-    description: "Всё необходимое для ведения бизнеса в одном месте",
-    icon: imgIconView4,
-    benefits: [
-      { icon: "icon17", title: "Технологично", description: "Инкассация в любое время без участия инкассаторов" },
-      { icon: "icon18", title: "Индивидуально", description: "Персональный менеджер и валютный контролёр" },
-      { icon: "icon19", title: "Круглосуточно", description: "Платежи клиентам Альфа‑Банка" },
-      { icon: "icon20", title: "Удобно", description: "Платежи в другие банки\nс 00:00 до 20:00 мск" },
-    ]
-  },
-  "deposits": {
-    title: "Депозиты для бизнеса",
-    subtitle: "Откройте депозит и получайте доход",
-    description: "Даже если нет расчётного счёта в банке",
-    icon: imgIconView5,
-    benefits: [
-      { icon: "icon21", title: "Онлайн", description: "Станьте клиентом дистанционно" },
-      { icon: "icon22", title: "¼ ключевой ставки", description: "Начисляем на остаток по счёту" },
-      { icon: "icon23", title: "От 1 дня", description: "Любой срок размещения\nот 1 дня до 3 лет" },
-      { icon: "icon24", title: "От 50 000 ₽ или ¥", description: "Минимальная сумма" },
-    ]
-  },
+// Маппинг иконок продуктов
+const PRODUCT_ICONS: Record<string, string> = {
+  "Торговый эквайринг": imgIconView,
+  "Зарплатный проект": imgIconView1,
+  "ВЭД": imgIconView2,
+  "Бизнес-карты": imgIconView3,
+  "РКО для бизнеса": imgIconView4,
+  "Депозиты для бизнеса": imgIconView5,
+};
+
+// Маппинг benefit key на иконку
+const BENEFIT_ICONS: Record<string, string> = {
+  // Торговый эквайринг
+  "flexible": "icon1",
+  "terminals": "icon2",
+  "payment-methods": "icon3",
+  "support": "icon4",
+  
+  // Зарплатный проект
+  "fast": "icon5",
+  "extended-day": "icon6",
+  "round-the-clock": "icon7",
+  "free": "icon8",
+  
+  // ВЭД
+  "gpi": "icon9",
+  "one-hour": "icon10",
+  "internet-bank": "icon11",
+  "notifications": "icon12",
+  
+  // Бизнес-карты
+  "unlimited": "icon13",
+  "choice": "icon14",
+  "management": "icon15",
+  "transfers": "icon16",
+  
+  // РКО
+  "tech": "icon17",
+  "individual": "icon18",
+  "24-7": "icon19",
+  "convenient": "icon20",
+  
+  // Депозиты
+  "online": "icon21",
+  "rate": "icon22",
+  "from-day": "icon23",
+  "amount": "icon24",
 };
 
 function Cross({ onClick }: { onClick: () => void }) {
@@ -172,7 +140,8 @@ export default function MobileProductBottomSheet({ isOpen, onClose, productId }:
 
   if (!productId) return null;
 
-  const productData = PRODUCTS_DATA[productId];
+  const productName = PRODUCT_ID_TO_NAME[productId];
+  const productData = productName ? ALL_MODALS_DATA[productName] : null;
   if (!productData) return null;
 
   return (
@@ -240,7 +209,7 @@ export default function MobileProductBottomSheet({ isOpen, onClose, productId }:
                         <div className="content-stretch flex flex-col items-start relative shrink-0" data-name="PreloginProductsIcon">
                           <div className="content-stretch flex flex-col items-center justify-center max-h-[64px] max-w-[64px] min-h-[64px] min-w-[64px] relative shrink-0 size-[72px]" data-name="IconView">
                             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                              <img alt="" className="absolute max-w-none size-full" src={productData.icon} />
+                              <img alt="" className="absolute max-w-none size-full" src={PRODUCT_ICONS[productData.title]} />
                             </div>
                             <div className="relative shrink-0 size-[64px]" data-name="Content">
                               <div className="absolute left-0 mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[0px_0px] mask-size-[64px_64px] size-[64px] top-0" data-name="ShapeContent" style={{ maskImage: `url('${imgShapeContent}')` }}>

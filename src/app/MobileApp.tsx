@@ -4,10 +4,9 @@ import MPreloginWrapper from './components/MPreloginWrapper';
 import MobileCartSidebar from './components/MobileCartSidebar';
 import { MobileFinancingSidebar } from './components/MobileFinancingSidebar';
 import MobileProductBottomSheet from './components/MobileProductBottomSheet';
-import svgPaths from '../imports/svg-8rxqz1wqhb';
 import MobileFinBottomSheet from './components/MobileFinBottomSheet';
-import { CartProvider, useCart } from './contexts/CartContext';
-import { ErrorBoundary } from './components/ErrorBoundary';
+import MobileCartIcon from './components/MobileCartIcon';
+import { useCart } from './contexts/CartContext';
 import { PRODUCTS } from './components/ProductCard';
 
 // Маппинг названий продуктов из модалок на productId
@@ -91,32 +90,12 @@ function MobileAppContent() {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="fixed bottom-6 right-4 z-[60]"
+            className="fixed bottom-6 right-4 z-[60] cursor-pointer"
           >
-            <button
+            <MobileCartIcon
               onClick={openCart}
-              className="relative bg-[#49494f] rounded-full w-12 h-12 flex items-center justify-center shadow-xl hover:bg-[#5a5a60] transition-colors active:scale-95"
-              aria-label="Корзина"
-            >
-          {/* Счетчик товаров (сверху) */}
-          {items.length > 0 && (
-            <div className="absolute -top-1 -right-1 bg-[#ef3124] rounded-full min-w-[20px] h-5 px-1 flex items-center justify-center z-10">
-              <span className="text-white text-xs font-bold leading-none">{items.length}</span>
-            </div>
-          )}
-
-          {/* Иконка корзины */}
-          <div className="relative overflow-hidden w-8 h-8">
-            <div className="absolute inset-[20.83%_12.49%_2.08%_6.26%]">
-              <svg className="absolute block w-full h-full" fill="none" preserveAspectRatio="none" viewBox="0 0 26 24.667">
-                <path 
-                  d={svgPaths.p2d02bd80}
-                  fill="white" 
-                />
-              </svg>
-            </div>
-          </div>
-            </button>
+              itemCount={items.length}
+            />
           </motion.div>
         )}
       </AnimatePresence>
@@ -157,10 +136,6 @@ function MobileAppContent() {
 
 export default function MobileApp() {
   return (
-    <ErrorBoundary>
-      <CartProvider>
-        <MobileAppContent />
-      </CartProvider>
-    </ErrorBoundary>
+    <MobileAppContent />
   );
 }

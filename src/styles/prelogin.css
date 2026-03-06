@@ -1,0 +1,10 @@
+.mPrelogin-grid {
+    grid-gap: 12px;
+    display: grid;
+    grid-auto-rows: auto;
+    grid-template-columns: repeat(2, auto);
+    justify-content: start;
+    margin: 0 auto;
+    width: -moz-fit-content;
+    width: fit-content;
+}

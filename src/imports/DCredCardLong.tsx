@@ -23,7 +23,7 @@ function Wrap() {
   return (
     <div className="content-stretch flex flex-col gap-[8px] items-start not-italic relative shrink-0 w-full" data-name="wrap">
       <p className='font-bold leading-[26px] relative shrink-0 text-[22px] text-[rgba(255,255,255,0.94)] whitespace-nowrap underline-product-title'>Овердрафт</p>
-      <p className="font-['SF_Pro_Text:Regular',sans-serif] leading-[24px] min-w-full relative shrink-0 text-[16px] text-[rgba(238,238,251,0.55)] w-[min-content]">Краткосрочный кредит для защиты от кассовых разрывов</p>
+      <p className="font-['SF_Pro_Text:Regular',sans-serif] leading-[24px] min-w-full relative shrink-0 text-[16px] text-[rgba(238,238,251,0.55)] w-[min-content]">Краткосрочный кредит для защиты от кассовых разрывов</p>
     </div>
   );
 }
@@ -60,7 +60,7 @@ function Text1() {
         <p className="font-bold leading-[26px] text-[22px] whitespace-nowrap">200 000 000 ₽</p>
       </div>
       <div className="flex flex-col font-['SF_Pro_Text:Regular',sans-serif] h-[18px] justify-center leading-[0] relative shrink-0 text-[14px] text-[rgba(238,238,251,0.55)] w-full">
-        <p className="leading-[18px]">из 99 млрд ₽</p>
+        <p className="leading-[18px]">из 99 млрд ₽</p>
       </div>
     </div>
   );
@@ -178,7 +178,7 @@ function Text4() {
   );
 }
 
-export default function Wip6DCredCard() {
+export default function DCredCardLong() {
   return (
     <div className="bg-[#1c1c1e] content-stretch flex items-start justify-between overflow-clip p-[32px] relative rounded-[32px] size-full" data-name="wip6 / D_CredCard">
       <Content />

@@ -6,9 +6,8 @@ import svgPathsCart from "../../imports/svg-ojwadded7q";
 import { imgD1 } from "../../imports/svg-qw21c";
 import imgFaceThinking from "figma:asset/0b7600ba10ccefdd829b525e4cfd2a18ac97c830.png";
 import imgSidePanel from "figma:asset/6878f065873d30757849f54fc518cb914868a499.png";
-import { UI_TEXT, PRODUCT_DATA } from '../constants/products';
+import { PRODUCT_DATA, UI_TEXT, ALL_MODALS_DATA } from '../constants/modals';
 import { FINANCING_IMAGES } from '../constants/financingImages';
-import { ALL_MODALS_DATA } from '../constants/modals';
 import { PRODUCTS } from './ProductCard';
 import { COMPANY_INFO } from '../constants/company';
 import { formatAmount } from '../utils/formatAmount';
@@ -72,7 +71,7 @@ function TopSlot({ onClick }: { onClick: () => void }) {
       <div className="content-stretch flex flex-[1_0_0] flex-col items-center min-h-px min-w-px relative" data-name="TopSlot">
         <div className="content-stretch flex items-start justify-center pb-[24px] relative rounded-[24px] shrink-0 w-full" data-name="Graphic">
           <div className="overflow-clip relative shrink-0 size-[72px]" data-name="face_thinking">
-            <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgFaceThinking} />
+            <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgFaceThinking} style={{ imageRendering: 'auto', WebkitBackfaceVisibility: 'hidden', backfaceVisibility: 'hidden', transform: 'translateZ(0)' }} />
           </div>
         </div>
         <div className="relative shrink-0 w-full" data-name="Text Content">

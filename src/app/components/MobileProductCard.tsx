@@ -18,10 +18,10 @@ export function MobileProductCard({
 }: MobileProductCardProps) {
   return (
     <div 
-      className={`flex-[1_0_0] ${isFullWidth ? 'max-w-full' : 'max-w-[328px]'} min-w-px relative`} 
+      className={`flex flex-1 ${isFullWidth ? 'max-w-full' : ''} min-w-px relative`} 
       data-name="CardPure"
     >
-      <div className="content-stretch flex flex-col items-start justify-between max-w-[inherit] p-[16px] relative w-full h-full bg-[#f2f3f5] inset-0 rounded-[24px]">
+      <div className="content-stretch flex flex-col items-start justify-between max-w-[inherit] p-[16px] relative w-full bg-[#f2f3f5] inset-0 rounded-[24px]">
         <div className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-full">
           {/* Icon */}
           <div className="content-stretch flex items-start relative shrink-0" data-name="Graphic">
@@ -32,7 +32,7 @@ export function MobileProductCard({
           
           {/* Text Content */}
           <div className="content-stretch flex flex-col gap-[8px] items-start leading-[20px] not-italic relative shrink-0 w-full" data-name="Text Content">
-            <p className="[text-decoration-skip-ink:none] decoration-dotted font-['SF_Pro_Text:Bold',sans-serif] relative shrink-0 text-[16px] text-[rgba(3,3,6,0.88)] underline w-full">
+            <p className="[text-decoration-skip-ink:none] decoration-dotted relative shrink-0 text-[16px] text-[rgba(3,3,6,0.88)] underline w-full">
               {title}
             </p>
             <p className="font-['SF_Pro_Text:Regular',sans-serif] relative shrink-0 text-[14px] text-[rgba(4,4,19,0.55)] w-full">
@@ -42,7 +42,7 @@ export function MobileProductCard({
         </div>
         
         {/* Add Button */}
-        <div className="content-stretch flex gap-[8px] items-start relative shrink-0 w-full" data-name="DCCardButton">
+        <div className="content-stretch flex gap-[8px] items-start relative shrink-0 w-full mt-[16px]" data-name="DCCardButton">
           <MButton onClick={onAdd} />
         </div>
       </div>

@@ -60,11 +60,27 @@ export function MobileFinancingSidebar({
   // Обработчик изменения срока
   const handleTermChange = (value: string) => {
     const numericValue = value.replace(/\D/g, '');
-    const newTerm = numericValue === '' ? config.minTerm : parseInt(numericValue, 10);
     
-    // Ограничиваем значение минимумом и максимумом
-    const clampedTerm = Math.max(config.minTerm, Math.min(config.maxTerm, newTerm));
-    setTerm(clampedTerm);
+    // Разрешаем пустое значение или любое числовое значение при вводе
+    if (numericValue === '') {
+      setTerm(0); // Временно устанавливаем 0, чтобы разрешить очистку поля
+      return;
+    }
+    
+    const newTerm = parseInt(numericValue, 10);
+    setTerm(newTerm);
+  };
+
+  // Обработчик потери фокуса для срока - применяем ограничения
+  const handleTermBlur = () => {
+    // Если значение меньше минимума или равно 0, устанавливаем минимум
+    if (term < config.minTerm || term === 0) {
+      setTerm(config.minTerm);
+    }
+    // Если значение больше максимума, устанавливаем максимум
+    else if (term > config.maxTerm) {
+      setTerm(config.maxTerm);
+    }
   };
 
   // Обновляем состояние при открытии сайдбара с переданными значениями
@@ -423,7 +439,7 @@ export function MobileFinancingSidebar({
                               </div>
                               <div className="absolute content-stretch flex gap-[12px] h-[40px] items-center left-[12px] right-[12px] top-[8px]" data-name="Filling">
                                 <button 
-                                  onClick={() => setAmount(Math.max(config.minAmount, amount - (selectedFinancing === "fast" ? 10000000 : 50000000)))}
+                                  onClick={() => setAmount(Math.max(config.minAmount, amount - 100000))}
                                   className="overflow-clip relative shrink-0 size-[24px] cursor-pointer"
                                   data-name="minus_m"
                                 >
@@ -446,7 +462,7 @@ export function MobileFinancingSidebar({
                                   />
                                 </div>
                                 <button 
-                                  onClick={() => setAmount(Math.min(config.maxAmount, amount + (selectedFinancing === "fast" ? 10000000 : 50000000)))}
+                                  onClick={() => setAmount(Math.min(config.maxAmount, amount + 100000))}
                                   className="overflow-clip relative shrink-0 size-[24px] cursor-pointer"
                                   data-name="Plus_m"
                                 >
@@ -475,7 +491,7 @@ export function MobileFinancingSidebar({
                               </div>
                               <div className="absolute content-stretch flex gap-[12px] h-[40px] items-center left-[12px] right-[12px] top-[8px]" data-name="Filling">
                                 <button 
-                                  onClick={() => setTerm(Math.max(config.minTerm, term - 6))}
+                                  onClick={() => setTerm(Math.max(config.minTerm, term - 1))}
                                   className="overflow-clip relative shrink-0 size-[24px] cursor-pointer"
                                   data-name="minus_m"
                                 >
@@ -494,11 +510,12 @@ export function MobileFinancingSidebar({
                                     inputMode="numeric"
                                     value={term.toString()}
                                     onChange={(e) => handleTermChange(e.target.value)}
+                                    onBlur={handleTermBlur}
                                     className="font-['SF_Pro_Text:Bold',sans-serif] leading-[20px] text-[#0e0e0e] text-[16px] w-full bg-transparent border-none outline-none p-0"
                                   />
                                 </div>
                                 <button 
-                                  onClick={() => setTerm(Math.min(config.maxTerm, term + 6))}
+                                  onClick={() => setTerm(Math.min(config.maxTerm, term + 1))}
                                   className="overflow-clip relative shrink-0 size-[24px] cursor-pointer"
                                   data-name="Plus_m"
                                 >

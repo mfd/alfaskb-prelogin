@@ -6,6 +6,7 @@ import imgIconView3 from "figma:asset/7e8511301674d39f8cd176578d253954d9e47842.p
 import imgIconView4 from "figma:asset/30d972c5fac439fc586d71b84ea26790ff5d48ee.png";
 import imgIconView5 from "figma:asset/1f419c8ea7101b3f8b826ac9e399696f51a0e351.png";
 import imgIconView6 from "figma:asset/0ea90dc395def68741ab5acac4eae35370fa3187.png";
+import { PRODUCT_DATA } from '../constants/modals';
 
 export const PRODUCT_ICONS = {
   financing: imgIconView,
@@ -24,6 +25,7 @@ export interface Product {
   icon: string;
 }
 
+// Построено из PRODUCT_DATA из modals.ts + financing
 export const PRODUCTS: Product[] = [
   {
     id: 'financing',
@@ -33,38 +35,38 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'acquiring',
-    title: 'Торговый эквайринг',
-    description: 'Приём платежей онлайн и в торговых точках',
+    title: PRODUCT_DATA.acquiring.title,
+    description: PRODUCT_DATA.acquiring.cardDescription || PRODUCT_DATA.acquiring.subtitle,
     icon: PRODUCT_ICONS.acquiring,
   },
   {
     id: 'salary',
-    title: 'Зарплатный проект',
-    description: 'Подключение за 0 ₽ и управление онлайн',
+    title: PRODUCT_DATA.salary.title,
+    description: PRODUCT_DATA.salary.cardDescription || PRODUCT_DATA.salary.subtitle,
     icon: PRODUCT_ICONS.salary,
   },
   {
     id: 'cards',
-    title: 'Бизнес-карты',
-    description: 'Единая корпоративная карта, настраивается под ваши потребности',
+    title: PRODUCT_DATA.cards.title,
+    description: PRODUCT_DATA.cards.cardDescription || PRODUCT_DATA.cards.subtitle,
     icon: PRODUCT_ICONS.cards,
   },
   {
     id: 'ved',
-    title: 'ВЭД',
-    description: 'Валютные переводы м/у юрлицами в иностранной валюте онлайн',
+    title: PRODUCT_DATA.ved.title,
+    description: PRODUCT_DATA.ved.cardDescription || PRODUCT_DATA.ved.subtitle,
     icon: PRODUCT_ICONS.ved,
   },
   {
     id: 'rko',
-    title: 'РКО для бизнеса',
-    description: 'Откроем за 1 день и онлайн',
+    title: PRODUCT_DATA.rko.title,
+    description: PRODUCT_DATA.rko.cardDescription || PRODUCT_DATA.rko.subtitle,
     icon: PRODUCT_ICONS.rko,
   },
   {
     id: 'deposits',
-    title: 'Депозиты для бизнеса',
-    description: 'Онлайн на срок от 1 дня',
+    title: PRODUCT_DATA.deposits.title,
+    description: PRODUCT_DATA.deposits.cardDescription || PRODUCT_DATA.deposits.subtitle,
     icon: PRODUCT_ICONS.deposits,
   },
 ];

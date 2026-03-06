@@ -1,4 +1,3 @@
-import svgPathsPlus from "../../imports/svg-pnkyyxs7im";
 import svgPathsEdit from "../../imports/svg-x1ydv67pv3";
 import svgPathsCheckmark from "../../imports/svg-x1ydv67pv3";
 
@@ -14,7 +13,7 @@ export function MButton({ variant = 'add', onClick, text }: MButtonProps) {
   const variants = {
     add: {
       bg: 'bg-white',
-      icon: svgPathsPlus.p25f6ce40,
+      icon: 'M8.66708 3.33313V7.33313H12.6671V8.66711H8.66708V12.6671H7.3331V8.66711H3.3331V7.33313H7.3331V3.33313H8.66708Z',
       iconFill: '#030306',
       iconOpacity: '0.88',
       text: text || 'Добавить',
