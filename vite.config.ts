@@ -14,7 +14,7 @@ export default defineConfig({
     alias: [
       // Существующий алиас @ для src
       { find: '@', replacement: path.resolve(__dirname, './src') },
-      // Динамический резолвер для figma:asset/xxx.png -> public/assets/xxx.png
+      // Динамический резолвер для figma:asset/xxx.png -> src/assets/xxx.png
       {
         find: /^figma:asset\/(.+\.(png|jpg|jpeg|svg|gif|webp))$/,
         replacement: path.resolve(__dirname, 'src/assets/$1')
