@@ -5,7 +5,7 @@ import StatusBadge from "../app/components/StatusBadge";
 
 export default function DCredCardFast() {
   return (
-    <div className="bg-[#1c1c1e] content-stretch flex items-start justify-between overflow-clip p-[32px] relative rounded-[32px] size-full" data-name="wip6 / D_CredCard">
+    <div className="bg-[#1c1c1e] content-stretch flex items-start justify-between overflow-clip p-[32px] relative rounded-[32px] size-full" data-name="DesktopCredCard">
       <div className="content-stretch flex flex-[1_0_0] gap-[48px] items-start min-h-px min-w-px relative" data-name="content">
         <div className="content-stretch flex gap-[16px] items-start relative shrink-0 w-[332px]" data-name="title">
           <div className="content-stretch flex flex-col items-start relative shrink-0 w-[72px]" data-name="PreloginProductsIcon">

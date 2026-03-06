@@ -22,6 +22,7 @@ export default defineConfig({
     ],
   },
 
-  // File types to support raw imports. Never add .css, .tsx, or .ts files to this.
-  assetsInclude: ['**/*.svg', '**/*.csv'],
+  // Добавлены типы Figma-ассетов
+  assetsInclude: ['**/*.svg', '**/*.csv', '**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.gif', '**/*.webp'],
+  base: '/alfaskb-prelogin/',
 })

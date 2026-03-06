@@ -75,11 +75,42 @@ export default function MPreloginWrapper({
       });
     };
 
+    // Исправляем отображение иконки Бизнес-карт
+    const fixBusinessCardsIcon = () => {
+      // Находим все карточки продуктов
+      const cards = Array.from(document.querySelectorAll('[data-name="CardPure"]'));
+      
+      cards.forEach(card => {
+        const titleElement = card.querySelector('[data-name="Text Content"] p:first-child');
+        const title = titleElement?.textContent?.trim().replace(/\s+/g, ' ');
+        
+        // Если это карточка Бизнес-карт
+        if (title === 'Бизнес-карты') {
+          const iconView = card.querySelector('[data-name="IconView"]');
+          if (iconView) {
+            const img = iconView.querySelector('img');
+            if (img) {
+              // Удаляем абсолютное позиционирование
+              img.style.position = 'static';
+              img.style.left = '';
+              img.style.top = '';
+              img.style.maxWidth = '';
+              // Делаем картинку responsive с object-fit
+              img.style.width = '100%';
+              img.style.height = '100%';
+              img.style.objectFit = 'contain';
+            }
+          }
+        }
+      });
+    };
+
     // Даем время на рендер
     setTimeout(() => {
       hideOriginalBasket();
       addUnderlineToTitles();
       removeWidthConstraints();
+      fixBusinessCardsIcon();
       setIsReady(true);
     }, 100);
   }, []);
@@ -159,7 +190,7 @@ export default function MPreloginWrapper({
       const financingCard = target.closest('[data-name="selectFlow"]');
       if (!financingCard) return;
 
-      // Определяем, на какую плашку кликнули по тексту статуса
+      // Определяем, на какую плашку кликнули по тексту статса
       const statusElement = target.closest('[data-name="Status"]');
       if (!statusElement) return;
 
@@ -315,6 +346,7 @@ export default function MPreloginWrapper({
             updateTitleAndSubtitle(replacedCard, financingItem.selectedFinancingType || "Кредитная линия");
             updateFinancingIcon(replacedCard, financingItem.selectedFinancingType || "Кредитная линия");
             updateFinancingData(replacedCard, financingItem.loanAmount || "1000000", financingItem.loanTerm || "1");
+            makeFinancingTitleClickable(replacedCard, financingItem.selectedFinancingType || "Кредитная линия");
           }, 0);
           return;
         }
@@ -429,12 +461,26 @@ export default function MPreloginWrapper({
     if (!wrapDiv) return;
     const titleParagraph = wrapDiv.querySelector("p");
     if (!titleParagraph) return;
-    titleParagraph.classList.add("underline-financing-title-mobile");
-    titleParagraph.addEventListener("click", (e) => {
+    
+    // Удаляем старые обработчики, если они были
+    const oldHandler = (titleParagraph as any).__clickHandler;
+    if (oldHandler) {
+      titleParagraph.removeEventListener("click", oldHandler);
+    }
+    
+    // Создаем новый обработчик
+    const newHandler = (e: Event) => {
       e.preventDefault();
       e.stopPropagation();
       onOpenFinancingModal(financingType);
-    });
+    };
+    
+    // Сохраняем ссылку на обработчик
+    (titleParagraph as any).__clickHandler = newHandler;
+    
+    // Добавляем класс и обработчик
+    titleParagraph.classList.add("underline-financing-title-mobile");
+    titleParagraph.addEventListener("click", newHandler);
   };
 
   return (

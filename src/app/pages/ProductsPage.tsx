@@ -1,13 +1,19 @@
-import { useState } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import { isMobile as isMobileDevice } from 'react-device-detect';
+import { useCart } from '../contexts/CartContext';
+import Header from '../components/Header';
+import { PRODUCTS } from '../components/ProductCard';
+import DPreloginWrapper from '../components/DPreloginWrapper';
+import CartSidebar from '../components/CartSidebar';
+import FinancingSidebar from '../components/FinancingSidebar';
+import UnifiedModal from '../components/UnifiedModal';
+import MPreloginWrapper from '../components/MPreloginWrapper';
+import MobileCartSidebar from '../components/MobileCartSidebar';
+import { MobileFinancingSidebar } from '../components/MobileFinancingSidebar';
+import MobileProductBottomSheet from '../components/MobileProductBottomSheet';
+import MobileFinBottomSheet from '../components/MobileFinBottomSheet';
+import MobileCartIcon from '../components/MobileCartIcon';
 import { motion, AnimatePresence } from 'motion/react';
-import MPreloginWrapper from './components/MPreloginWrapper';
-import MobileCartSidebar from './components/MobileCartSidebar';
-import { MobileFinancingSidebar } from './components/MobileFinancingSidebar';
-import MobileProductBottomSheet from './components/MobileProductBottomSheet';
-import MobileFinBottomSheet from './components/MobileFinBottomSheet';
-import MobileCartIcon from './components/MobileCartIcon';
-import { useCart } from './contexts/CartContext';
-import { PRODUCTS } from './components/ProductCard';
 
 // Маппинг названий продуктов из модалок на productId
 const MODAL_TO_PRODUCT_ID: Record<string, string> = {
@@ -27,7 +33,59 @@ const FINANCING_TYPES = [
   "Факторинг"
 ];
 
-function MobileAppContent() {
+// Desktop версия страницы продуктов
+function DesktopProductsPage() {
+  const [isFinancingSidebarOpen, setIsFinancingSidebarOpen] = useState(false);
+  const [openModal, setOpenModal] = useState<string | null>(null);
+  const { addItem, openCart, isInCart } = useCart();
+
+  const handleAddToCart = (modalKey: string) => {
+    const productId = MODAL_TO_PRODUCT_ID[modalKey];
+    if (productId) {
+      const product = PRODUCTS.find((p) => p.id === productId);
+      if (product) {
+        addItem({ ...product, productId });
+        setTimeout(() => openCart(), 300);
+      }
+    }
+  };
+
+  const isModalProductInCart = useMemo(() => {
+    if (!openModal) return false;
+    const productId = MODAL_TO_PRODUCT_ID[openModal];
+    return productId ? isInCart(productId) : false;
+  }, [openModal, isInCart]);
+
+  return (
+    <div className="min-h-screen flex flex-col items-center w-full">
+      <Header />
+      <DPreloginWrapper 
+        onOpenFinancing={() => setIsFinancingSidebarOpen(true)}
+        onOpenProductModal={(productId) => setOpenModal(productId)}
+        onOpenFinancingModal={(financingType) => setOpenModal(financingType)}
+      />
+      <CartSidebar 
+        onOpenFinancing={() => setIsFinancingSidebarOpen(true)} 
+        onOpenProductModal={(productId) => setOpenModal(productId)}
+      />
+      <FinancingSidebar 
+        isOpen={isFinancingSidebarOpen} 
+        onClose={() => setIsFinancingSidebarOpen(false)} 
+      />
+      <UnifiedModal
+        isOpen={openModal !== null}
+        onClose={() => setOpenModal(null)}
+        modalKey={openModal || ''}
+        onAddToCart={handleAddToCart}
+        isInCart={isModalProductInCart}
+        onOpenCart={openCart}
+      />
+    </div>
+  );
+}
+
+// Mobile версия страницы продуктов
+function MobileProductsPage() {
   const [isFinancingSidebarOpen, setIsFinancingSidebarOpen] = useState(false);
   const [openFinancingType, setOpenFinancingType] = useState<string | null>(null);
   const [openProductId, setOpenProductId] = useState<string | null>(null);
@@ -136,8 +194,44 @@ function MobileAppContent() {
   );
 }
 
-export default function MobileApp() {
-  return (
-    <MobileAppContent />
-  );
+// Главный компонент страницы, определяющий какую версию показывать
+export default function ProductsPage() {
+  const [isMobileWidth, setIsMobileWidth] = useState(false);
+
+  useEffect(() => {
+    const checkMobileWidth = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const isMobileWidthNow = width < 768;
+      setIsMobileWidth(isMobileWidthNow);
+      
+      // Логирование информации об устройстве
+      const deviceInfo = {
+        'Мобильное устройство (detect)': isMobileDevice ? 'Да' : 'Нет',
+        'Ширина окна': width + 'px',
+        'Высота окна': height + 'px',
+        'Мобильная ширина (<768px)': isMobileWidthNow ? 'Да' : 'Нет',
+        'Итоговый режим': (isMobileDevice || isMobileWidthNow) ? 'МОБИЛЬНЫЙ' : 'ДЕСКТОПНЫЙ',
+        'User Agent': navigator.userAgent,
+        'Device Pixel Ratio': window.devicePixelRatio,
+        'Разрешение экрана': `${window.screen.width}x${window.screen.height}`,
+        'Ориентация': window.innerWidth > window.innerHeight ? 'Landscape (Горизонтальная)' : 'Portrait (Вертикальная)',
+        'Платформа': navigator.platform,
+      };
+      
+      console.groupCollapsed('🖥️ Информация об устройстве');
+      console.table(deviceInfo);
+      console.groupEnd();
+    };
+    
+    checkMobileWidth();
+    window.addEventListener('resize', checkMobileWidth);
+    
+    return () => window.removeEventListener('resize', checkMobileWidth);
+  }, []);
+
+  // Показываем мобильную версию если устройство мобильное ИЛИ ширина экрана меньше 768px
+  const isMobile = isMobileDevice || isMobileWidth;
+
+  return isMobile ? <MobileProductsPage /> : <DesktopProductsPage />;
 }

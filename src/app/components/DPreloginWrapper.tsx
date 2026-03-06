@@ -44,8 +44,8 @@ export default function DPreloginWrapper({
 
     try {
       // Управляем видимостью черной и новой карточек
-      const blackCard = document.querySelector('[data-name="wip6 / D_CredCard"]');
-      const replacedCard = document.querySelector('[data-name="wip6 / D_CredCard-replaced"]');
+      const blackCard = document.querySelector('[data-name="DesktopCredCard"]');
+      const replacedCard = document.querySelector('[data-name="DesktopCredCard-replaced"]');
 
       if (showCredCard && financingItem) {
         // Скрываем черную карточку
@@ -61,7 +61,7 @@ export default function DPreloginWrapper({
         if (blackCard) {
           // Создаем контейнер для новой карточки
           const container = document.createElement("div");
-          container.setAttribute("data-name", "wip6 / D_CredCard-replaced");
+          container.setAttribute("data-name", "DesktopCredCard-replaced");
           container.classList.add("size-full");
           blackCard.after(container);
 
@@ -226,29 +226,9 @@ export default function DPreloginWrapper({
   };
 
   useEffect(() => {
-    // Обновляем кнопки в карточках продуктов
-    const updateButtons = () => {
-      const cardsContainer = document.querySelector('[data-name="cards"]');
-
-      if (cardsContainer) {
-        const allCards = cardsContainer.querySelectorAll('[data-name="wip6 / ProdCard"]');
-        const productMapping = ["acquiring", "salary", "cards", "ved", "rko", "deposits"];
-
-        allCards.forEach((card, index) => {
-          const productId = productMapping[index];
-          const button =
-            card.querySelector('[data-name="[D] Button"]') ||
-            card.querySelector('[data-name="Button_1"]');
-
-          if (button && productId) {
-            const inCart = isInCart(productId);
-            updateButtonState(button as HTMLElement, inCart);
-          }
-        });
-      }
-
-      // Добавляем CSS классы для кнопок в замененной карточке финансирования
-      const replacedCard = document.querySelector('[data-name="wip6 / D_CredCard-replaced"]');
+    // Добавляем CSS классы для кнопок в замененной карточке финансирования
+    const updateReplacedCardButtons = () => {
+      const replacedCard = document.querySelector('[data-name="DesktopCredCard-replaced"]');
 
       if (replacedCard) {
         const buttons = replacedCard.querySelectorAll('[data-name="[D] CustomButton"]');
@@ -265,10 +245,10 @@ export default function DPreloginWrapper({
       }
     };
 
-    updateButtons();
+    updateReplacedCardButtons();
     
     // Дополнительный вызов с задержкой для обновления после рендеринга
-    const timeoutId = setTimeout(updateButtons, 100);
+    const timeoutId = setTimeout(updateReplacedCardButtons, 100);
     
     return () => clearTimeout(timeoutId);
   }, [items, isInCart]);
@@ -277,15 +257,13 @@ export default function DPreloginWrapper({
     // Обработчики кликов на кнопки
     const handleClick = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
-      const buttonAdd = target.closest('[data-name="[D] Button"]');
-      const buttonInCart = target.closest('[data-name="Button_1"]');
       const buttonCustom = target.closest('[data-name="[D] CustomButton"]');
 
       // Обработка кастомных кнопок в замененной карточке финансирования
       if (buttonCustom) {
         const buttonText = buttonCustom.textContent?.trim();
 
-        if (buttonCustom.closest('[data-name="wip6 / D_CredCard-replaced"]')) {
+        if (buttonCustom.closest('[data-name="DesktopCredCard-replaced"]')) {
           if (buttonText === "В корзине") {
             event.preventDefault();
             event.stopPropagation();
@@ -301,68 +279,11 @@ export default function DPreloginWrapper({
           }
         }
       }
-
-      // Обработка кнопок в черной карточке и карточках продуктов
-      if (buttonInCart) {
-        const buttonText = buttonInCart.textContent?.trim();
-
-        // Кнопка "Добавить" в черной карточке финансирования
-        if (
-          buttonText === "Добавить" &&
-          buttonInCart.closest('[data-name="wip6 / D_CredCard"]')
-        ) {
-          event.preventDefault();
-          event.stopPropagation();
-          onOpenFinancing();
-          return;
-        }
-
-        // Кнопка "В корзине" - открываем корзину
-        if (buttonText === "В корзине") {
-          openCart();
-          return;
-        }
-
-        // Кнопка "Изменить"
-        if (buttonText === "Изменить") {
-          event.preventDefault();
-          event.stopPropagation();
-          onOpenFinancing();
-          return;
-        }
-      }
-
-      // Обработка красной кнопки "Добавить" в карточках продуктов
-      if (buttonAdd) {
-        const buttonText = buttonAdd.textContent?.trim();
-
-        if (buttonText === "Добавить") {
-          const card = buttonAdd.closest('[data-name="wip6 / ProdCard"]');
-
-          if (card) {
-            const cardsContainer = document.querySelector('[data-name="cards"]');
-            if (cardsContainer) {
-              const allCards = cardsContainer.querySelectorAll('[data-name="wip6 / ProdCard"]');
-              const cardIndex = Array.from(allCards).indexOf(card);
-
-              const productMapping = ["acquiring", "salary", "cards", "ved", "rko", "deposits"];
-              const productId = productMapping[cardIndex];
-
-              if (productId) {
-                const product = PRODUCTS.find((p) => p.id === productId);
-                if (product) {
-                  toggleItem({ ...product, productId });
-                }
-              }
-            }
-          }
-        }
-      }
     };
 
     document.addEventListener("click", handleClick);
     return () => document.removeEventListener("click", handleClick);
-  }, [toggleItem, openCart, onOpenFinancing]);
+  }, [openCart, onOpenFinancing]);
 
   useEffect(() => {
     // Обработчики кликов на заголовки карточек продуктов
@@ -395,7 +316,13 @@ export default function DPreloginWrapper({
     return () => document.removeEventListener("click", handleTitleClick);
   }, [onOpenProductModal]);
 
-  return <DPrelogin />;
+  return (
+    <DPrelogin 
+      onOpenFinancing={onOpenFinancing} 
+      toggleItem={toggleItem}
+      isInCart={isInCart}
+    />
+  );
 }
 
 function updateButtonState(button: HTMLElement, inCart: boolean) {

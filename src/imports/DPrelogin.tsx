@@ -11,6 +11,8 @@ import StatusBadge from "../app/components/StatusBadge";
 import { DesktopProductCard } from "../app/components/DesktopProductCard";
 import { DESKTOP_PRODUCTS } from "../app/constants/products";
 import { DesktopProductIcon } from "../app/components/DesktopProductIcon";
+import DProductButton from "../app/components/DProductButton";
+import { PRODUCTS } from "../app/components/ProductCard";
 
 function LogoContainer() {
   return (
@@ -1313,7 +1315,16 @@ function Text19() {
   );
 }
 
-function Cards() {
+function Cards({ toggleItem, isInCart }: { toggleItem?: (item: any) => void; isInCart?: (productId: string) => boolean }) {
+  const handleAddClick = (productId: string) => {
+    if (!toggleItem) return;
+    
+    const product = PRODUCTS.find((p) => p.id === productId);
+    if (product) {
+      toggleItem({ ...product, productId });
+    }
+  };
+
   return (
     <div className="content-stretch flex flex-col gap-[24px] items-start relative shrink-0 w-full" data-name="cards">
       {DESKTOP_PRODUCTS.map((product) => (
@@ -1323,23 +1334,29 @@ function Cards() {
           title={product.title}
           description={product.description}
           benefits={product.benefits}
+          onAddClick={() => handleAddClick(product.id)}
+          isInCart={isInCart ? isInCart(product.id) : false}
         />
       ))}
     </div>
   );
 }
 
-function Section1() {
+function Section1({ onOpenFinancing, toggleItem, isInCart }: { onOpenFinancing?: () => void; toggleItem?: (item: any) => void; isInCart?: (productId: string) => boolean }) {
+  const handleFinancingClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (onOpenFinancing) {
+      onOpenFinancing();
+    }
+  };
   return (
     <div className="relative shrink-0 w-full" data-name="section">
       <div className="content-stretch flex flex-col gap-[24px] items-center px-[70px] mt-[16px] relative w-full">
-        <div className="bg-[#1c1c1e] content-stretch flex h-[172px] items-start justify-between overflow-clip p-[32px] relative rounded-[32px] shrink-0 w-[1140px]" data-name="wip6 / D_CredCard">
+        <div className="bg-[#1c1c1e] content-stretch flex h-[172px] items-start justify-between overflow-clip p-[32px] relative rounded-[32px] shrink-0 w-[1140px]" data-name="DesktopCredCard">
           <Content2 />
           <div className="content-stretch flex flex-col gap-[8px] items-end relative shrink-0" data-name="wip6 / kredBtns-wip6">
-            <div className="bg-[#ef3124] content-stretch flex gap-[4px] items-center justify-center min-h-[48px] min-w-[104px] overflow-clip px-[20px] py-[4px] relative rounded-[8px] shrink-0" data-name="Button_1">
-              <LeftAddon1 />
-              <Text7 />
-            </div>
+            <DProductButton variant="add" onClick={handleFinancingClick} />
             <div className="flex flex-col font-['SF_Pro_Text:Regular',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[11px] text-[rgba(238,238,251,0.55)] text-center w-[153px]">
               <p className="leading-[16px] text-right">
                 Настройте сумму
@@ -1349,17 +1366,17 @@ function Section1() {
             </div>
           </div>
         </div>
-        <Cards />
+        <Cards toggleItem={toggleItem} isInCart={isInCart} />
       </div>
     </div>
   );
 }
 
-function Body() {
+function Body({ onOpenFinancing, toggleItem, isInCart }: { onOpenFinancing?: () => void; toggleItem?: (item: any) => void; isInCart?: (productId: string) => boolean }) {
   return (
     <div className="content-stretch flex flex-col gap-[24px] items-center pb-[128px] relative shrink-0 w-[1280px]" data-name="body">
       <Section />
-      <Section1 />
+      <Section1 onOpenFinancing={onOpenFinancing} toggleItem={toggleItem} isInCart={isInCart} />
     </div>
   );
 }
@@ -1458,10 +1475,10 @@ function Content16() {
   );
 }
 
-function Desktop() {
+function Desktop({ onOpenFinancing, toggleItem, isInCart }: { onOpenFinancing?: () => void; toggleItem?: (item: any) => void; isInCart?: (productId: string) => boolean }) {
   return (
     <div className="absolute bg-white content-stretch flex flex-col items-center left-1/2 -translate-x-1/2 overflow-clip pt-[72px] top-0 w-[1280px]" data-name="Desktop">
-      <Body />
+      <Body onOpenFinancing={onOpenFinancing} toggleItem={toggleItem} isInCart={isInCart} />
       <div className="content-stretch flex flex-col items-center justify-end relative rounded-tl-[64px] rounded-tr-[64px] shrink-0 w-full" data-name="Footer">
         <Background />
         <Content16 />
@@ -1470,14 +1487,20 @@ function Desktop() {
   );
 }
 
-export default function DPrelogin() {
+interface DPreloginProps {
+  onOpenFinancing?: () => void;
+  toggleItem?: (item: any) => void;
+  isInCart?: (productId: string) => boolean;
+}
+
+export default function DPrelogin({ onOpenFinancing, toggleItem, isInCart }: DPreloginProps = {}) {
   return (
     <div className="relative w-full min-h-screen flex flex-col items-center" data-name="[D]-Prelogin">
       <div className="absolute content-stretch flex flex-col items-center left-1/2 -translate-x-1/2 top-0 w-[1280px]" data-name="wip5 / Header-wip5">
         <MainHeaderV />
         <Component />
       </div>
-      <Desktop />
+      <Desktop onOpenFinancing={onOpenFinancing} toggleItem={toggleItem} isInCart={isInCart} />
     </div>
   );
 }

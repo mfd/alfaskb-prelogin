@@ -1,4 +1,6 @@
-import svgPaths from "../../imports/svg-5jk13o7n2b";
+import { motion } from 'motion/react';
+import { X } from 'lucide-react';
+import { UI_TEXT } from '../constants/modals';
 import imgSidePanel from "figma:asset/3763c4a9aa567a9deb9504e7af991955fe4dcc27.png";
 
 interface MobileCallSuccessProps {
@@ -23,11 +25,11 @@ export default function MobileCallSuccess({ phoneNumber = '+7 (999) 999-99-99' }
                     </div>
                   </div>
                   <div className="content-stretch flex flex-col gap-[8px] items-center not-italic relative shrink-0 text-[rgba(3,3,6,0.88)] text-center w-full" data-name="Text Content">
-                    <p className="font-['SF_Pro_Display:Semibold',sans-serif] leading-[28px] relative shrink-0 text-[20px] tracking-[0.38px] w-full">Звонок заказан</p>
-                    <p className="font-['SF_Pro_Text:Regular',sans-serif] leading-[0] relative shrink-0 text-[0px] text-[14px] w-full whitespace-pre-wrap">
-                      <span className="leading-[20px]">{`По указанному номеру `}</span>
-                      <span className="font-['SF_Pro_Text:Bold',sans-serif] leading-[20px]">{phoneNumber}  </span>
-                      <span className="leading-[20px]">в ближайшее время с вами свяжется сотрудник банка, чтобы проконсультировать по выбранным продуктам</span>
+                    <p className="leading-[28px] relative shrink-0 text-[20px] tracking-[0.38px] w-full">{UI_TEXT.callSuccessTitle}</p>
+                    <p className="leading-[0] relative shrink-0 text-[0px] text-[14px] w-full whitespace-pre-wrap">
+                      <span className="leading-[20px]">{UI_TEXT.callSuccessTextPrefix} </span>
+                      <span className="leading-[20px] font-bold whitespace-nowrap">{phoneNumber} </span>
+                      <span className="leading-[20px]">{UI_TEXT.callSuccessTextSuffix}</span>
                     </p>
                   </div>
                 </div>

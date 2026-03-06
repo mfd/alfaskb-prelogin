@@ -180,7 +180,7 @@ function Text4() {
 
 export default function DCredCardLong() {
   return (
-    <div className="bg-[#1c1c1e] content-stretch flex items-start justify-between overflow-clip p-[32px] relative rounded-[32px] size-full" data-name="wip6 / D_CredCard">
+    <div className="bg-[#1c1c1e] content-stretch flex items-start justify-between overflow-clip p-[32px] relative rounded-[32px] size-full" data-name="DesktopCredCard">
       <Content />
       <div className="content-stretch flex flex-col gap-[12px] items-end relative shrink-0 w-[158px]" data-name="wip6 / kredBtns-wip6">
         <div className="bg-[#0cc44d] min-h-[48px] min-w-[104px] relative rounded-[8px] shrink-0 w-full" data-name="[D] CustomButton">

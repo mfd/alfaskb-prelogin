@@ -1,4 +1,6 @@
-import svgPaths from "../../imports/svg-5jk13o7n2b";
+import { motion } from 'motion/react';
+import { X } from 'lucide-react';
+import { UI_TEXT } from '../constants/modals';
 import imgSidePanel from "figma:asset/3763c4a9aa567a9deb9504e7af991955fe4dcc27.png";
 
 interface DesktopCallSuccessProps {
@@ -22,17 +24,12 @@ export default function DesktopCallSuccess({ phoneNumber = '+7 (999) 999-99-99' 
                       <div className="content-stretch flex flex-[1_0_0] flex-col items-center justify-center min-h-px min-w-px overflow-clip w-full" data-name=".Graphic/Image Small" />
                     </div>
                   </div>
-                  <div className="content-stretch flex flex-col gap-[8px] items-center relative shrink-0 w-full" data-name="Text Content">
-                    <div className="content-stretch flex items-start justify-center pb-[4px] relative shrink-0 w-full" data-name="Title">
-                      <p className="flex-[1_0_0] font-bold leading-[36px] min-h-px min-w-px not-italic relative text-[30px] text-[rgba(3,3,6,0.88)] text-center">Звонок заказан</p>
-                    </div>
-                    <p className="font-sf-text-regular leading-[0] not-italic relative shrink-0 text-[0px] text-[rgba(3,3,6,0.88)] text-center w-full whitespace-pre-wrap">
-                      <span className="leading-[24px] text-[16px]">
-                        По указанному номеру
-                        <br aria-hidden="true" />
-                      </span>
-                      <span className="font-bold leading-[20px] text-[14px]">{`${phoneNumber} `}</span>
-                      <span className="leading-[24px] text-[16px]">{` в ближайшее время с вами свяжется сотрудник банка, чтобы проконсультировать по выбранным продуктам`}</span>
+                  <div className="content-stretch flex flex-col gap-[8px] items-center not-italic relative shrink-0 text-[rgba(3,3,6,0.88)] text-center w-full" data-name="Text Content">
+                    <p className="leading-[36px] relative shrink-0 text-[30px] tracking-[0.38px] w-full font-bold">{UI_TEXT.callSuccessTitle}</p>
+                    <p className="leading-[0] relative shrink-0 text-[0px] text-[16px] w-full whitespace-pre-wrap">
+                      <span className="leading-[24px] text-[16px]">{UI_TEXT.callSuccessTextPrefix} </span>
+                      <span className="font-bold leading-[20px] text-[14px]">{phoneNumber} </span>
+                      <span className="leading-[24px] text-[16px]">{UI_TEXT.callSuccessTextSuffix}</span>
                     </p>
                   </div>
                 </div>

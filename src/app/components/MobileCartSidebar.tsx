@@ -37,7 +37,7 @@ function EmptyCartState({ onClose }: { onClose: () => void }) {
       <div className="content-stretch flex flex-col items-start px-[16px] relative size-full">
         <div className="flex-[1_0_0] min-h-px min-w-px relative w-full" data-name=".Basket-ServiceMessage">
           <div className="content-stretch flex flex-col items-start py-[16px] relative size-full">
-            <div className="content-stretch flex flex-col h-[672px] items-center justify-center relative shrink-0 w-full" data-name="ServiceMessage">
+            <div className="content-stretch flex flex-col flex-1 items-center justify-center relative w-full" data-name="ServiceMessage">
               <div className="content-stretch flex flex-col items-center relative shrink-0 w-full" data-name="TopSlot">
                 <div className="content-stretch flex flex-col items-center relative shrink-0 w-full" data-name="TopSlot">
                   <div className="content-stretch flex items-start justify-center pb-[24px] relative rounded-[16px] shrink-0 w-full" data-name="Graphic">
