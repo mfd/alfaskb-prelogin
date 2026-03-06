@@ -21,9 +21,10 @@ interface MobileCartContentProps {
   items: CartItem[];
   onRemoveItem: (id: string) => void;
   onItemClick?: (productId: string) => void;
+  onEditFinancing?: () => void;
 }
 
-export default function MobileCartContent({ items, onRemoveItem, onItemClick }: MobileCartContentProps) {
+export default function MobileCartContent({ items, onRemoveItem, onItemClick, onEditFinancing }: MobileCartContentProps) {
   return (
     <div className="content-stretch flex flex-col items-start px-[16px] relative size-full">
       <div className="bg-white content-stretch flex flex-col gap-[32px] items-start pt-[16px] relative shrink-0 w-full" data-name="SwapMe">
@@ -99,7 +100,11 @@ export default function MobileCartContent({ items, onRemoveItem, onItemClick }: 
                     </div>
                     <div className="content-stretch flex gap-[16px] items-center justify-center relative self-stretch shrink-0" data-name="RightAddon">
                       {item.productId === 'financing' && (
-                        <button className="bg-[rgba(255,255,255,0)] content-stretch flex items-center justify-center overflow-clip relative shrink-0" data-name="[D] Button">
+                        <button 
+                          onClick={onEditFinancing}
+                          className="bg-[rgba(255,255,255,0)] content-stretch flex items-center justify-center overflow-clip relative shrink-0 cursor-pointer hover:opacity-70 transition-opacity" 
+                          data-name="[D] Button"
+                        >
                           <div className="content-stretch flex items-start relative shrink-0" data-name="LeftAddon">
                             <div className="content-stretch flex flex-col items-center justify-center max-h-[24px] max-w-[24px] min-h-[24px] min-w-[24px] relative shrink-0" data-name="LeftAddon">
                               <div className="relative shrink-0 size-[24px]" data-name="Fixer">

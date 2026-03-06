@@ -4,7 +4,7 @@ import svgPathsEdit from "../../imports/svg-g3h07tdvev";
 
 export type ButtonVariant = 'add' | 'inCart' | 'edit';
 
-interface ProductButtonProps {
+interface DProductButtonProps {
   variant: ButtonVariant;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   className?: string;
@@ -16,7 +16,7 @@ interface ProductButtonProps {
   };
 }
 
-export default function ProductButton({ variant, onClick, className = '', hideIcon = false, overrideColors }: ProductButtonProps) {
+export default function DProductButton({ variant, onClick, className = '', hideIcon = false, overrideColors }: DProductButtonProps) {
   const variants = {
     add: {
       bg: 'bg-[#ef3124]',

@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { MobileProductButton } from "./MobileProductButton";
+import { MButton } from "./MButton";
 
 interface MobileProductCardProps {
   icon: ReactNode;
@@ -18,7 +18,7 @@ export function MobileProductCard({
 }: MobileProductCardProps) {
   return (
     <div 
-      className={`flex-[1_0_0] ${isFullWidth ? 'max-w-full' : 'max-w-[328px]'} h-[260px] min-w-px relative`} 
+      className={`flex-[1_0_0] ${isFullWidth ? 'max-w-full' : 'max-w-[328px]'} min-w-px relative`} 
       data-name="CardPure"
     >
       <div className="content-stretch flex flex-col items-start justify-between max-w-[inherit] p-[16px] relative w-full h-full bg-[#f2f3f5] inset-0 rounded-[24px]">
@@ -42,7 +42,9 @@ export function MobileProductCard({
         </div>
         
         {/* Add Button */}
-        <MobileProductButton onClick={onAdd} />
+        <div className="content-stretch flex gap-[8px] items-start relative shrink-0 w-full" data-name="DCCardButton">
+          <MButton onClick={onAdd} />
+        </div>
       </div>
     </div>
   );

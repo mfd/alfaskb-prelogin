@@ -28,16 +28,16 @@ import ContractIcon from './icons/ContractIcon';
 import CustomsIcon from './icons/CustomsIcon';
 import AutomaticIcon from './icons/AutomaticIcon';
 import AvailabilityIcon from './icons/AvailabilityIcon';
-import imgIconViewAcquiring from "../../assets/a46b19810327a8da419337ef2b3b3e6ec44f353f.png";
-import imgIconViewCards from "../../assets/8c5cd53389e76a0f31c20fd73eced0e92516f0ac.png";
-import imgIconViewVed from "../../assets/996dac147edddce6db1be95e91023804d7a3358d.png";
-import imgIconViewSalary from "../../assets/2f8a385702c18b3243c688cd8bb503634fd01740.png";
-import imgIconViewRko from "../../assets/1f419c8ea7101b3f8b826ac9e399696f51a0e351.png";
-import imgIconViewDeposits from "../../assets/0ea90dc395def68741ab5acac4eae35370fa3187.png";
-import imgIconViewCreditLine from "../../assets/7186d95bd7ca1e12cf93fa27d3d2e711c96d8bb5.png";
-import imgIconViewFactoring from "../../assets/4469f5679ca3f6c22feca14fe50ece4db25237d6.png";
-import imgIconViewGuarantee from "../../assets/42c1815a218a3d04336231b42bf5ce9f92b014e5.png";
-import imgIconViewOverdraft from "../../assets/44690177e6c33f3932ceda7be51d1886a99a6432.png";
+import imgIconViewAcquiring from "figma:asset/a46b19810327a8da419337ef2b3b3e6ec44f353f.png";
+import imgIconViewCards from "figma:asset/8c5cd53389e76a0f31c20fd73eced0e92516f0ac.png";
+import imgIconViewVed from "figma:asset/996dac147edddce6db1be95e91023804d7a3358d.png";
+import imgIconViewSalary from "figma:asset/2f8a385702c18b3243c688cd8bb503634fd01740.png";
+import imgIconViewRko from "figma:asset/1f419c8ea7101b3f8b826ac9e399696f51a0e351.png";
+import imgIconViewDeposits from "figma:asset/0ea90dc395def68741ab5acac4eae35370fa3187.png";
+import imgIconViewCreditLine from "figma:asset/7186d95bd7ca1e12cf93fa27d3d2e711c96d8bb5.png";
+import imgIconViewFactoring from "figma:asset/4469f5679ca3f6c22feca14fe50ece4db25237d6.png";
+import imgIconViewGuarantee from "figma:asset/42c1815a218a3d04336231b42bf5ce9f92b014e5.png";
+import imgIconViewOverdraft from "figma:asset/44690177e6c33f3932ceda7be51d1886a99a6432.png";
 import { imgModalV3 as imgMaskDeposits } from "../../imports/svg-u69pn";
 import { imgShapeContent as imgMaskAcquiring } from "../../imports/svg-oe1bh";
 import { imgModalV3 as imgMaskSalary } from "../../imports/svg-nieob";
@@ -49,7 +49,7 @@ import { imgShapeContent as imgMaskFactoring } from "../../imports/svg-ispzh";
 import { imgShapeContent as imgMaskGuarantee } from "../../imports/svg-13p9s";
 import { imgShapeContent as imgMaskOverdraft } from "../../imports/svg-ck6p2";
 import { ALL_MODALS_DATA, UI_TEXT } from '../constants/modals';
-import ProductButton from './ProductButton';
+import DProductButton from './DProductButton';
 
 interface UnifiedModalProps {
   isOpen: boolean;
@@ -323,7 +323,7 @@ export default function UnifiedModal({ isOpen, onClose, modalKey, onAddToCart, i
             <div className="content-stretch flex flex-col gap-[12px] items-start pb-[40px] pt-[24px] px-[40px] relative w-full">
               <div className="content-stretch flex gap-[12px] items-center relative shrink-0" data-name="Buttons">
                 {isInCart ? (
-                  <ProductButton
+                  <DProductButton
                     variant="inCart"
                     onClick={() => {
                       if (onOpenCart) {
@@ -333,7 +333,7 @@ export default function UnifiedModal({ isOpen, onClose, modalKey, onAddToCart, i
                     }}
                   />
                 ) : (
-                  <ProductButton
+                  <DProductButton
                     variant="add"
                     onClick={() => {
                       if (onAddToCart) {

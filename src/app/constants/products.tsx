@@ -1,11 +1,11 @@
 // Products data and types - v2.0
-import imgIconView1 from "../../assets/a46b19810327a8da419337ef2b3b3e6ec44f353f.png";
-import imgIconView2 from "../../assets/935b0b72eac0ff8af0d2988501f6bace8e9ca20d.png";
-import imgIconView3 from "../../assets/7e8511301674d39f8cd176578d253954d9e47842.png";
-import imgIconView4 from "../../assets/30d972c5fac439fc586d71b84ea26790ff5d48ee.png";
-import imgIconView5 from "../../assets/1f419c8ea7101b3f8b826ac9e399696f51a0e351.png";
-import imgIconView6 from "../../assets/0ea90dc395def68741ab5acac4eae35370fa3187.png";
-import imgIconView7 from "../../assets/44690177e6c33f3932ceda7be51d1886a99a6432.png";
+import imgIconView1 from "figma:asset/a46b19810327a8da419337ef2b3b3e6ec44f353f.png";
+import imgIconView2 from "figma:asset/935b0b72eac0ff8af0d2988501f6bace8e9ca20d.png";
+import imgIconView3 from "figma:asset/7e8511301674d39f8cd176578d253954d9e47842.png";
+import imgIconView4 from "figma:asset/30d972c5fac439fc586d71b84ea26790ff5d48ee.png";
+import imgIconView5 from "figma:asset/1f419c8ea7101b3f8b826ac9e399696f51a0e351.png";
+import imgIconView6 from "figma:asset/0ea90dc395def68741ab5acac4eae35370fa3187.png";
+import imgIconView7 from "figma:asset/44690177e6c33f3932ceda7be51d1886a99a6432.png";
 
 export const PRODUCT_DATA = {
   acquiring: {

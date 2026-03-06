@@ -1,5 +1,5 @@
 import svgPaths from "./svg-xe87gnk8kz";
-import imgIconView from "../assets/935b0b72eac0ff8af0d2988501f6bace8e9ca20d.png";
+import imgIconView from "figma:asset/935b0b72eac0ff8af0d2988501f6bace8e9ca20d.png";
 import { imgShapeContent } from "./svg-d7vce";
 import StatusBadge from "../app/components/StatusBadge";
 

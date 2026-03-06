@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import CustomSlider from "./CustomSlider";
 import { useCart } from "../contexts/CartContext";
 import { PRODUCTS } from "./ProductCard";
-import ProductButton from "./ProductButton";
+import DProductButton from "./DProductButton";
 import StatusBadge from "./StatusBadge";
 import {
   FINANCING_TYPES,
@@ -266,7 +266,7 @@ export default function FinancingSidebar({
         selectedFinancingType: selectedType, // Добавляем выбранный тип финансирования
       };
 
-      // Сохраняем выбранный т����п финансиров����н��я в localStorage
+      // Сохраняем выбранный тип финансирования в localStorage
       localStorage.setItem("lastFinancingType", selectedType);
 
       if (isEditMode) {
@@ -822,7 +822,7 @@ export default function FinancingSidebar({
                   </div>
                 </div>
               </button>
-              <ProductButton
+              <DProductButton
                 variant={isEditMode ? "edit" : "add"}
                 onClick={handleAddToCart}
                 className="flex-[1_0_0]"

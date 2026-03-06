@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import svgPaths from "../../imports/svg-a5942q3te2";
 import svgPathsCart from "../../imports/svg-ojwadded7q";
 import { imgD1 } from "../../imports/svg-qw21c";
-import imgFaceThinking from "../../assets/0b7600ba10ccefdd829b525e4cfd2a18ac97c830.png";
-import imgSidePanel from "../../assets/6878f065873d30757849f54fc518cb914868a499.png";
+import imgFaceThinking from "figma:asset/0b7600ba10ccefdd829b525e4cfd2a18ac97c830.png";
+import imgSidePanel from "figma:asset/6878f065873d30757849f54fc518cb914868a499.png";
 import { UI_TEXT, PRODUCT_DATA } from '../constants/products';
 import { FINANCING_IMAGES } from '../constants/financingImages';
 import { ALL_MODALS_DATA } from '../constants/modals';
@@ -109,7 +109,7 @@ function CustomContentPartEmpty({ onClick }: { onClick: () => void }) {
 
 function Footer({ onCancel, onSubmit }: { onCancel: () => void, onSubmit: () => void }) {
   return (
-    <div className="bg-white content-stretch flex gap-[12px] items-end justify-end pb-[40px] pt-[24px] px-[16px] relative shrink-0 w-full" data-name="⥂ Footer">
+    <div className="bg-white content-stretch flex gap-[12px] items-end justify-end pb-[40px] pt-[24px] px-[16px] relative shrink-0 w-full" data-name="Footer">
       <button 
         onClick={onCancel}
         className="backdrop-blur-[40px] bg-[rgba(15,25,55,0.1)] content-stretch cursor-pointer flex gap-[4px] items-center justify-center min-h-[48px] min-w-[104px] overflow-clip px-[20px] py-[4px] relative rounded-[8px] shrink-0 hover:bg-[rgba(15,25,55,0.15)] transition-colors" 
@@ -178,6 +178,11 @@ export default function MobileCartSidebar({ onOpenFinancing, onOpenProductModal 
     onOpenProductModal(productId);
   };
 
+  // Обработка клика на кнопку редактирования финансирования
+  const handleEditFinancing = () => {
+    onOpenFinancing();
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -225,7 +230,7 @@ export default function MobileCartSidebar({ onOpenFinancing, onOpenProductModal 
                 <MobileCallSuccess phoneNumber={COMPANY_INFO.phone} />
                 
                 {/* Footer пустой */}
-                <div className="bg-white min-h-[16px] relative shrink-0 w-full" data-name="⥂ Footer">
+                <div className="bg-white min-h-[16px] relative shrink-0 w-full" data-name="Footer">
                   <div className="flex flex-row justify-end min-h-[inherit] size-full">
                     <div className="content-stretch flex items-start justify-end min-h-[inherit] pt-[16px] px-[8px] relative w-full">
                       <div className="flex-[1_0_0] h-[16px] min-h-px min-w-px" data-name="Fixer" />
@@ -265,6 +270,7 @@ export default function MobileCartSidebar({ onOpenFinancing, onOpenProductModal 
                       items={items} 
                       onRemoveItem={removeItem}
                       onItemClick={handleProductClick}
+                      onEditFinancing={handleEditFinancing}
                     />
                   </div>
                 )}
@@ -275,7 +281,7 @@ export default function MobileCartSidebar({ onOpenFinancing, onOpenProductModal 
                     <div className="h-[24px] shrink-0 w-[98px]" />
                   </div>
                 ) : (
-                  <div className="bg-white relative shrink-0 w-full" data-name="⥂ Footer">
+                  <div className="bg-white relative shrink-0 w-full" data-name="Footer">
                     <div className="content-stretch flex gap-[12px] items-start p-[16px] relative w-full">
                       <div className="bg-[#ef3124] flex-[1_0_0] min-h-[48px] min-w-[104px] relative rounded-[12px] cursor-pointer hover:bg-[#d92b1f] transition-colors" data-name="Button_1" onClick={handleSubmit}>
                         <div className="flex flex-row items-center justify-center min-h-[inherit] min-w-[inherit] overflow-clip rounded-[inherit] size-full">

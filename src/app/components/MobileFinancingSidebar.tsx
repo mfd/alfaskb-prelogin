@@ -9,20 +9,19 @@ interface MobileFinancingSidebarProps {
   isOpen: boolean;
   onClose: () => void;
   onAddToCart?: (productName: string, financingType: 'fastfin' | 'longfin', amount: number, term: number) => void;
-  initialFinancingType?: 'fastfin' | 'longfin';
-  initialProductName?: string;
-  initialAmount?: number;
-  initialTerm?: number;
+  editData?: {
+    financingType: 'fastfin' | 'longfin';
+    productName: string;
+    amount: number;
+    term: number;
+  };
 }
 
 export function MobileFinancingSidebar({ 
   isOpen, 
   onClose, 
   onAddToCart,
-  initialFinancingType,
-  initialProductName,
-  initialAmount,
-  initialTerm
+  editData
 }: MobileFinancingSidebarProps) {
   const { items } = useCart();
   const financingInCart = items.find((item) => item.id === "financing");
@@ -31,21 +30,42 @@ export function MobileFinancingSidebar({
   
   // Инициализируем с учетом переданных значений из корзины
   const getInitialFinancingType = () => {
-    if (initialFinancingType === 'fastfin') return 'fast';
-    if (initialFinancingType === 'longfin') return 'standard';
+    if (editData?.financingType === 'fastfin') return 'fast';
+    if (editData?.financingType === 'longfin') return 'standard';
     return 'fast';
   };
   
   const [selectedFinancing, setSelectedFinancing] = useState<"fast" | "standard">(getInitialFinancingType());
-  const [selectedProduct, setSelectedProduct] = useState(initialProductName || "Овердрафт");
+  const [selectedProduct, setSelectedProduct] = useState(editData?.productName || "Кредитная линия");
   
   // Получаем конфигурацию в зависимости от выбранного типа
   const config = selectedFinancing === "fast" ? FINANCING_CONFIG.fastFin : FINANCING_CONFIG.longFin;
-  const [amount, setAmount] = useState(initialAmount || config.minAmount);
-  const [term, setTerm] = useState(initialTerm || config.minTerm);
+  const [amount, setAmount] = useState(editData?.amount || config.minAmount);
+  const [term, setTerm] = useState(editData?.term || config.minTerm);
   
   // Получаем доступные продукты в зависимости от типа финансирования
   const availableProducts = selectedFinancing === "fast" ? FINANCING_TYPES.fastFin : FINANCING_TYPES.longFin;
+
+  // Обработчик изменения суммы
+  const handleAmountChange = (value: string) => {
+    // Удаляем все нечисловые символы
+    const numericValue = value.replace(/\D/g, '');
+    const newAmount = numericValue === '' ? config.minAmount : parseInt(numericValue, 10);
+    
+    // Ограничиваем значение минимумом и максимумом
+    const clampedAmount = Math.max(config.minAmount, Math.min(config.maxAmount, newAmount));
+    setAmount(clampedAmount);
+  };
+
+  // Обработчик изменения срока
+  const handleTermChange = (value: string) => {
+    const numericValue = value.replace(/\D/g, '');
+    const newTerm = numericValue === '' ? config.minTerm : parseInt(numericValue, 10);
+    
+    // Ограничиваем значение минимумом и максимумом
+    const clampedTerm = Math.max(config.minTerm, Math.min(config.maxTerm, newTerm));
+    setTerm(clampedTerm);
+  };
 
   // Обновляем состояние при открытии сайдбара с переданными значениями
   useEffect(() => {
@@ -53,21 +73,21 @@ export function MobileFinancingSidebar({
       // Сбрасываем на первый шаг при каждом открытии
       setStep(1);
       
-      if (initialFinancingType) {
-        const financingType = initialFinancingType === 'fastfin' ? 'fast' : 'standard';
+      if (editData?.financingType) {
+        const financingType = editData?.financingType === 'fastfin' ? 'fast' : 'standard';
         setSelectedFinancing(financingType);
       }
-      if (initialProductName) {
-        setSelectedProduct(initialProductName);
+      if (editData?.productName) {
+        setSelectedProduct(editData?.productName);
       }
-      if (initialAmount !== undefined) {
-        setAmount(initialAmount);
+      if (editData?.amount !== undefined) {
+        setAmount(editData?.amount);
       }
-      if (initialTerm !== undefined) {
-        setTerm(initialTerm);
+      if (editData?.term !== undefined) {
+        setTerm(editData?.term);
       }
     }
-  }, [isOpen, initialFinancingType, initialProductName, initialAmount, initialTerm]);
+  }, [isOpen, editData]);
 
   // Блокировка скролла страницы при открытом сайдбаре
   useEffect(() => {
@@ -83,15 +103,17 @@ export function MobileFinancingSidebar({
   }, [isOpen]);
 
   const handleContinue = () => {
-    // Обновляем лимиты при переходе на шаг 2
-    const newConfig = selectedFinancing === "fast" ? FINANCING_CONFIG.fastFin : FINANCING_CONFIG.longFin;
-    setAmount(newConfig.minAmount);
-    setTerm(newConfig.minTerm);
-    
     // Если выбранный продукт недоступен для типа финансирования, выбираем первый доступный
     const products = selectedFinancing === "fast" ? FINANCING_TYPES.fastFin : FINANCING_TYPES.longFin;
     if (!products.includes(selectedProduct as any)) {
       setSelectedProduct(products[0]);
+    }
+    
+    // Обновляем лимиты только если это не режим редактирования
+    if (!editData) {
+      const newConfig = selectedFinancing === "fast" ? FINANCING_CONFIG.fastFin : FINANCING_CONFIG.longFin;
+      setAmount(newConfig.minAmount);
+      setTerm(newConfig.minTerm);
     }
     
     setStep(2);
@@ -412,12 +434,16 @@ export function MobileFinancingSidebar({
                                   </div>
                                 </button>
                                 <div className="content-stretch flex flex-[1_0_0] flex-col gap-[2px] items-start min-h-px min-w-px not-italic relative" data-name="LabelText">
-                                  <p className="font-['SF_Pro_Text:Regular',sans-serif] leading-[18px] relative shrink-0 text-[14px] text-[rgba(4,4,19,0.55)] w-full">
+                                  <label className="font-['SF_Pro_Text:Regular',sans-serif] leading-[18px] relative shrink-0 text-[14px] text-[rgba(4,4,19,0.55)] w-full">
                                     Сумма кредита
-                                  </p>
-                                  <p className="font-['SF_Pro_Text:Bold',sans-serif] leading-[20px] relative shrink-0 text-[#0e0e0e] text-[16px] w-full">
-                                    {amount.toLocaleString('ru-RU')} ₽
-                                  </p>
+                                  </label>
+                                  <input
+                                    type="text"
+                                    inputMode="numeric"
+                                    value={amount.toLocaleString('ru-RU')}
+                                    onChange={(e) => handleAmountChange(e.target.value)}
+                                    className="font-['SF_Pro_Text:Bold',sans-serif] leading-[20px] text-[#0e0e0e] text-[16px] w-full bg-transparent border-none outline-none p-0"
+                                  />
                                 </div>
                                 <button 
                                   onClick={() => setAmount(Math.min(config.maxAmount, amount + (selectedFinancing === "fast" ? 10000000 : 50000000)))}
@@ -460,12 +486,16 @@ export function MobileFinancingSidebar({
                                   </div>
                                 </button>
                                 <div className="content-stretch flex flex-[1_0_0] flex-col gap-[2px] items-start min-h-px min-w-px not-italic relative" data-name="LabelText">
-                                  <p className="font-['SF_Pro_Text:Regular',sans-serif] leading-[18px] relative shrink-0 text-[14px] text-[rgba(4,4,19,0.55)] w-full">
+                                  <label className="font-['SF_Pro_Text:Regular',sans-serif] leading-[18px] relative shrink-0 text-[14px] text-[rgba(4,4,19,0.55)] w-full">
                                     Срок кредита
-                                  </p>
-                                  <p className="font-['SF_Pro_Text:Bold',sans-serif] leading-[20px] relative shrink-0 text-[#0e0e0e] text-[16px] w-full">
-                                    {term} мес.
-                                  </p>
+                                  </label>
+                                  <input
+                                    type="text"
+                                    inputMode="numeric"
+                                    value={term.toString()}
+                                    onChange={(e) => handleTermChange(e.target.value)}
+                                    className="font-['SF_Pro_Text:Bold',sans-serif] leading-[20px] text-[#0e0e0e] text-[16px] w-full bg-transparent border-none outline-none p-0"
+                                  />
                                 </div>
                                 <button 
                                   onClick={() => setTerm(Math.min(config.maxTerm, term + 6))}

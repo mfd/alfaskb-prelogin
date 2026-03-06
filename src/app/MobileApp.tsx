@@ -34,10 +34,16 @@ function MobileAppContent() {
   const [openProductId, setOpenProductId] = useState<string | null>(null);
   const { items, isOpen: isCartOpen, openCart, addItem, updateItem } = useCart();
 
+  // Получаем данные финансирования из корзины для редактирования
+  const financingInCart = items.find((item) => item.id === "financing");
+  const financingEditData = financingInCart ? {
+    financingType: financingInCart.financingType as 'fastfin' | 'longfin',
+    productName: financingInCart.selectedFinancingType || "Овердрафт",
+    amount: Number(financingInCart.loanAmount) || 20000000,
+    term: Number(financingInCart.loanTerm) || 12,
+  } : undefined;
+
   const handleAddFinancingToCart = (productName: string, financingType: 'fastfin' | 'longfin', amount: number, term: number) => {
-    const financingInCart = items.find((item) => item.id === "financing");
-    const isEditMode = Boolean(financingInCart);
-    
     const financingProduct = PRODUCTS.find((p) => p.id === "financing");
     if (!financingProduct) return;
 
@@ -52,7 +58,7 @@ function MobileAppContent() {
       selectedFinancingType: productName,
     };
 
-    if (isEditMode) {
+    if (financingInCart) {
       updateItem(itemToAdd);
     } else {
       addItem(itemToAdd);
@@ -129,6 +135,7 @@ function MobileAppContent() {
         isOpen={isFinancingSidebarOpen} 
         onClose={() => setIsFinancingSidebarOpen(false)}
         onAddToCart={handleAddFinancingToCart}
+        editData={financingEditData}
       />
 
       {/* BottomSheet для типов финансирования */}

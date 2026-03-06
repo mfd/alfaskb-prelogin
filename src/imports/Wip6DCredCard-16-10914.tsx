@@ -1,5 +1,5 @@
 import svgPaths from "./svg-g3h07tdvev";
-import imgWip6DCredCard from "../assets/42c1815a218a3d04336231b42bf5ce9f92b014e5.png";
+import imgWip6DCredCard from "figma:asset/42c1815a218a3d04336231b42bf5ce9f92b014e5.png";
 import { imgWip6DCredCard1 } from "./svg-sbhrw";
 import StatusBadge from "../app/components/StatusBadge";
 
