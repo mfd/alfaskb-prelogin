@@ -3,6 +3,7 @@ import { useCart } from '../contexts/CartContext';
 import { useState, useEffect } from 'react';
 import svgPaths from "../../imports/svg-a5942q3te2";
 import svgPathsCart from "../../imports/svg-ojwadded7q";
+import svgPathsEmpty from "../../imports/svg-jk6wjpgdyc";
 import { imgD1 } from "../../imports/svg-qw21c";
 import imgFaceThinking from "figma:asset/0b7600ba10ccefdd829b525e4cfd2a18ac97c830.png";
 import imgSidePanel from "figma:asset/6878f065873d30757849f54fc518cb914868a499.png";
@@ -26,6 +27,58 @@ function Cross({ onClick }: { onClick: () => void }) {
         </div>
       </div>
     </button>
+  );
+}
+
+// Компонент пустого состояния корзины из Figma
+function EmptyCartState({ onClose }: { onClose: () => void }) {
+  return (
+    <div className="flex-[1_0_0] min-h-px min-w-px relative w-full" data-name="[Custom Content Part]">
+      <div className="content-stretch flex flex-col items-start px-[16px] relative size-full">
+        <div className="flex-[1_0_0] min-h-px min-w-px relative w-full" data-name=".Basket-ServiceMessage">
+          <div className="content-stretch flex flex-col items-start py-[16px] relative size-full">
+            <div className="content-stretch flex flex-col h-[672px] items-center justify-center relative shrink-0 w-full" data-name="ServiceMessage">
+              <div className="content-stretch flex flex-col items-center relative shrink-0 w-full" data-name="TopSlot">
+                <div className="content-stretch flex flex-col items-center relative shrink-0 w-full" data-name="TopSlot">
+                  <div className="content-stretch flex items-start justify-center pb-[24px] relative rounded-[16px] shrink-0 w-full" data-name="Graphic">
+                    <div className="overflow-clip relative shrink-0 size-[72px]" data-name="face_thinking">
+                      <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgFaceThinking} />
+                    </div>
+                  </div>
+                  <div className="relative shrink-0 w-full" data-name="Text Content">
+                    <div className="flex flex-col items-center size-full">
+                      <div className="content-stretch flex flex-col gap-[8px] items-center not-italic px-[16px] relative text-[rgba(3,3,6,0.88)] text-center w-full">
+                        <p className="font-['SF_Pro_Display:Semibold',sans-serif] leading-[28px] relative shrink-0 text-[20px] tracking-[0.38px] w-full">{UI_TEXT.emptyCartTitle}</p>
+                        <p className="font-['SF_Pro_Text:Regular',sans-serif] leading-[20px] relative shrink-0 text-[14px] w-full">{UI_TEXT.emptyCartDescription}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="content-stretch flex items-end justify-between overflow-clip pt-[24px] relative shrink-0 w-full" data-name=".Button">
+                    <div className="content-stretch flex flex-[1_0_0] flex-col gap-[12px] items-center justify-end min-h-px min-w-px relative" data-name="Buttons">
+                      <button 
+                        onClick={onClose}
+                        className="backdrop-blur-[40px] bg-[rgba(38,55,88,0.06)] cursor-pointer min-h-[48px] min-w-[104px] relative rounded-[12px] shrink-0 w-full hover:bg-[rgba(38,55,88,0.1)] transition-colors" 
+                        data-name="Button_2"
+                      >
+                        <div className="flex flex-row items-center justify-center min-h-[inherit] min-w-[inherit] overflow-clip rounded-[inherit] size-full">
+                          <div className="content-stretch flex gap-[4px] items-center justify-center min-h-[inherit] min-w-[inherit] px-[20px] py-[4px] relative w-full">
+                            <div className="content-stretch flex flex-col items-center px-[4px] relative shrink-0" data-name="Text">
+                              <div className="flex flex-col font-['SF_Pro_Text:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[16px] text-[rgba(3,3,6,0.88)] text-left whitespace-nowrap">
+                                <p className="leading-[24px]">{UI_TEXT.emptyCartButton}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -144,20 +197,6 @@ export default function MobileCartSidebar({ onOpenFinancing, onOpenProductModal 
   const { items, removeItem, isOpen, closeCart, clearCart } = useCart();
   const [showSuccess, setShowSuccess] = useState(false);
 
-  // Блокировка скролла при открытой корзине
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-      setShowSuccess(false);
-    }
-
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isOpen]);
-
   const handleSubmit = () => {
     setShowSuccess(true);
     clearCart();
@@ -179,6 +218,7 @@ export default function MobileCartSidebar({ onOpenFinancing, onOpenProductModal 
 
   // Обработка клика на кнопку редактирования финансирования
   const handleEditFinancing = () => {
+    closeCart(); // Закрываем корзину перед открытием сайдпанели финансирования
     onOpenFinancing();
   };
 
@@ -262,7 +302,7 @@ export default function MobileCartSidebar({ onOpenFinancing, onOpenProductModal 
 
                 {/* Content */}
                 {items.length === 0 ? (
-                  <CustomContentPartEmpty onClick={closeCart} />
+                  <EmptyCartState onClose={closeCart} />
                 ) : (
                   <div className="flex-[1_0_0] min-h-px min-w-px relative w-full overflow-auto" data-name="[Custom Content Part]">
                     <MobileCartContent 

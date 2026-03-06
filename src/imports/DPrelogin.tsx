@@ -327,11 +327,7 @@ function Content3() {
 function Wrap() {
   return (
     <div className="content-stretch flex flex-col gap-[8px] items-start not-italic relative shrink-0 w-full whitespace-nowrap" data-name="wrap">
-      <p className='font-["SF_Pro_Display",sans-serif] font-bold leading-[26px] relative shrink-0 text-[22px] text-[rgba(255,255,255,0.94)]'>
-        Получите
-        <br aria-hidden="true" />
-        финансирование
-      </p>
+      <p className='font-["SF_Pro_Display",sans-serif] font-bold leading-[26px] relative shrink-0 text-[22px] text-[rgba(255,255,255,0.94)]'>Получите<br aria-hidden="true" />финансирование</p>
       <p className="font-['SF_Pro_Text:Regular',sans-serif] leading-[24px] relative shrink-0 text-[16px] text-[rgba(238,238,251,0.55)]">
         Без залога, по 2 документам
         <br aria-hidden="true" />и всего за 3 дня
@@ -368,7 +364,7 @@ function Text5() {
   return (
     <div className="content-stretch flex flex-[1_0_0] flex-col gap-[2px] items-start leading-[0] min-h-px min-w-px not-italic relative" data-name="Text">
       <div className="flex flex-col font-['SF_Pro_Display:Bold',sans-serif] justify-center relative shrink-0 text-[22px] text-[rgba(255,255,255,0.94)] w-full">
-        <p className="not-italic font-bold text-[22px] leading-[26px]">До 50 млн ₽</p>
+        <p className="not-italic font-bold text-[22px] leading-[26px]">До 200 млн ₽</p>
       </div>
       <div className="flex flex-col font-['SF_Pro_Text:Regular',sans-serif] h-[18px] justify-center relative shrink-0 text-[14px] text-[rgba(238,238,251,0.55)] w-full">
         <p className="leading-[18px]">до 36 мес</p>
@@ -723,7 +719,7 @@ function ListItem5() {
   return (
     <div className="content-stretch flex flex-col gap-[2px] items-start relative shrink-0 w-full" data-name="ListItem3">
       <div className="content-stretch flex font-['SF_Pro_Text:Regular',sans-serif] gap-[8px] items-start leading-[24px] not-italic relative shrink-0 text-[16px] w-full" data-name="ListItem3">
-        <p className="relative shrink-0 text-[#ef3124] w-[8px]">•</p>
+        <p className="relative shrink-0 text-[#ef3124] w-[8px]">��</p>
         <p className="flex-[1_0_0] min-h-px min-w-px relative text-[rgba(3,3,6,0.88)]">Подберём удобный вид размещения</p>
       </div>
     </div>
@@ -1369,11 +1365,11 @@ function Body() {
 }
 
 function BgHeight1() {
-  return <div className="bg-[#121213] h-[64px] rounded-tl-[64px] rounded-tr-[64px] shrink-0 w-[1280px]" data-name="BG_height_64" />;
+  return <div className="bg-[#121213] h-[64px] rounded-tl-[64px] rounded-tr-[64px] shrink-0 w-full" data-name="BG_height_64" />;
 }
 
 function BgFill() {
-  return <div className="bg-[#121213] flex-[1_0_0] min-h-px min-w-px w-[1280px]" data-name="BG_fill" />;
+  return <div className="bg-[#121213] flex-[1_0_0] min-h-px min-w-px w-full" data-name="BG_fill" />;
 }
 
 function Background() {
@@ -1455,7 +1451,7 @@ function SeoText() {
 
 function Content16() {
   return (
-    <div className="content-stretch flex flex-col items-center px-[70px] relative shrink-0 w-[1280px]" data-name="Content">
+    <div className="content-stretch flex flex-col items-center px-[70px] relative shrink-0 w-full" data-name="Content">
       <BreadCrumbs />
       <SeoText />
     </div>
@@ -1466,7 +1462,7 @@ function Desktop() {
   return (
     <div className="absolute bg-white content-stretch flex flex-col items-center left-1/2 -translate-x-1/2 overflow-clip pt-[72px] top-0 w-[1280px]" data-name="Desktop">
       <Body />
-      <div className="content-stretch flex flex-col items-center justify-end relative rounded-tl-[64px] rounded-tr-[64px] shrink-0 w-[1280px]" data-name="Footer">
+      <div className="content-stretch flex flex-col items-center justify-end relative rounded-tl-[64px] rounded-tr-[64px] shrink-0 w-full" data-name="Footer">
         <Background />
         <Content16 />
       </div>

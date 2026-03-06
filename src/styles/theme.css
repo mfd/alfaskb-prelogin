@@ -306,4 +306,11 @@
       transparent 4px
     );
   }
+
+  /* Mobile scroll lock - предотвращает "прыжок" контента */
+  body.mobile-scroll-lock {
+    position: fixed;
+    width: 100%;
+    overflow: hidden;
+  }
 }

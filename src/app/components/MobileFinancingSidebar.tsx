@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from 'motion/react';
+import { useState, useEffect } from 'react';
 import svgPaths from "../../imports/svg-dnpvkijhrb";
 import svgPaths2 from "../../imports/svg-s15f722lfk";
 import { FINANCING_CONFIG, FINANCING_TYPES } from "../constants/financing";
@@ -11,7 +12,7 @@ interface MobileFinancingSidebarProps {
   onAddToCart?: (productName: string, financingType: 'fastfin' | 'longfin', amount: number, term: number) => void;
   editData?: {
     financingType: 'fastfin' | 'longfin';
-    productName: string;
+    productId: string;
     amount: number;
     term: number;
   };
@@ -36,12 +37,12 @@ export function MobileFinancingSidebar({
   };
   
   const [selectedFinancing, setSelectedFinancing] = useState<"fast" | "standard">(getInitialFinancingType());
-  const [selectedProduct, setSelectedProduct] = useState(editData?.productName || "Кредитная линия");
+  const [selectedProduct, setSelectedProduct] = useState(editData?.productId || "Кредитная линия");
   
   // Получаем конфигурацию в зависимости от выбранного типа
   const config = selectedFinancing === "fast" ? FINANCING_CONFIG.fastFin : FINANCING_CONFIG.longFin;
-  const [amount, setAmount] = useState(editData?.amount || config.minAmount);
-  const [term, setTerm] = useState(editData?.term || config.minTerm);
+  const [amount, setAmount] = useState(editData?.amount || config.defaultAmount);
+  const [term, setTerm] = useState(editData?.term || config.defaultTerm);
   
   // Получаем доступные продукты в зависимости от типа финансирования
   const availableProducts = selectedFinancing === "fast" ? FINANCING_TYPES.fastFin : FINANCING_TYPES.longFin;
@@ -85,38 +86,16 @@ export function MobileFinancingSidebar({
 
   // Обновляем состояние при открытии сайдбара с переданными значениями
   useEffect(() => {
-    if (isOpen) {
-      // Сбрасываем на первый шаг при каждом открытии
-      setStep(1);
-      
-      if (editData?.financingType) {
-        const financingType = editData?.financingType === 'fastfin' ? 'fast' : 'standard';
-        setSelectedFinancing(financingType);
-      }
-      if (editData?.productName) {
-        setSelectedProduct(editData?.productName);
-      }
-      if (editData?.amount !== undefined) {
-        setAmount(editData?.amount);
-      }
-      if (editData?.term !== undefined) {
-        setTerm(editData?.term);
-      }
+    if (isOpen && editData) {
+      setSelectedFinancing(editData.financingType === 'fastfin' ? 'fast' : 'standard');
+      setSelectedProduct(editData.productId);
+      setAmount(editData.amount);
+      setTerm(editData.term);
+      setStep(1); // Всегда начинаем с первого шага
+    } else if (isOpen) {
+      setStep(1); // Начинаем с первого шага при добавлении нового
     }
   }, [isOpen, editData]);
-
-  // Блокировка скролла страницы при открытом сайдбаре
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isOpen]);
 
   const handleContinue = () => {
     // Если выбранный продукт недоступен для типа финансирования, выбираем первый доступный
@@ -128,8 +107,8 @@ export function MobileFinancingSidebar({
     // Обновляем лимиты только если это не режим редактирования
     if (!editData) {
       const newConfig = selectedFinancing === "fast" ? FINANCING_CONFIG.fastFin : FINANCING_CONFIG.longFin;
-      setAmount(newConfig.minAmount);
-      setTerm(newConfig.minTerm);
+      setAmount(newConfig.defaultAmount);
+      setTerm(newConfig.defaultTerm);
     }
     
     setStep(2);
@@ -185,7 +164,7 @@ export function MobileFinancingSidebar({
                 </button>
               )}
               <p className="font-['SF_Pro_Display:Semibold',sans-serif] leading-[28px] min-w-full not-italic relative shrink-0 text-[20px] text-[rgba(3,3,6,0.88)] tracking-[0.38px] w-[min-content]">
-                Получите финансирование
+                {isEditMode ? "Изменить финансирование" : "Получите финансирование"}
               </p>
             </div>
             <button 
@@ -271,12 +250,12 @@ export function MobileFinancingSidebar({
                               <div className="content-stretch flex items-start justify-between relative shrink-0 w-full" data-name="M_Main">
                                 <div className="content-stretch flex flex-[1_0_0] items-start min-h-px min-w-px relative" data-name="Headline.Typography">
                                   <p className="flex-[1_0_0] font-['SF_Pro_Text:Semibold',sans-serif] leading-[20px] min-h-px min-w-px not-italic relative text-[16px] text-[rgba(3,3,6,0.88)] text-left tracking-[-0.32px]">
-                                    Вам одобрен кредитный лимит
+                                    {FINANCING_CONFIG.fastFin.title}
                                   </p>
                                 </div>
                               </div>
                               <p className="font-['SF_Pro_Text:Regular',sans-serif] leading-[20px] min-w-full not-italic relative shrink-0 text-[14px] text-[rgba(3,3,6,0.88)] text-left w-[min-content]">
-                                Когда нужны деньги на развитие своего дела
+                                {FINANCING_CONFIG.fastFin.cardDescription}
                               </p>
                             </div>
                             <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-name=".M_ParameterSlot">
@@ -289,7 +268,7 @@ export function MobileFinancingSidebar({
                                   </div>
                                   <div className="content-stretch flex items-center relative shrink-0" data-name=".Value">
                                     <p className="font-['SF_Pro_Text:Bold',sans-serif] leading-[24px] not-italic relative shrink-0 text-[16px] text-[rgba(3,3,6,0.88)] text-left whitespace-nowrap">
-                                      до 200 млн ₽
+                                      {FINANCING_CONFIG.fastFin.cardAmountLabel}
                                     </p>
                                   </div>
                                 </div>
@@ -301,7 +280,7 @@ export function MobileFinancingSidebar({
                                   </div>
                                   <div className="content-stretch flex items-center justify-center relative shrink-0" data-name=".Value">
                                     <p className="font-['SF_Pro_Text:Bold',sans-serif] leading-[24px] not-italic relative shrink-0 text-[16px] text-[rgba(3,3,6,0.88)] text-left whitespace-nowrap">
-                                      до 36 мес.
+                                      {FINANCING_CONFIG.fastFin.cardTermLabel}
                                     </p>
                                   </div>
                                 </div>
@@ -329,12 +308,12 @@ export function MobileFinancingSidebar({
                               <div className="content-stretch flex items-center justify-between relative shrink-0 w-full" data-name="M_Main">
                                 <div className="content-stretch flex flex-[1_0_0] items-start min-h-px min-w-px relative" data-name="Headline.Typography">
                                   <p className="flex-[1_0_0] font-['SF_Pro_Text:Semibold',sans-serif] leading-[20px] min-h-px min-w-px not-italic relative text-[16px] text-[rgba(3,3,6,0.88)] text-left tracking-[-0.32px]">
-                                    На общих условиях
+                                    {FINANCING_CONFIG.longFin.title}
                                   </p>
                                 </div>
                               </div>
                               <p className="font-['SF_Pro_Text:Regular',sans-serif] leading-[20px] min-w-full not-italic relative shrink-0 text-[14px] text-[rgba(3,3,6,0.88)] text-left w-[min-content]">
-                                Когда нужны деньги на развитие своего дела
+                                {FINANCING_CONFIG.longFin.cardDescription}
                               </p>
                             </div>
                             <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-name=".M_ParameterSlot">
@@ -347,7 +326,7 @@ export function MobileFinancingSidebar({
                                   </div>
                                   <div className="content-stretch flex items-center relative shrink-0" data-name=".Value">
                                     <p className="font-['SF_Pro_Text:Bold',sans-serif] leading-[24px] not-italic relative shrink-0 text-[16px] text-[rgba(3,3,6,0.88)] text-right whitespace-nowrap">
-                                      до 99 млрд ₽
+                                      {FINANCING_CONFIG.longFin.cardAmountLabel}
                                     </p>
                                   </div>
                                 </div>
@@ -359,7 +338,7 @@ export function MobileFinancingSidebar({
                                   </div>
                                   <div className="content-stretch flex items-center justify-center relative shrink-0" data-name=".Value">
                                     <p className="font-['SF_Pro_Text:Bold',sans-serif] leading-[24px] not-italic relative shrink-0 text-[16px] text-[rgba(3,3,6,0.88)] text-left whitespace-nowrap">
-                                      до 120 мес.
+                                      {FINANCING_CONFIG.longFin.cardTermLabel}
                                     </p>
                                   </div>
                                 </div>
@@ -383,7 +362,7 @@ export function MobileFinancingSidebar({
                       </div>
                       <div className="bg-white content-stretch flex flex-col gap-[16px] items-center relative shrink-0 w-full">
                         <div className="content-stretch flex items-center justify-center relative shrink-0 w-full" data-name="Headline.Typography">
-                          <p className="flex-[1_0_0] font-['SF_Pro_Display:Semibold',sans-serif] leading-[28px] min-h-px min-w-px not-italic relative text-[20px] text-[rgba(3,3,6,0.88)] tracking-[0.38px]"><span className="font-bold">Выберите тип финансирования</span></p>
+                          <p className="flex-[1_0_0] font-['SF_Pro_Display:Semibold',sans-serif] leading-[28px] min-h-px min-w-px not-italic relative text-[20px] text-[rgba(3,3,6,0.88)] tracking-[0.38px]">Выберите тип финансирования</p>
                         </div>
                         <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full" data-name="TagGroup">
                           <div className="content-start flex flex-wrap gap-[12px_8px] items-start relative shrink-0 w-full" data-name="Group">
@@ -420,7 +399,7 @@ export function MobileFinancingSidebar({
                       </div>
                       <div className="bg-white content-stretch flex flex-col items-start relative shrink-0 w-full">
                         <div className="content-stretch flex items-center justify-center relative shrink-0 w-full" data-name="Headline.Typography">
-                          <p className="flex-[1_0_0] font-['SF_Pro_Display:Semibold',sans-serif] leading-[28px] min-h-px min-w-px not-italic relative text-[20px] text-[rgba(3,3,6,0.88)] tracking-[0.38px] font-bold">
+                          <p className="flex-[1_0_0] font-['SF_Pro_Display:Semibold',sans-serif] leading-[28px] min-h-px min-w-px not-italic relative text-[20px] text-[rgba(3,3,6,0.88)] tracking-[0.38px]">
                             Выберите условия
                           </p>
                         </div>
@@ -582,10 +561,10 @@ export function MobileFinancingSidebar({
                     data-name="[M] CustomButton"
                   >
                     <div className="flex flex-row items-center justify-center min-h-[inherit] min-w-[inherit] overflow-clip rounded-[inherit] size-full">
-                      <div className="content-stretch flex gap-[2px] items-center justify-center min-h-[inherit] min-w-[inherit] px-[16px] py-[4px] relative w-full">
+                      <div className="content-stretch flex gap-[4px] items-center justify-center min-h-[inherit] min-w-[inherit] px-[20px] py-[4px] relative w-full">
                         <div className="content-stretch flex flex-col items-center px-[4px] relative shrink-0" data-name="Text">
-                          <div className="flex flex-col font-['SF_Pro_Text:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[14px] text-[rgba(3,3,6,0.88)] whitespace-nowrap">
-                            <p className="leading-[20px]">Отменить</p>
+                          <div className="flex flex-col font-['SF_Pro_Text:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[16px] text-[rgba(3,3,6,0.88)] whitespace-nowrap">
+                            <p className="leading-[24px]">Отменить</p>
                           </div>
                         </div>
                       </div>
@@ -599,10 +578,10 @@ export function MobileFinancingSidebar({
                     data-name="[M] CustomButton"
                   >
                     <div className="flex flex-row items-center justify-center min-h-[inherit] min-w-[inherit] overflow-clip rounded-[inherit] size-full">
-                      <div className="content-stretch flex gap-[2px] items-center justify-center min-h-[inherit] min-w-[inherit] px-[16px] py-[4px] relative w-full">
+                      <div className="content-stretch flex gap-[4px] items-center justify-center min-h-[inherit] min-w-[inherit] px-[20px] py-[4px] relative w-full">
                         <div className="content-stretch flex flex-col items-center px-[4px] relative shrink-0" data-name="Text">
-                          <div className="flex flex-col font-['SF_Pro_Text:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[14px] text-[rgba(255,255,255,0.94)] whitespace-nowrap">
-                            <p className="leading-[20px]">Сохранить</p>
+                          <div className="flex flex-col font-['SF_Pro_Text:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[16px] text-[rgba(255,255,255,0.94)] whitespace-nowrap">
+                            <p className="leading-[24px]">Сохранить</p>
                           </div>
                         </div>
                       </div>

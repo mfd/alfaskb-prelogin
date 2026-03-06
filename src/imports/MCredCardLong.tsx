@@ -4,6 +4,7 @@ import { imgWip6MCredCard1 } from "./svg-wic6l";
 import { StatusBadge } from "../app/components/StatusBadge";
 import { MobileFinancingButtons } from "../app/components/MobileFinancingButtons";
 import { formatAmount } from "../app/utils/formatAmount";
+import { ALL_MODALS_DATA } from "../app/constants/modals";
 
 interface MCredCardLongProps {
   onOpenFinancing?: () => void;
@@ -21,6 +22,9 @@ export default function MCredCardLong({ onOpenFinancing, onOpenCart, loanAmount 
   const limitTexts = financingType === 'fastfin' 
     ? { amount: 'из 200 млн ₽', term: 'до 36 мес' }
     : { amount: 'из 99 млрд ₽', term: 'до 120 месяцев' };
+  
+  // Получаем данные из constants
+  const creditLineData = ALL_MODALS_DATA["Кредитная линия"];
     
   return (
     <div className="bg-[#1c1c1e] content-stretch flex flex-col gap-[16px] items-start p-[16px] relative rounded-[24px] size-full" data-name="wip6 / M_CredCard">
@@ -41,8 +45,8 @@ export default function MCredCardLong({ onOpenFinancing, onOpenCart, loanAmount 
       <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full" data-name="body">
         <StatusBadge variant="longFinContrast" />
         <div className="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-full" data-name="wrap">
-          <p className="font-['SF_Pro_Display:Semibold',sans-serif] leading-[28px] not-italic relative shrink-0 text-[20px] text-[rgba(255,255,255,0.94)] tracking-[0.38px] whitespace-nowrap">Кредитная линия</p>
-          <p className="font-['SF_Pro_Text:Regular',sans-serif] leading-[20px] min-w-full not-italic relative shrink-0 text-[14px] text-[rgba(255,255,255,0.94)] w-[min-content]">Одобрим единый кредитный лимит на всё и сразу</p>
+          <p className="font-['SF_Pro_Display:Semibold',sans-serif] leading-[28px] not-italic relative shrink-0 text-[20px] text-[rgba(255,255,255,0.94)] tracking-[0.38px] whitespace-nowrap">{creditLineData.title}</p>
+          <p className="font-['SF_Pro_Text:Regular',sans-serif] leading-[20px] min-w-full not-italic relative shrink-0 text-[14px] text-[rgba(255,255,255,0.94)] w-[min-content]">{creditLineData.subtitle}</p>
         </div>
       </div>
       <div className="content-stretch flex gap-[16px] h-[54px] items-start not-italic relative shrink-0 w-full" data-name=".SKBPL_KredCfg">

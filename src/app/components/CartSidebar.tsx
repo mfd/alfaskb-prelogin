@@ -32,7 +32,7 @@ function Cross({ onClick }: { onClick: () => void }) {
 function Title() {
   return (
     <div className="content-stretch flex items-start justify-center pb-[4px] relative shrink-0 w-full" data-name="Title">
-      <p className="flex-[1_0_0] font-bold leading-[36px] min-h-px min-w-px not-italic relative text-[30px] text-[rgba(3,3,6,0.88)] text-center">Ваш список пуст</p>
+      <p className="flex-[1_0_0] font-bold leading-[36px] min-h-px min-w-px not-italic relative text-[30px] text-[rgba(3,3,6,0.88)] text-center">{UI_TEXT.emptyCartTitle}</p>
     </div>
   );
 }
@@ -45,7 +45,7 @@ function Text({ onClick }: { onClick: () => void }) {
   return (
     <div className="content-stretch flex flex-col items-center px-[4px] relative shrink-0" data-name="Text">
       <div className="flex flex-col font-sf-text-medium justify-center leading-[0] not-italic relative shrink-0 text-[16px] text-[rgba(3,3,6,0.88)] text-left whitespace-nowrap">
-        <p className="leading-[24px]">Понятно</p>
+        <p className="leading-[24px]">{UI_TEXT.emptyCartButton}</p>
       </div>
     </div>
   );
@@ -78,7 +78,7 @@ function TopSlot({ onClick }: { onClick: () => void }) {
           <div className="flex flex-col items-center size-full">
             <div className="content-stretch flex flex-col gap-[8px] items-center px-[16px] relative w-full">
               <Title />
-              <p className="font-sf-text-regular leading-[24px] not-italic relative shrink-0 text-[16px] text-[rgba(3,3,6,0.88)] text-center w-full">Добавляйте интересующие вас продукты для быстрой консультации и подключения в будущем</p>
+              <p className="font-sf-text-regular leading-[24px] not-italic relative shrink-0 text-[16px] text-[rgba(3,3,6,0.88)] text-center w-full">{UI_TEXT.emptyCartDescription}</p>
             </div>
           </div>
         </div>
@@ -137,7 +137,7 @@ function Footer({ onCancel, onSubmit }: { onCancel: () => void, onSubmit: () => 
           <div className="content-stretch flex gap-[4px] items-center justify-center min-h-[inherit] min-w-[inherit] px-[20px] py-[4px] relative w-full">
             <div className="content-stretch flex flex-col items-center px-[4px] relative shrink-0" data-name="Text">
               <div className="flex flex-col font-sf-text-medium justify-center leading-[0] not-italic relative shrink-0 text-[16px] text-white whitespace-nowrap">
-                <p className="leading-[24px]">Отправить за��вку</p>
+                <p className="leading-[24px]">Отправить завку</p>
               </div>
             </div>
           </div>

@@ -234,7 +234,7 @@ function Text() {
       data-name="Text"
     >
       <div className="flex flex-col font-['SF_Pro_Text:Semibold',sans-serif] justify-center relative shrink-0 text-[16px] text-[rgba(255,255,255,0.94)] tracking-[-0.32px] w-full">
-        <p className="leading-[20px] font-bold">До 50 млн ₽</p>
+        <p className="leading-[20px] font-bold">До 200 млн ₽</p>
       </div>
       <div className="flex flex-col font-['SF_Pro_Text:Regular',sans-serif] h-[18px] justify-center relative shrink-0 text-[11px] text-[rgba(238,238,251,0.55)] w-full">
         <p className="leading-[16px]">до 36 мес</p>
@@ -2690,10 +2690,10 @@ function Socials() {
 function InfoText() {
   return (
     <div
-      className="grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0 w-full"
+      className="grid-cols-[1fr] grid-rows-[max-content] grid leading-[0] place-items-start relative shrink-0 w-full"
       data-name="Info text"
     >
-      <p className="col-1 font-['SF_Pro_Text:Regular',sans-serif] ml-0 mt-0 not-italic relative row-1 text-[12px] text-[rgba(255,255,255,0.94)] w-[312px] whitespace-pre-wrap">
+      <p className="col-1 font-['SF_Pro_Text:Regular',sans-serif] ml-0 mt-0 not-italic relative row-1 text-[12px] text-[rgba(255,255,255,0.94)] w-full whitespace-pre-wrap">
         <span className="leading-[16px]">{`© 2001-2026. АО «Альфа-Банк», официальный сайт. Генеральная лицензия Банка России № 1326 от 16 января 2015 г. `}</span>
         <a
           className="[text-decoration-skip-ink:none] cursor-pointer decoration-solid leading-[16px] underline"

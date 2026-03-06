@@ -25,7 +25,7 @@ export const ALL_MODALS_DATA: Record<string, ModalData> = {
   // Финансирование
   "Кредитная линия": {
     title: "Кредитная линия",
-    subtitle: "Одобрим единый кредитный лимит на всё и сразу",
+    subtitle: "Одобрим единый кредитный лимит на всё и сразу1",
     description: "Получите решение в срок от 3 до 7 дней",
     benefits: [
       {
@@ -62,7 +62,7 @@ export const ALL_MODALS_DATA: Record<string, ModalData> = {
   Факторинг: {
     title: "Факторинг",
     subtitle: "Финансируйте поставки и закупки",
-    description: "Получайте деньги сразу после отгрузки товара",
+    description: "Получайте деньги сразу после отгрузки товара1",
     benefits: [
       {
         key: "fast",
@@ -441,10 +441,14 @@ export const ALL_MODALS_DATA: Record<string, ModalData> = {
 };
 
 export const UI_TEXT = {
-  modalClose: "Close modal",
+  modalClose: "Закрыть",
   benefitsTitle: "Преимущества",
   addButton: "Добавить",
   cartTitle: "Ваш список",
+  emptyCartTitle: "Ваш список пуст",
+  emptyCartDescription:
+    "Добавляйте интересующие вас продукты для быстрой консультации и подключения в будущем",
+  emptyCartButton: "Понятно",
 };
 
 // Маппинг данных продуктов для использования с короткими ключами (acquiring, salary, etc.)

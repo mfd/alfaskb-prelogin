@@ -4,9 +4,11 @@ import MCredCardFast from '../../imports/MCredCardFast';
 import MCredCardLong from '../../imports/MCredCardLong';
 import { useCart } from '../contexts/CartContext';
 import { PRODUCTS } from './ProductCard';
-import { FINANCING_SUBTITLES, FINANCING_ICON_POSITIONS } from '../constants/financing';
+import { FINANCING_ICON_POSITIONS } from '../constants/financing';
 import { FINANCING_IMAGES, FINANCING_MASKS } from '../constants/financingImages';
+import { ALL_MODALS_DATA } from '../constants/modals';
 import { formatAmount } from '../utils/formatAmount';
+import { createRoot } from 'react-dom/client';
 
 interface MPreloginWrapperProps {
   onOpenFinancing: () => void;
@@ -103,23 +105,32 @@ export default function MPreloginWrapper({
       // Нормализуем текст: заменяем все пробельные символы (включая переносы строк) на один пробел
       const title = titleElement.textContent.trim().replace(/\s+/g, ' ');
       
-      // Находим продукт по заголовку
-      const product = PRODUCTS.find(p => p.title === title);
+      // Находим продукт по заголовку с нормализацией обеих строк для сравнения
+      const product = PRODUCTS.find(p => {
+        const normalizedProductTitle = p.title.trim().replace(/\s+/g, ' ');
+        const normalizedTitle = title.trim().replace(/\s+/g, ' ');
+        return normalizedProductTitle === normalizedTitle;
+      });
       if (!product) {
-        console.warn('Product not found:', title, 'Available products:', PRODUCTS.map(p => p.title));
+        console.warn('Product not found:', JSON.stringify(title), 'Available products:', PRODUCTS.map(p => JSON.stringify(p.title)));
         return;
       }
 
       e.preventDefault();
       e.stopPropagation();
 
-      // Переключаем состояние продукта в корзине
-      toggleItem({
-        id: product.id,
-        title: product.title,
-        icon: product.icon,
-        productId: product.id,
-      });
+      // Если продукт уже в корзине, открываем корзину
+      if (isInCart(product.id)) {
+        onOpenCart?.();
+      } else {
+        // Иначе добавляем продукт в корзину
+        toggleItem({
+          id: product.id,
+          title: product.title,
+          icon: product.icon,
+          productId: product.id,
+        });
+      }
     };
 
     // Обработчик для кнопки "Добавить" в карточке финансирования
@@ -178,8 +189,11 @@ export default function MPreloginWrapper({
           e.preventDefault();
           e.stopPropagation();
           
-          // Находим productId по названию
-          const product = PRODUCTS.find(p => p.title === title);
+          // Находим productId по названию с нормализацией
+          const product = PRODUCTS.find(p => {
+            const normalizedProductTitle = p.title.trim().replace(/\s+/g, ' ');
+            return normalizedProductTitle === title;
+          });
           if (product) {
             onOpenProductModal(product.id);
           }
@@ -198,7 +212,7 @@ export default function MPreloginWrapper({
       document.removeEventListener('click', handleTitleClick);
       document.removeEventListener('click', handleFinancingCardClick);
     };
-  }, [mounted, toggleItem, onOpenFinancing, onOpenProductModal, onOpenFinancingModal]);
+  }, [mounted, toggleItem, onOpenFinancing, onOpenProductModal, onOpenFinancingModal, onOpenCart, isInCart]);
 
   // Обновляем текст кнопок в зависимости от состояния корзины
   useEffect(() => {
@@ -215,7 +229,8 @@ export default function MPreloginWrapper({
           const titleElement = card.querySelector('[data-name="Text Content"] p:first-child');
           // Нормализуем текст для сравнения
           const normalizedTitle = titleElement?.textContent?.trim().replace(/\s+/g, ' ');
-          if (normalizedTitle === product.title) {
+          const normalizedProductTitle = product.title.trim().replace(/\s+/g, ' ');
+          if (normalizedTitle === normalizedProductTitle) {
             // Находим кнопку и текст внутри
             const button = card.querySelector('[data-name="[M] CustomButton"]') as HTMLElement;
             const textElement = button?.querySelector('[data-name="Text"] p') as HTMLElement;
@@ -319,36 +334,33 @@ export default function MPreloginWrapper({
           skeleton.style.borderRadius = "24px";
           container.appendChild(skeleton);
 
-          import("react-dom/client")
-            .then(({ createRoot }) => {
-              container.innerHTML = "";
-              const root = createRoot(container);
-              root.render(
-                financingItem.financingType === "longfin" 
-                  ? <div className="mx-4"><MCredCardLong 
-                      onOpenFinancing={onOpenFinancing} 
-                      onOpenCart={onOpenCart}
-                      loanAmount={financingItem.loanAmount}
-                      loanTerm={financingItem.loanTerm}
-                      financingType={financingItem.financingType}
-                    /></div> 
-                  : <div className="mx-4"><MCredCardFast 
-                      onOpenFinancing={onOpenFinancing} 
-                      onOpenCart={onOpenCart}
-                      loanAmount={financingItem.loanAmount}
-                      loanTerm={financingItem.loanTerm}
-                      financingType={financingItem.financingType}
-                    /></div>
-              );
+          // Удаляем скелетон и рендерим карточку
+          container.innerHTML = "";
+          const root = createRoot(container);
+          root.render(
+            financingItem.financingType === "longfin" 
+              ? <div className="mx-4"><MCredCardLong 
+                  onOpenFinancing={onOpenFinancing} 
+                  onOpenCart={onOpenCart}
+                  loanAmount={financingItem.loanAmount}
+                  loanTerm={financingItem.loanTerm}
+                  financingType={financingItem.financingType}
+                /></div> 
+              : <div className="mx-4"><MCredCardFast 
+                  onOpenFinancing={onOpenFinancing} 
+                  onOpenCart={onOpenCart}
+                  loanAmount={financingItem.loanAmount}
+                  loanTerm={financingItem.loanTerm}
+                  financingType={financingItem.financingType}
+                /></div>
+          );
 
-              setTimeout(() => {
-                updateTitleAndSubtitle(container, financingItem.selectedFinancingType || "Кредитная линия");
-                updateFinancingIcon(container, financingItem.selectedFinancingType || "Кредитная линия");
-                updateFinancingData(container, financingItem.loanAmount || "1000000", financingItem.loanTerm || "1");
-                makeFinancingTitleClickable(container, financingItem.selectedFinancingType || "Кредитная линия");
-              }, 0);
-            })
-            .catch((err) => console.error("Failed to render financing card:", err));
+          setTimeout(() => {
+            updateTitleAndSubtitle(container, financingItem.selectedFinancingType || "Кредитная линия");
+            updateFinancingIcon(container, financingItem.selectedFinancingType || "Кредитная линия");
+            updateFinancingData(container, financingItem.loanAmount || "1000000", financingItem.loanTerm || "1");
+            makeFinancingTitleClickable(container, financingItem.selectedFinancingType || "Кредитная линия");
+          }, 0);
         }
       } else {
         // Если финансирования нет в корзине - показываем оригинальную карточку
@@ -365,7 +377,7 @@ export default function MPreloginWrapper({
   }, [showCredCard, financingItem?.id, financingItem?.financingType, financingItem?.selectedFinancingType, financingItem?.loanAmount, financingItem?.loanTerm, isReady, onOpenFinancing, onOpenFinancingModal]);
 
   const updateTitleAndSubtitle = (container: Element, financingType: string) => {
-    const subtitle = FINANCING_SUBTITLES[financingType];
+    const subtitle = ALL_MODALS_DATA[financingType]?.subtitle;
     if (!subtitle) return;
     const wrapDiv = container.querySelector('[data-name="wrap"]');
     if (!wrapDiv) return;

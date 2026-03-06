@@ -1,6 +1,6 @@
+import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import MobileFinancingBottomSheet from './MobileFinancingBottomSheet';
-import { useEffect } from 'react';
 
 interface MobileFinBottomSheetProps {
   isOpen: boolean;
@@ -9,19 +9,6 @@ interface MobileFinBottomSheetProps {
 }
 
 export default function MobileFinBottomSheet({ isOpen, onClose, financingType }: MobileFinBottomSheetProps) {
-  // Блокировка скролла при открытом BottomSheet
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isOpen]);
-
   // Обработчик кликов для закрытия и навигации
   useEffect(() => {
     if (!isOpen) return;

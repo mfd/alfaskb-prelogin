@@ -1,5 +1,5 @@
 import { useCart } from '../contexts/CartContext';
-import svgPaths from "../../imports/svg-a5942q3te2";
+import svgPaths from "../../imports/svg-ojwadded7q";
 import { imgSidePanel1 } from "../../imports/svg-o3edg";
 import { PRODUCTS, PRODUCT_ICONS } from './ProductCard';
 import { PRODUCT_DATA } from '../constants/modals';
@@ -26,11 +26,18 @@ interface MobileCartContentProps {
 }
 
 export default function MobileCartContent({ items, onRemoveItem, onItemClick, onEditFinancing }: MobileCartContentProps) {
+  // Сортируем items так, чтобы финансирование было первым
+  const sortedItems = [...items].sort((a, b) => {
+    if (a.id === 'financing') return -1;
+    if (b.id === 'financing') return 1;
+    return 0;
+  });
+
   return (
     <div className="content-stretch flex flex-col items-start px-[16px] relative size-full">
       <div className="bg-white content-stretch flex flex-col gap-[32px] items-start pt-[16px] relative shrink-0 w-full" data-name="SwapMe">
         <div className="content-stretch flex flex-col gap-[24px] items-start relative shrink-0 w-full">
-          {items.map((item) => {
+          {sortedItems.map((item) => {
             // Получаем данные продукта из констант
             const productData = PRODUCTS.find(p => p.id === item.productId);
             
@@ -88,13 +95,13 @@ export default function MobileCartContent({ items, onRemoveItem, onItemClick, on
                     </div>
                     <div className={`content-stretch flex flex-[1_0_0] flex-col gap-[4px] items-start min-h-px min-w-px relative ${!hasDescription ? 'justify-center self-stretch' : ''}`} data-name="Text Content">
                       <p 
-                        className="font-['SF_Pro_Text:Medium',sans-serif] leading-[20px] not-italic relative shrink-0 text-[16px] text-[rgba(3,3,6,0.88)] w-full cursor-pointer"
+                        className="leading-[20px] not-italic relative shrink-0 text-[16px] text-[rgba(3,3,6,0.88)] w-full cursor-pointer"
                         onClick={() => onItemClick?.(item.productId)}
                       >
                         {title}
                       </p>
                       {description && (
-                        <p className="font-['SF_Pro_Text:Regular',sans-serif] leading-[20px] not-italic relative shrink-0 text-[14px] text-[rgba(4,4,19,0.55)] w-full whitespace-nowrap overflow-hidden text-ellipsis">
+                        <p className="pr-[24px] leading-[20px] not-italic relative shrink-0 text-[14px] text-[rgba(4,4,19,0.55)] w-full whitespace-nowrap overflow-hidden text-ellipsis">
                           {description}
                         </p>
                       )}

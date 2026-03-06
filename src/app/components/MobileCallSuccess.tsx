@@ -27,7 +27,7 @@ export default function MobileCallSuccess({ phoneNumber = '+7 (999) 999-99-99' }
                     <p className="font-['SF_Pro_Text:Regular',sans-serif] leading-[0] relative shrink-0 text-[0px] text-[14px] w-full whitespace-pre-wrap">
                       <span className="leading-[20px]">{`По указанному номеру `}</span>
                       <span className="font-['SF_Pro_Text:Bold',sans-serif] leading-[20px]">{phoneNumber}  </span>
-                      <span className="leading-[20px]">в ближайшее время с вами свяжется сотрудник банка, чтобы проконсультировать по выбранным продуктам</span>
+                      <span className="leading-[20px]">в ближайшее время с вами свяжется сотрудник банка, чтобы проконсультировать по выбранным продуктам</span>
                     </p>
                   </div>
                 </div>

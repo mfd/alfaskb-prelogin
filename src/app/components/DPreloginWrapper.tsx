@@ -4,10 +4,12 @@ import DCredCardFast from "../../imports/DCredCardFast";
 import DCredCardLong from "../../imports/DCredCardLong";
 import { PRODUCTS } from "./ProductCard";
 import { useEffect, useState } from "react";
+import { createRoot } from "react-dom/client";
 import svgPaths from "../../imports/svg-w578t1oyss";
 import svgPathsPlus from "../../imports/svg-pnkyyxs7im";
-import { FINANCING_TITLES, FINANCING_SUBTITLES, FINANCING_ICON_POSITIONS } from "../constants/financing";
+import { FINANCING_ICON_POSITIONS } from "../constants/financing";
 import { FINANCING_IMAGES, FINANCING_MASKS } from "../constants/financingImages";
+import { ALL_MODALS_DATA } from "../constants/modals";
 import { formatAmount } from "../utils/formatAmount";
 import "../../styles/button-hovers.css";
 
@@ -72,49 +74,43 @@ export default function DPreloginWrapper({
           container.appendChild(skeleton);
 
           // Рендерим карточку финансирования
-          import("react-dom/client")
-            .then(({ createRoot }) => {
-              // Удаляем скелетон
-              container.innerHTML = "";
+          // Удаляем скелетон
+          container.innerHTML = "";
 
-              const root = createRoot(container);
-              root.render(
-                financingItem.financingType === "longfin" 
-                  ? <DCredCardLong /> 
-                  : <DCredCardFast />
-              );
+          const root = createRoot(container);
+          root.render(
+            financingItem.financingType === "longfin" 
+              ? <DCredCardLong /> 
+              : <DCredCardFast />
+          );
 
-              // Ждем пока карточка отрендерится в DOM
-              setTimeout(() => {
-                // Обновляем заголовок и подзаголовок
-                updateTitleAndSubtitle(
-                  container,
-                  financingItem.selectedFinancingType || "Кредитная линия"
-                );
+          // Ждем пока карточка отрендерится в DOM
+          setTimeout(() => {
+            // Обновляем заголовок и подзаголовок
+            updateTitleAndSubtitle(
+              container,
+              financingItem.selectedFinancingType || "Кредитная линия"
+            );
 
-                // Обновляем иконку
-                updateFinancingIcon(
-                  container,
-                  financingItem.selectedFinancingType || "Кредитная линия"
-                );
+            // Обновляем иконку
+            updateFinancingIcon(
+              container,
+              financingItem.selectedFinancingType || "Кредитная линия"
+            );
 
-                // Обновляем суммы и сроки
-                updateFinancingData(
-                  container,
-                  financingItem.loanAmount || "75000000",
-                  financingItem.loanTerm || "30"
-                );
+            // Обновляем суммы и сроки
+            updateFinancingData(
+              container,
+              financingItem.loanAmount || "75000000",
+              financingItem.loanTerm || "30"
+            );
 
-                // Делаем заголовок кликабельным
-                makeFinancingTitleClickable(
-                  container,
-                  financingItem.selectedFinancingType || "Кредитная линия"
-                );
-              }, 0);
-            })
-            .catch((err) => {
-              console.error("Failed to render financing card:", err);
-            });
+            // Делаем заголовок кликабельным
+            makeFinancingTitleClickable(
+              container,
+              financingItem.selectedFinancingType || "Кредитная линия"
+            );
+          }, 0);
         }
       } else {
         // Показываем черную карточку, скрываем замененную
@@ -132,7 +128,7 @@ export default function DPreloginWrapper({
 
   // Обновляем заголовок и подзаголовок в замененной карточке
   const updateTitleAndSubtitle = (container: Element, financingType: string) => {
-    const subtitle = FINANCING_SUBTITLES[financingType];
+    const subtitle = ALL_MODALS_DATA[financingType]?.subtitle;
     if (!subtitle) return;
 
     // Находим wrap компонент
@@ -200,7 +196,7 @@ export default function DPreloginWrapper({
         el.textContent = `${formatAmount(loanAmount)} ₽`;
       }
 
-      // Обновляем срок кредита - ищем параграф с "ме��"
+      // Обновляем срок кредита - ищем параграф с "ме"
       if (text && text.match(/^\d+\s*мес\.?$/)) {
         el.textContent = `${loanTerm} мес`;
       }
@@ -369,12 +365,13 @@ export default function DPreloginWrapper({
     // Обработчики кликов на заголовки карточек продуктов
     const handleTitleClick = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
-      const titleElement = target.closest('p[class*="underline"]');
+      const titleElement = target.closest('.underline-product-title');
 
       if (titleElement) {
-        const titleText = titleElement.textContent?.trim();
+        // Нормализуем текст: заменяем неразрывные пробелы (код 160) на обычные пробелы (код 32)
+        const titleText = titleElement.textContent?.trim().replace(/\u00A0/g, ' ');
 
-        const titleToProductId: Record<string, string> = {
+        const titleToProductName: Record<string, string> = {
           "Торговый эквайринг": "Торговый эквайринг",
           "Зарплатный проект": "Зарплатный проект",
           "Бизнес-карты": "Бизнес-карты",
@@ -383,10 +380,10 @@ export default function DPreloginWrapper({
           "Депозиты для бизнеса": "Депозиты для бизнеса",
         };
 
-        if (titleText && titleToProductId[titleText]) {
+        if (titleText && titleToProductName[titleText]) {
           event.preventDefault();
           event.stopPropagation();
-          onOpenProductModal(titleToProductId[titleText]);
+          onOpenProductModal(titleToProductName[titleText]);
         }
       }
     };

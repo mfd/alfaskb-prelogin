@@ -9,7 +9,6 @@ import StatusBadge from "./StatusBadge";
 import {
   FINANCING_TYPES,
   FINANCING_CONFIG,
-  FINANCING_SUBTITLES,
   type FinancingCardKey,
 } from "../constants/financing";
 import { formatAmount } from "../utils/formatAmount";
@@ -120,8 +119,8 @@ export default function FinancingSidebar({
     "Кредитная линия",
   );
   const [loanAmount, setLoanAmount] =
-    useState<string>("75000000");
-  const [loanTerm, setLoanTerm] = useState<string>("30");
+    useState<string>(FINANCING_CONFIG.fastFin.defaultAmount.toString());
+  const [loanTerm, setLoanTerm] = useState<string>(FINANCING_CONFIG.fastFin.defaultTerm.toString());
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const fastFinCardRef = useRef<HTMLButtonElement>(null);
   const longFinCardRef = useRef<HTMLButtonElement>(null);

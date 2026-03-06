@@ -59,6 +59,8 @@ function MobileAppContent() {
 
     if (financingInCart) {
       updateItem(itemToAdd);
+      // После редактирования финансирования просто закрываем сайдбар, не открываем корзину
+      setIsFinancingSidebarOpen(false);
     } else {
       addItem(itemToAdd);
     }

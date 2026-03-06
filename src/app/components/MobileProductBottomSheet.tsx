@@ -1,5 +1,5 @@
-import { motion, AnimatePresence } from 'motion/react';
 import { useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import svgPaths from "../../imports/svg-pnraektoeb";
 import imgIconView from "figma:asset/a46b19810327a8da419337ef2b3b3e6ec44f353f.png";
 import imgIconView1 from "figma:asset/935b0b72eac0ff8af0d2988501f6bace8e9ca20d.png";
@@ -8,7 +8,7 @@ import imgIconView3 from "figma:asset/7e8511301674d39f8cd176578d253954d9e47842.p
 import imgIconView4 from "figma:asset/1f419c8ea7101b3f8b826ac9e399696f51a0e351.png";
 import imgIconView5 from "figma:asset/0ea90dc395def68741ab5acac4eae35370fa3187.png";
 import { imgShapeContent } from "../../imports/svg-3q426";
-import { ALL_MODALS_DATA } from '../constants/modals';
+import { ALL_MODALS_DATA, UI_TEXT } from '../constants/modals';
 
 interface MobileProductBottomSheetProps {
   isOpen: boolean;
@@ -91,19 +91,6 @@ function Cross({ onClick }: { onClick: () => void }) {
 }
 
 export default function MobileProductBottomSheet({ isOpen, onClose, productId }: MobileProductBottomSheetProps) {
-  // Блокировка скролла при открытом BottomSheet
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isOpen]);
-
   // Обработчик кликов для закрытия
   useEffect(() => {
     if (!isOpen) return;
@@ -226,7 +213,7 @@ export default function MobileProductBottomSheet({ isOpen, onClose, productId }:
                       {/* Benefits Title */}
                       <div className="content-stretch flex items-center justify-center relative shrink-0 w-full" data-name="Headline.Typography">
                         <p className="flex-[1_0_0] font-['SF_Pro_Text:Semibold',sans-serif] leading-[20px] min-h-px min-w-px not-italic relative text-[16px] text-[rgba(3,3,6,0.88)] tracking-[-0.32px]">
-                          Преимущества
+                          {UI_TEXT.benefitsTitle}
                         </p>
                       </div>
 
