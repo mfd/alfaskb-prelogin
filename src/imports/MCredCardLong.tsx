@@ -1,5 +1,5 @@
 import svgPaths from "./svg-gagkncnfkq";
-import imgWip6MCredCard from "figma:asset/44690177e6c33f3932ceda7be51d1886a99a6432.png";
+import imgWip6MCredCard from "figma:asset/cdc94f594ce360f650b3258f60a9e696e28cfae9.png";
 import { imgWip6MCredCard1 } from "./svg-wic6l";
 import { StatusBadge } from "../app/components/StatusBadge";
 import { MobileFinancingButtons } from "../app/components/MobileFinancingButtons";

@@ -1,5 +1,5 @@
 import svgPaths from "../../imports/svg-5jk13o7n2b";
-import imgSidePanel from "figma:asset/446c0f5aeff03dee2b7bc4284550ed7b034f9495.png";
+import imgSidePanel from "figma:asset/3763c4a9aa567a9deb9504e7af991955fe4dcc27.png";
 
 interface MobileCallSuccessProps {
   phoneNumber?: string;

@@ -6,7 +6,7 @@ import svgPathsCart from "../../imports/svg-ojwadded7q";
 import svgPathsEmpty from "../../imports/svg-jk6wjpgdyc";
 import { imgD1 } from "../../imports/svg-qw21c";
 import imgFaceThinking from "figma:asset/0b7600ba10ccefdd829b525e4cfd2a18ac97c830.png";
-import imgSidePanel from "figma:asset/6878f065873d30757849f54fc518cb914868a499.png";
+import imgSidePanel from "figma:asset/3763c4a9aa567a9deb9504e7af991955fe4dcc27.png";
 import { PRODUCT_DATA, UI_TEXT, ALL_MODALS_DATA } from '../constants/modals';
 import { FINANCING_IMAGES } from '../constants/financingImages';
 import { PRODUCTS } from './ProductCard';

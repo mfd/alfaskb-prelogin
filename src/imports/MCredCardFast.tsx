@@ -1,5 +1,5 @@
 import svgPaths from "./svg-x1ydv67pv3";
-import imgWip6MCredCard from "figma:asset/7186d95bd7ca1e12cf93fa27d3d2e711c96d8bb5.png";
+import imgWip6MCredCard from "figma:asset/fba7823a1d9ed597ed66bef65724a783078389b5.png";
 import { imgWip6MCredCard1 } from "./svg-otj69";
 import { MobileFinancingButtons } from "../app/components/MobileFinancingButtons";
 import { formatAmount } from "../app/utils/formatAmount";
@@ -31,7 +31,7 @@ export default function MCredCardFast({ onOpenFinancing, onOpenCart, loanAmount 
         <div className="content-stretch flex flex-col items-start relative shrink-0 w-[40px]" data-name="PreloginProductsIcon">
           <div className="content-stretch flex flex-col items-center justify-center max-h-[64px] max-w-[64px] min-h-[64px] min-w-[64px] relative shrink-0 size-[72px]" data-name="IconView">
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              <img alt="" className="absolute left-[1.4%] max-w-none size-full top-0" src={imgWip6MCredCard} />
+              <img alt="" className="absolute max-w-none" src={imgWip6MCredCard} style={{ left: '0', top: '0', width: '100%', height: '100%' }} />
             </div>
             <div className="relative shrink-0 size-[64px]" data-name="Content">
               <div className="absolute left-0 mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[0px_0px] mask-size-[64px_64px] size-[64px] top-0" data-name="ShapeContent" style={{ maskImage: `url('${imgWip6MCredCard1}')` }}>

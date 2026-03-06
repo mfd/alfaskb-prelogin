@@ -1,15 +1,12 @@
-import svgPaths from "../../imports/svg-cy48f8li6j";
-import { ALL_MODALS_DATA } from '../constants/modals';
 import { BENEFIT_ICONS } from './UnifiedModal';
 import BenefitIconBackground from './icons/BenefitIconBackground';
-import imgIconViewCreditLine from "figma:asset/7186d95bd7ca1e12cf93fa27d3d2e711c96d8bb5.png";
-import imgIconViewFactoring from "figma:asset/4469f5679ca3f6c22feca14fe50ece4db25237d6.png";
+import { ALL_MODALS_DATA } from '../constants/modals';
+import svgPaths from "../../imports/svg-ojwadded7q";
+import imgIconViewCreditLine from "figma:asset/fba7823a1d9ed597ed66bef65724a783078389b5.png";
+import imgIconViewFactoring from "figma:asset/d1d40253624769c706b16443669c207d450a0cce.png";
 import imgIconViewGuarantee from "figma:asset/42c1815a218a3d04336231b42bf5ce9f92b014e5.png";
-import imgIconViewOverdraft from "figma:asset/44690177e6c33f3932ceda7be51d1886a99a6432.png";
+import imgIconViewOverdraft from "figma:asset/cdc94f594ce360f650b3258f60a9e696e28cfae9.png";
 import { imgShapeContent as imgMaskCreditLine } from "../../imports/svg-0t3pi";
-import { imgShapeContent as imgMaskFactoring } from "../../imports/svg-ds6ef";
-import { imgShapeContent as imgMaskGuarantee } from "../../imports/svg-el5sz";
-import { imgShapeContent as imgMaskOverdraft } from "../../imports/svg-ck6p2";
 
 interface MobileFinancingBottomSheetProps {
   financingType: string;
@@ -24,16 +21,13 @@ const FINANCING_ICONS: Record<string, string> = {
 
 const FINANCING_MASKS: Record<string, string> = {
   'Кредитная линия': imgMaskCreditLine,
-  'Факторинг': imgMaskFactoring,
-  'Банковская гарантия': imgMaskGuarantee,
-  'Овердрафт': imgMaskOverdraft,
 };
 
 const FINANCING_ICON_POSITIONS: Record<string, { left: string, top: string, width: string, height: string }> = {
   'Кредитная линия': { left: '1.4%', top: '0', width: '100%', height: '100%' },
-  'Факторинг': { left: '-49.01%', top: '-55.06%', width: '193.61%', height: '204.8%' },
+  'Факторинг': { left: '0', top: '0', width: '100%', height: '100%' },
   'Банковская гарантия': { left: '0', top: '0', width: '100%', height: '100%' },
-  'Овердрафт': { left: '-36.3%', top: '-42.36%', width: '179.01%', height: '194.35%' },
+  'Овердрафт': { left: '0', top: '0', width: '100%', height: '100%' },
 };
 
 function Cross() {

@@ -1,6 +1,6 @@
-import svgPaths from "../../imports/svg-4h2301ea2p";
 import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import svgPaths from "../../imports/svg-pnraektoeb";
 import BenefitIconBackground from './icons/BenefitIconBackground';
 import StarIcon from './icons/StarIcon';
 import CardPaymentIcon from './icons/CardPaymentIcon';
@@ -13,8 +13,8 @@ import GpiTrackerIcon from './icons/GpiTrackerIcon';
 import InternetBankIcon from './icons/InternetBankIcon';
 import NotificationIcon from './icons/NotificationIcon';
 import HeadsetIcon from './icons/HeadsetIcon';
-import BankIcon from './icons/BankIcon';
 import TimeManagementIcon from './icons/TimeManagementIcon';
+import BankIcon from './icons/BankIcon';
 import UserManagerIcon from './icons/UserManagerIcon';
 import LightningIcon from './icons/LightningIcon';
 import OnlineIcon from './icons/OnlineIcon';
@@ -28,16 +28,13 @@ import ContractIcon from './icons/ContractIcon';
 import CustomsIcon from './icons/CustomsIcon';
 import AutomaticIcon from './icons/AutomaticIcon';
 import AvailabilityIcon from './icons/AvailabilityIcon';
-import imgIconViewAcquiring from "figma:asset/a46b19810327a8da419337ef2b3b3e6ec44f353f.png";
-import imgIconViewCards from "figma:asset/8c5cd53389e76a0f31c20fd73eced0e92516f0ac.png";
-import imgIconViewVed from "figma:asset/996dac147edddce6db1be95e91023804d7a3358d.png";
-import imgIconViewSalary from "figma:asset/2f8a385702c18b3243c688cd8bb503634fd01740.png";
-import imgIconViewRko from "figma:asset/1f419c8ea7101b3f8b826ac9e399696f51a0e351.png";
-import imgIconViewDeposits from "figma:asset/0ea90dc395def68741ab5acac4eae35370fa3187.png";
-import imgIconViewCreditLine from "figma:asset/7186d95bd7ca1e12cf93fa27d3d2e711c96d8bb5.png";
-import imgIconViewFactoring from "figma:asset/4469f5679ca3f6c22feca14fe50ece4db25237d6.png";
-import imgIconViewGuarantee from "figma:asset/42c1815a218a3d04336231b42bf5ce9f92b014e5.png";
-import imgIconViewOverdraft from "figma:asset/44690177e6c33f3932ceda7be51d1886a99a6432.png";
+import imgIconViewAcquiring from "figma:asset/b116ede83d918c70ee33b67dd684fee5df30c0ea.png";
+import imgIconViewCards from "figma:asset/2d8f436e8926b098b31a198377f23d2e9a55c7d7.png";
+import imgIconViewVed from "figma:asset/17fe6d92a7c017a237c968c627a7c792bf116508.png";
+import imgIconViewSalary from "figma:asset/745488c8f6bf481d7812fab8e092fd177ab9e3bb.png";
+import imgIconViewRko from "figma:asset/d16e6a030103ccd22ae1b16e81f4fb0b73c880a3.png";
+import imgIconViewDeposits from "figma:asset/52e0ab2ca9d1645496f0a5feb2a3a8b074b833b4.png";
+import imgIconViewCreditLine from "figma:asset/fba7823a1d9ed597ed66bef65724a783078389b5.png";
 import { imgModalV3 as imgMaskDeposits } from "../../imports/svg-u69pn";
 import { imgShapeContent as imgMaskAcquiring } from "../../imports/svg-oe1bh";
 import { imgModalV3 as imgMaskSalary } from "../../imports/svg-nieob";
@@ -45,9 +42,6 @@ import { imgModalV3 as imgMaskCards } from "../../imports/svg-8bzsp";
 import { imgModalV3 as imgMaskVed } from "../../imports/svg-mlh0v";
 import { imgModalV3 as imgMaskRko } from "../../imports/svg-u69pn";
 import { imgShapeContent as imgMaskCreditLine } from "../../imports/svg-7vz8u";
-import { imgShapeContent as imgMaskFactoring } from "../../imports/svg-ispzh";
-import { imgShapeContent as imgMaskGuarantee } from "../../imports/svg-13p9s";
-import { imgShapeContent as imgMaskOverdraft } from "../../imports/svg-ck6p2";
 import { ALL_MODALS_DATA, UI_TEXT } from '../constants/modals';
 import DProductButton from './DProductButton';
 
@@ -68,9 +62,6 @@ const MODAL_ICONS: Record<string, string> = {
   rko: imgIconViewRko,
   deposits: imgIconViewDeposits,
   'credit-line': imgIconViewCreditLine,
-  factoring: imgIconViewFactoring,
-  guarantee: imgIconViewGuarantee,
-  overdraft: imgIconViewOverdraft,
 };
 
 const MODAL_MASKS: Record<string, string> = {
@@ -81,9 +72,6 @@ const MODAL_MASKS: Record<string, string> = {
   rko: imgMaskRko,
   deposits: imgMaskDeposits,
   'credit-line': imgMaskCreditLine,
-  factoring: imgMaskFactoring,
-  guarantee: imgMaskGuarantee,
-  overdraft: imgMaskOverdraft,
 };
 
 export const BENEFIT_ICONS: Record<string, React.ComponentType> = {

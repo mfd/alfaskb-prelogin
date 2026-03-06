@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import svgPaths from "../../imports/svg-pnraektoeb";
-import imgIconView from "figma:asset/a46b19810327a8da419337ef2b3b3e6ec44f353f.png";
-import imgIconView1 from "figma:asset/935b0b72eac0ff8af0d2988501f6bace8e9ca20d.png";
-import imgIconView2 from "figma:asset/30d972c5fac439fc586d71b84ea26790ff5d48ee.png";
-import imgIconView3 from "figma:asset/7e8511301674d39f8cd176578d253954d9e47842.png";
-import imgIconView4 from "figma:asset/1f419c8ea7101b3f8b826ac9e399696f51a0e351.png";
-import imgIconView5 from "figma:asset/0ea90dc395def68741ab5acac4eae35370fa3187.png";
+import imgIconView from "figma:asset/b116ede83d918c70ee33b67dd684fee5df30c0ea.png";
+import imgIconView1 from "figma:asset/745488c8f6bf481d7812fab8e092fd177ab9e3bb.png";
+import imgIconView2 from "figma:asset/17fe6d92a7c017a237c968c627a7c792bf116508.png";
+import imgIconView3 from "figma:asset/2d8f436e8926b098b31a198377f23d2e9a55c7d7.png";
+import imgIconView4 from "figma:asset/d16e6a030103ccd22ae1b16e81f4fb0b73c880a3.png";
+import imgIconView5 from "figma:asset/52e0ab2ca9d1645496f0a5feb2a3a8b074b833b4.png";
 import { imgShapeContent } from "../../imports/svg-3q426";
 import { ALL_MODALS_DATA, UI_TEXT } from '../constants/modals';
 
@@ -196,7 +196,7 @@ export default function MobileProductBottomSheet({ isOpen, onClose, productId }:
                         <div className="content-stretch flex flex-col items-start relative shrink-0" data-name="PreloginProductsIcon">
                           <div className="content-stretch flex flex-col items-center justify-center max-h-[64px] max-w-[64px] min-h-[64px] min-w-[64px] relative shrink-0 size-[72px]" data-name="IconView">
                             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                              <img alt="" className="absolute max-w-none size-full" src={PRODUCT_ICONS[productData.title]} />
+                              <img alt="" className="w-full h-full object-contain" src={PRODUCT_ICONS[productData.title]} />
                             </div>
                             <div className="relative shrink-0 size-[64px]" data-name="Content">
                               <div className="absolute left-0 mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[0px_0px] mask-size-[64px_64px] size-[64px] top-0" data-name="ShapeContent" style={{ maskImage: `url('${imgShapeContent}')` }}>

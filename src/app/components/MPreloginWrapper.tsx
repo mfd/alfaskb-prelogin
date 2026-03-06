@@ -403,6 +403,8 @@ export default function MPreloginWrapper({
     if (posData.width) img.style.width = posData.width;
     if (posData.height) img.style.height = posData.height;
     if (posData.maxWidth) img.style.maxWidth = posData.maxWidth;
+    // Добавляем object-fit для правильного отображения картинки
+    img.style.objectFit = 'contain';
     const shapeContent = iconView.querySelector('[data-name="ShapeContent"]') as HTMLElement;
     if (shapeContent) {
       shapeContent.style.maskImage = `url('${maskSrc}')`;

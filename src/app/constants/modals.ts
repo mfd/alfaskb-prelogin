@@ -19,6 +19,7 @@ interface ModalData {
     width: string;
     height: string;
   };
+  useObjectFit?: boolean; // Использовать object-fit вместо позиционирования
 }
 
 export const ALL_MODALS_DATA: Record<string, ModalData> = {
@@ -221,7 +222,7 @@ export const ALL_MODALS_DATA: Record<string, ModalData> = {
     subtitle:
       "Управляйте корпоративным зарплатным проектом онлайн",
     description: "Экономьте ресурсы для развития предприятия",
-    cardDescription: "Подключение за 0 ₽ и управление онлайн",
+    cardDescription: "Подключение за 0 ₽ и управление онлайн",
     cardBenefits: [
       "Бесплатное открытие счетов для ваших сотрудников",
       "Дебетовые карты с кэшбэком",
@@ -257,6 +258,7 @@ export const ALL_MODALS_DATA: Record<string, ModalData> = {
       width: "100%",
       height: "100%",
     },
+    useObjectFit: true, // Используем object-fit для корректного отображения
   },
   "Бизнес-карты": {
     title: "Бизнес-карты",
@@ -264,7 +266,7 @@ export const ALL_MODALS_DATA: Record<string, ModalData> = {
     description:
       "Настраивается под ваши потребности, другие карты не нужны",
     cardDescription:
-      "Настраивается под ваши потребности, другие карты не нужны",
+      "Настраивается под ваши потребности, другие карты не нужны",
     cardBenefits: [
       "Контроль расходов в реальном времени",
       "Кэшбэк до 10% за покупки по карте",
@@ -304,13 +306,14 @@ export const ALL_MODALS_DATA: Record<string, ModalData> = {
       width: "144.44%",
       height: "144.44%",
     },
+    useObjectFit: true,
   },
   ВЭД: {
     title: "ВЭД",
     subtitle: "Валютные переводы между юридическими лицами",
     description: "В иностранной валюте онлайн",
     cardDescription:
-      "Валютные переводы м/у юрлицами в иностранной валюте онлайн",
+      "Валютные переводы м/у юрлицами в иностранной валюте онлайн",
     cardBenefits: [
       "Валютный контроль без визитов в банк",
       "Курсы валют без комиссии",
@@ -345,11 +348,12 @@ export const ALL_MODALS_DATA: Record<string, ModalData> = {
     iconKey: "ved",
     maskKey: "ved",
     iconPosition: {
-      left: "-42.5%",
-      top: "-45%",
-      width: "180%",
-      height: "180%",
+      left: "0",
+      top: "0",
+      width: "100%",
+      height: "100%",
     },
+    useObjectFit: true, // Используем object-fit для корректного отображения
   },
   "РКО для бизнеса": {
     title: "РКО для бизнеса",

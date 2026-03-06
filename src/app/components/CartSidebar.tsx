@@ -5,7 +5,7 @@ import svgPaths from "../../imports/svg-a5942q3te2";
 import svgPathsCart from "../../imports/svg-ojwadded7q";
 import { imgD1 } from "../../imports/svg-qw21c";
 import imgFaceThinking from "figma:asset/0b7600ba10ccefdd829b525e4cfd2a18ac97c830.png";
-import imgSidePanel from "figma:asset/6878f065873d30757849f54fc518cb914868a499.png";
+import imgSidePanel from "figma:asset/3763c4a9aa567a9deb9504e7af991955fe4dcc27.png";
 import { PRODUCT_DATA, UI_TEXT, ALL_MODALS_DATA } from '../constants/modals';
 import { FINANCING_IMAGES } from '../constants/financingImages';
 import { PRODUCTS } from './ProductCard';
@@ -279,6 +279,7 @@ function CartRow({ title, icon, onRemove, onEdit, onTitleClick, financingType, i
     width: '108.93%',
     height: '108.93%'
   };
+  const useObjectFit = ALL_MODALS_DATA[displayTitle]?.useObjectFit || false;
 
   return (
     <div className="bg-white content-stretch flex flex-col gap-[16px] items-center justify-center overflow-clip py-[16px] relative shrink-0 w-[420px]" data-name="row">
@@ -286,11 +287,25 @@ function CartRow({ title, icon, onRemove, onEdit, onTitleClick, financingType, i
         <div className="content-stretch flex flex-col items-start relative shrink-0" data-name="PreloginProductsIcon">
           <div className="content-stretch flex flex-col items-center justify-center max-h-[40px] max-w-[40px] min-h-[40px] min-w-[40px] relative shrink-0 size-[72px]" data-name="IconView">
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              <img 
-                alt="" 
-                className="absolute w-full h-full object-contain" 
-                src={displayIcon} 
-              />
+              {useObjectFit ? (
+                <img 
+                  alt="" 
+                  className="w-full h-full object-contain" 
+                  src={displayIcon} 
+                />
+              ) : (
+                <img 
+                  alt="" 
+                  className="absolute max-w-none" 
+                  src={displayIcon} 
+                  style={{
+                    left: iconPosition.left,
+                    top: iconPosition.top,
+                    width: iconPosition.width,
+                    height: iconPosition.height
+                  }}
+                />
+              )}
             </div>
             <Content1 icon={displayIcon} />
           </div>

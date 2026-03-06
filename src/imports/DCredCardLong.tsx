@@ -1,5 +1,5 @@
 import svgPaths from "./svg-xe87gnk8kz";
-import imgIconView from "figma:asset/935b0b72eac0ff8af0d2988501f6bace8e9ca20d.png";
+import imgIconView from "figma:asset/cdc94f594ce360f650b3258f60a9e696e28cfae9.png";
 import { imgShapeContent } from "./svg-d7vce";
 import StatusBadge from "../app/components/StatusBadge";
 
@@ -42,7 +42,7 @@ function Title() {
       <div className="content-stretch flex flex-col items-start relative shrink-0 w-[72px]" data-name="PreloginProductsIcon">
         <div className="content-stretch flex flex-col items-center justify-center max-h-[80px] max-w-[72px] min-h-[72px] min-w-[72px] relative shrink-0 size-[72px]" data-name="IconView">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <img alt="" className="absolute left-[7.17%] max-w-none size-full top-[-4.1%]" src={imgIconView} />
+            <img alt="" className="absolute max-w-none" src={imgIconView} style={{ left: '-36.3%', top: '-42.36%', width: '179.01%', height: '194.35%' }} />
           </div>
           <Content1 />
         </div>

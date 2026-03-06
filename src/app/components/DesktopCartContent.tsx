@@ -61,6 +61,7 @@ export default function DesktopCartContent({ items, onRemoveItem, onItemClick }:
                 width: '100%',
                 height: '100%'
               };
+              const useObjectFit = ALL_MODALS_DATA[title]?.useObjectFit || false;
 
               return (
                 <div key={item.id} className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-name="PureCard">
@@ -70,12 +71,16 @@ export default function DesktopCartContent({ items, onRemoveItem, onItemClick }:
                         <div className="content-stretch flex flex-col items-start relative shrink-0 w-[40px]" data-name="Graphic">
                           <div className="content-stretch flex flex-col items-center justify-center max-h-[40px] max-w-[40px] min-h-[40px] min-w-[40px] relative shrink-0 size-[72px]" data-name="IconView">
                             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                              <img alt="" className="absolute max-w-none" src={icon} style={{
-                                left: iconPosition.left,
-                                top: iconPosition.top,
-                                width: iconPosition.width,
-                                height: iconPosition.height
-                              }} />
+                              {useObjectFit ? (
+                                <img alt="" className="w-full h-full" src={icon} style={{ objectFit: 'contain' }} />
+                              ) : (
+                                <img alt="" className="absolute max-w-none" src={icon} style={{
+                                  left: iconPosition.left,
+                                  top: iconPosition.top,
+                                  width: iconPosition.width,
+                                  height: iconPosition.height
+                                }} />
+                              )}
                             </div>
                             <div className="relative shrink-0 size-[40px]" data-name="Content">
                               <div className="absolute left-0 mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[0px_0px] mask-size-[40px_40px] size-[40px] top-0" data-name="ShapeContent" style={{ maskImage: `url('${imgSidePanel1}')` }}>

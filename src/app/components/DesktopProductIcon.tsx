@@ -5,23 +5,34 @@ interface DesktopProductIconProps {
 }
 
 export function DesktopProductIcon({ data }: DesktopProductIconProps) {
+  const useObjectFit = data.useObjectFit || false;
+  
   return (
     <div
       className="content-stretch flex flex-col items-center justify-center max-h-[80px] max-w-[72px] min-h-[72px] min-w-[72px] relative shrink-0 size-[72px]"
       data-name="IconView"
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <img
-          alt=""
-          className="absolute max-w-none"
-          src={data.icon.image}
-          style={{
-            left: data.icon.position.left,
-            top: data.icon.position.top,
-            width: data.icon.position.width,
-            height: data.icon.position.height,
-          }}
-        />
+        {useObjectFit ? (
+          <img
+            alt=""
+            className="w-full h-full"
+            src={data.icon.image}
+            style={{ objectFit: 'contain' }}
+          />
+        ) : (
+          <img
+            alt=""
+            className="absolute max-w-none"
+            src={data.icon.image}
+            style={{
+              left: data.icon.position.left,
+              top: data.icon.position.top,
+              width: data.icon.position.width,
+              height: data.icon.position.height,
+            }}
+          />
+        )}
       </div>
       <div className="relative shrink-0 size-[72px]" data-name="Content">
         <div

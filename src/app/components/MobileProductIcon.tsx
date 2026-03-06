@@ -7,6 +7,7 @@ interface MobileProductIconProps {
 
 export function MobileProductIcon({ data }: MobileProductIconProps) {
   const { image, position } = data.icon;
+  const useObjectFit = data.useObjectFit || false;
   
   // Обработка размеров
   let sizeClass = '';
@@ -23,18 +24,27 @@ export function MobileProductIcon({ data }: MobileProductIconProps) {
   return (
     <div className="content-stretch flex flex-col items-center justify-center max-h-[48px] max-w-[48px] min-h-[48px] min-w-[48px] relative shrink-0 size-[72px]" data-name="IconView">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <img 
-          alt="" 
-          className={`absolute max-w-none ${sizeClass}`}
-          src={image} 
-          style={{
-            left: position.left,
-            top: position.top,
-            ...(position.width && { width: position.width }),
-            ...(position.height && { height: position.height }),
-            ...sizeStyle,
-          }}
-        />
+        {useObjectFit ? (
+          <img
+            alt=""
+            className="w-full h-full"
+            src={image}
+            style={{ objectFit: 'contain' }}
+          />
+        ) : (
+          <img 
+            alt="" 
+            className={`absolute max-w-none ${sizeClass}`}
+            src={image} 
+            style={{
+              left: position.left,
+              top: position.top,
+              ...(position.width && { width: position.width }),
+              ...(position.height && { height: position.height }),
+              ...sizeStyle,
+            }}
+          />
+        )}
       </div>
       <div className="relative shrink-0 size-[48px]" data-name="Content">
         <div 

@@ -1,5 +1,5 @@
 import svgPaths from "./svg-g3h07tdvev";
-import imgWip6DCredCard from "figma:asset/42c1815a218a3d04336231b42bf5ce9f92b014e5.png";
+import imgWip6DCredCard from "figma:asset/fba7823a1d9ed597ed66bef65724a783078389b5.png";
 import { imgWip6DCredCard1 } from "./svg-sbhrw";
 import StatusBadge from "../app/components/StatusBadge";
 
@@ -11,7 +11,7 @@ export default function DCredCardFast() {
           <div className="content-stretch flex flex-col items-start relative shrink-0 w-[72px]" data-name="PreloginProductsIcon">
             <div className="content-stretch flex flex-col items-center justify-center max-h-[80px] max-w-[72px] min-h-[72px] min-w-[72px] relative shrink-0 size-[72px]" data-name="IconView">
               <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <img alt="" className="absolute left-[-33.33%] max-w-none size-[142.1%] top-[-24.18%]" src={imgWip6DCredCard} />
+                <img alt="" className="absolute max-w-none" src={imgWip6DCredCard} style={{ left: '0', top: '0', width: '100%', height: '100%' }} />
               </div>
               <div className="relative shrink-0 size-[72px]" data-name="Content">
                 <div className="absolute left-0 mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[0px_0px] mask-size-[72px_72px] size-[72px] top-0" data-name="ShapeContent" style={{ maskImage: `url('${imgWip6DCredCard1}')` }}>

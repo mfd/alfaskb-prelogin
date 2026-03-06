@@ -1,7 +1,7 @@
 import svgPaths from "./svg-8rxqz1wqhb";
-import imgIconView from "figma:asset/7186d95bd7ca1e12cf93fa27d3d2e711c96d8bb5.png";
-import imgBgColor from "figma:asset/ec52c19b2669c27ba77ce2d6f8355a19c63d202c.png";
-import imgBgColor1 from "figma:asset/71b9c1e95247e5e9370f3c1ce50f01847964bd61.png";
+import imgIconView from "figma:asset/fba7823a1d9ed597ed66bef65724a783078389b5.png";
+import imgIconView1 from "figma:asset/b116ede83d918c70ee33b67dd684fee5df30c0ea.png";
+import imgBgColor from "figma:asset/2de2b6cdfbb2355468b1485c1baa5697781aed17.png";
 import {
   imgShapeContent,
   imgShapeContent1,
@@ -2369,11 +2369,6 @@ function ShapeContent10() {
           className="absolute inset-0 pointer-events-none"
         >
           <div className="absolute bg-[#07f] inset-0" />
-          <img
-            alt=""
-            className="absolute max-w-none object-cover size-full"
-            src={imgBgColor1}
-          />
         </div>
       </div>
       <div
@@ -2694,69 +2689,22 @@ function InfoText() {
       data-name="Info text"
     >
       <p className="col-1 font-['SF_Pro_Text:Regular',sans-serif] ml-0 mt-0 not-italic relative row-1 text-[12px] text-[rgba(255,255,255,0.94)] w-full whitespace-pre-wrap">
-        <span className="leading-[16px]">{`© 2001-2026. АО «Альфа-Банк», официальный сайт. Генеральная лицензия Банка России № 1326 от 16 января 2015 г. `}</span>
-        <a
-          className="[text-decoration-skip-ink:none] cursor-pointer decoration-solid leading-[16px] underline"
-          href="https://alfabank.ru/make-money/strahovanie_vkladov/"
-        >
-          <span
-            className="[text-decoration-skip-ink:none] decoration-solid leading-[16px]"
-            href="https://alfabank.ru/make-money/strahovanie_vkladov/"
-          >
             АО «Альфа-Банк» является участником системы
             обязательного страхования вкладов.
-          </span>
-        </a>
-        <span className="leading-[16px]">{` `}</span>
-        <a
-          className="[text-decoration-skip-ink:none] cursor-pointer decoration-solid leading-[16px] underline"
-          href="https://alfabank.ru/about/annual_report/riskinfo/"
-        >
-          <span
-            className="[text-decoration-skip-ink:none] decoration-solid leading-[16px]"
-            href="https://alfabank.ru/about/annual_report/riskinfo/"
-          >
-            Информация о процентных ставках по договорам
-            банковского вклада с физическими лицами.
-          </span>
-        </a>
-        <span className="leading-[16px]">{` `}</span>
-        <a
-          className="[text-decoration-skip-ink:none] cursor-pointer decoration-solid leading-[16px] underline"
-          href="http://www.e-disclosure.ru/portal/company.aspx?id=1389"
-        >
-          <span
-            className="[text-decoration-skip-ink:none] decoration-solid leading-[16px]"
-            href="http://www.e-disclosure.ru/portal/company.aspx?id=1389"
-          >
-            Центр раскрытия корпоративной информации.
-          </span>
-        </a>
-        <span className="leading-[16px]">{` `}</span>
         <a
           className="[text-decoration-skip-ink:none] cursor-pointer decoration-solid leading-[16px] underline"
           href="https://alfabank.ru/about/legal/"
         >
-          <span
-            className="[text-decoration-skip-ink:none] decoration-solid leading-[16px]"
-            href="https://alfabank.ru/about/legal/"
-          >
             Информация профессионального участника рынка ценных
             бумаг.
-          </span>
         </a>
         <span className="leading-[16px]">{` `}</span>
         <a
           className="[text-decoration-skip-ink:none] cursor-pointer decoration-solid leading-[16px] underline"
           href="https://alfabank.ru/about/shareholders/"
         >
-          <span
-            className="[text-decoration-skip-ink:none] decoration-solid leading-[16px]"
-            href="https://alfabank.ru/about/shareholders/"
-          >
             Информация о лицах, под контролем либо значительным
             влиянием которых находится Банк.
-          </span>
         </a>
         <span className="leading-[16px]">
           {` Ул. Каланчевская, 27, Москва, 107078.`}
@@ -2768,29 +2716,15 @@ function InfoText() {
           className="[text-decoration-skip-ink:none] cursor-pointer decoration-solid leading-[16px] underline"
           href="https://alfabank.ru/about/pdn/"
         >
-          <span
-            className="[text-decoration-skip-ink:none] decoration-solid leading-[16px]"
-            href="https://alfabank.ru/about/pdn/"
-          >
             Политике в отношении обработки персональных данных.
-          </span>
         </a>
-        <span className="leading-[16px]">
-          <br aria-hidden="true" />
-          <br aria-hidden="true" />
-        </span>
         <a
           className="[text-decoration-skip-ink:none] cursor-pointer decoration-solid leading-[16px] underline"
           href="https://alfabank.servicecdn.ru/site-upload/61/7d/1677/privacy_policy_cookie_v3.pdf"
         >
-          <span
-            className="[text-decoration-skip-ink:none] decoration-solid leading-[16px]"
-            href="https://alfabank.servicecdn.ru/site-upload/61/7d/1677/privacy_policy_cookie_v3.pdf"
-          >
             АО «Альфа-Банк» использует файлы «cookie» с целью
             персонализации сервисов и повышения удобства
             пользования веб-сайтом.
-          </span>
         </a>
         <span className="leading-[16px]">{` Если вы не хотите, чтобы ваши пользовательские данные обрабатывались, пожалуйста, ограничьте их использование в своём браузере.`}</span>
       </p>

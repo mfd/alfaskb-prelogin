@@ -173,6 +173,9 @@ export default function DPreloginWrapper({
     if (posData.maxWidth) {
       img.style.maxWidth = posData.maxWidth;
     }
+    
+    // Добавляем object-fit для правильного отображения картинки
+    img.style.objectFit = 'contain';
 
     // Обновляем маску
     const shapeContent = iconView.querySelector('[data-name="ShapeContent"]') as HTMLElement;
