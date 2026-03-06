@@ -1,7 +1,7 @@
 
   # Prelogin_SKB
 
-  This is a code bundle for Prelogin_SKB. The original project is available at https://www.figma.com/design/IkRW9Z0omvdYVbkIGSEwLQ/Prelogin_SKB.
+  This is a code bundle for Alfa Prelogin_SKB. 
 
   ## Running the code
 
