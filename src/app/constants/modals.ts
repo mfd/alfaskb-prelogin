@@ -25,7 +25,7 @@ export const ALL_MODALS_DATA: Record<string, ModalData> = {
   // Финансирование
   "Кредитная линия": {
     title: "Кредитная линия",
-    subtitle: "Одобрим единый кредитный лимит на всё и сразу1",
+    subtitle: "Одобрим единый кредитный лимит на всё и сразу",
     description: "Получите решение в срок от 3 до 7 дней",
     benefits: [
       {
@@ -61,8 +61,8 @@ export const ALL_MODALS_DATA: Record<string, ModalData> = {
   },
   Факторинг: {
     title: "Факторинг",
-    subtitle: "Финансируйте поставки и закупки",
-    description: "Получайте деньги сразу после отгрузки товара1",
+    subtitle: "Финансируйте поставки и закупки",
+    description: "Получайте деньги сразу после отгрузки товара",
     benefits: [
       {
         key: "fast",
@@ -136,7 +136,7 @@ export const ALL_MODALS_DATA: Record<string, ModalData> = {
   Овердрафт: {
     title: "Овердрафт",
     subtitle:
-      "Краткосрочный кредит для защиты от кассовых разрывов",
+      "Краткосрочный кредит для защиты от кассовых разрывов",
     description:
       "Если деньги от покупателей поступят на счёт позже",
     benefits: [
@@ -176,7 +176,7 @@ export const ALL_MODALS_DATA: Record<string, ModalData> = {
   "Торговый эквайринг": {
     title: "Торговый эквайринг",
     subtitle: "Приём платежей онлайн и в торговых точках",
-    description: "Принимайте оплату картами выгодно",
+    description: "Принимайте оплату картами выгодно4",
     cardDescription:
       "Приём платежей онлайн и в торговых точках",
     cardBenefits: [
@@ -444,10 +444,10 @@ export const UI_TEXT = {
   modalClose: "Закрыть",
   benefitsTitle: "Преимущества",
   addButton: "Добавить",
-  cartTitle: "Ваш список",
+  cartTitle: "Корзина финпродуктов",
   emptyCartTitle: "Ваш список пуст",
   emptyCartDescription:
-    "Добавляйте интересующие вас продукты для быстрой консультации и подключения в будущем",
+    "Добавляйте интересующие вас продукты для быстрой консультации и подключения в будущем",
   emptyCartButton: "Понятно",
 };
 

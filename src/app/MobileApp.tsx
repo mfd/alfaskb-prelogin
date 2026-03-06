@@ -37,7 +37,7 @@ function MobileAppContent() {
   const financingInCart = items.find((item) => item.id === "financing");
   const financingEditData = financingInCart ? {
     financingType: financingInCart.financingType as 'fastfin' | 'longfin',
-    productName: financingInCart.selectedFinancingType || "Овердрафт",
+    productId: financingInCart.selectedFinancingType || "Овердрафт",
     amount: Number(financingInCart.loanAmount) || 20000000,
     term: Number(financingInCart.loanTerm) || 12,
   } : undefined;
