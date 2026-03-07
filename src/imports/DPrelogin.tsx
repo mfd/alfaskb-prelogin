@@ -55,7 +55,7 @@ function Cards({ toggleItem, isInCart }: { toggleItem?: (item: any) => void; isI
   );
 }
 
-function Section1({ onOpenFinancing, toggleItem, isInCart }: { onOpenFinancing?: () => void; toggleItem?: (item: any) => void; isInCart?: (productId: string) => boolean }) {
+function ProductsSection({ onOpenFinancing, toggleItem, isInCart }: { onOpenFinancing?: () => void; toggleItem?: (item: any) => void; isInCart?: (productId: string) => boolean }) {
   const handleFinancingClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -65,7 +65,7 @@ function Section1({ onOpenFinancing, toggleItem, isInCart }: { onOpenFinancing?:
   };
   return (
     <div className="relative shrink-0 w-full" data-name="section">
-      <div className="content-stretch flex flex-col gap-[24px] items-center px-[70px] mt-[16px] relative w-full">
+      <div className="content-stretch flex flex-col gap-[24px] items-center px-[70px] relative w-full">
         <DGetfin onAddClick={handleFinancingClick} />
         <Cards toggleItem={toggleItem} isInCart={isInCart} />
       </div>
@@ -73,20 +73,15 @@ function Section1({ onOpenFinancing, toggleItem, isInCart }: { onOpenFinancing?:
   );
 }
 
-function Body({ onOpenFinancing, toggleItem, isInCart }: { onOpenFinancing?: () => void; toggleItem?: (item: any) => void; isInCart?: (productId: string) => boolean }) {
-  return (
-    <div className="content-stretch flex flex-col gap-[40px] items-center pb-[128px] relative shrink-0 w-[1280px]" data-name="body">
-      <IntroSection />
-      <Section1 onOpenFinancing={onOpenFinancing} toggleItem={toggleItem} isInCart={isInCart} />
-    </div>
-  );
-}
+
 
 function Desktop({ onOpenFinancing, toggleItem, isInCart }: { onOpenFinancing?: () => void; toggleItem?: (item: any) => void; isInCart?: (productId: string) => boolean }) {
   return (
     <div className="bg-white content-stretch flex flex-col items-center pt-[72px] top-0 w-[1280px]" data-name="Desktop">
-      <Body onOpenFinancing={onOpenFinancing} toggleItem={toggleItem} isInCart={isInCart} />
-      <DFooter />
+      <div className="content-stretch flex flex-col gap-[40px] items-center pb-[128px] relative shrink-0 w-[1280px]" data-name="body">
+        <IntroSection />
+        <ProductsSection onOpenFinancing={onOpenFinancing} toggleItem={toggleItem} isInCart={isInCart} />
+      </div>
     </div>
   );
 }
@@ -99,8 +94,11 @@ interface DPreloginProps {
 
 export default function DPrelogin({ onOpenFinancing, toggleItem, isInCart }: DPreloginProps = {}) {
   return (
-    <div className="relative w-full min-h-screen flex flex-col items-center" data-name="DPrelogin">
-      <Desktop onOpenFinancing={onOpenFinancing} toggleItem={toggleItem} isInCart={isInCart} />
+    <div className="relative w-full min-h-screen flex flex-col" data-name="DPrelogin">
+      <div className="flex flex-col items-center w-full">
+        <Desktop onOpenFinancing={onOpenFinancing} toggleItem={toggleItem} isInCart={isInCart} />
+      </div>
+      <DFooter />
     </div>
   );
 }

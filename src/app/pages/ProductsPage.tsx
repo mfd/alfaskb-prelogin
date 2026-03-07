@@ -1,7 +1,6 @@
-import { useState, useMemo, useEffect } from 'react';
 import { isMobile as isMobileDevice } from 'react-device-detect';
 import { useCart } from '../contexts/CartContext';
-import Header from '../components/Header';
+import DHeader from '../components/DHeader';
 import { PRODUCTS } from '../components/ProductCard';
 import DPreloginWrapper from '../components/DPreloginWrapper';
 import CartSidebar from '../components/CartSidebar';
@@ -14,6 +13,7 @@ import MobileProductBottomSheet from '../components/MobileProductBottomSheet';
 import MobileFinBottomSheet from '../components/MobileFinBottomSheet';
 import MobileCartIcon from '../components/MobileCartIcon';
 import { motion, AnimatePresence } from 'motion/react';
+import { useState, useMemo, useEffect } from 'react';
 
 // Маппинг названий продуктов из модалок на productId
 const MODAL_TO_PRODUCT_ID: Record<string, string> = {
@@ -58,7 +58,7 @@ function DesktopProductsPage() {
 
   return (
     <div className="min-h-screen flex flex-col items-center w-full">
-      <Header />
+      <DHeader />
       <DPreloginWrapper 
         onOpenFinancing={() => setIsFinancingSidebarOpen(true)}
         onOpenProductModal={(productId) => setOpenModal(productId)}
@@ -125,7 +125,7 @@ function MobileProductsPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-white relative md:hidden pb-20">
+    <div className="min-h-screen w-full bg-white relative md:hidden">
       {/* Основной контент */}
       <MPreloginWrapper 
         onOpenFinancing={() => setIsFinancingSidebarOpen(true)}

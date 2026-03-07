@@ -235,7 +235,7 @@ function Content16({ openCart, itemsCount }: { openCart: () => void; itemsCount:
 
 function Content15({ openCart, itemsCount }: { openCart: () => void; itemsCount: number }) {
   return (
-    <div className="bg-[#121213] sticky top-0 z-50 w-full" data-name=".MainHeaderV3">
+    <div className="bg-[#121213] sticky top-0 z-50 w-full dprelogin-header" data-name=".MainHeaderV3">
       <div className="flex flex-col items-center size-full">
         <div className="content-stretch flex flex-col isolate items-center px-[150px] relative w-full">
           <div className="content-stretch flex flex-col items-start justify-center relative shrink-0 w-[1140px] z-[1]" data-name="Content">
@@ -249,7 +249,7 @@ function Content15({ openCart, itemsCount }: { openCart: () => void; itemsCount:
   );
 }
 
-export default function Header() {
+export default function DHeader() {
   const { openCart, items } = useCart();
   
   return (
