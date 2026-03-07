@@ -132,7 +132,7 @@ function IntroSection() {
           data-name="Headline.Typography"
         >
           <p className="flex-[1_0_0] font-['SF_Pro_Display:Semibold',sans-serif] leading-[32px] min-h-px min-w-px not-italic relative text-[26px] text-[rgba(3,3,6,0.88)] tracking-[0.36px]">
-            Подобрали для вас лучшие продукты и условия
+            Подобрали для вас лучшие продукты и условия
           </p>
         </div>
         <div
@@ -140,8 +140,7 @@ function IntroSection() {
           data-name="Paragraph.Typography"
         >
           <p className="flex-[1_0_0] font-['SF_Pro_Text:Regular',sans-serif] leading-[24px] min-h-px min-w-px not-italic relative text-[16px] text-[rgba(4,4,19,0.55)]">
-            Мы проанализировали деятельность вашей компании и
-            предлагаем персональные спецпредложения по следующим
+            Мы проанализировали деятельность вашей компании и предлагаем персональные спецпредложения по следующим
             продуктам:
           </p>
         </div>

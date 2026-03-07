@@ -56,7 +56,7 @@ export default function MPreloginWrapper({
     // Убираем ограничение ширины 360px из импортированных компонентов
     const removeWidthConstraints = () => {
       // Находим все элементы с фиксированной шириной 360px (кроме body - обрабатываем отдельно)
-      const elements = document.querySelectorAll('[data-name="MobileHeader"], [data-name="Footer"], [data-name="wip6 / M_CredCard"]');
+      const elements = document.querySelectorAll('[data-name="MobileHeader"], [data-name="Footer"], [data-name="M_CredCard"]');
       elements.forEach((el) => {
         const element = el as HTMLElement;
         element.style.width = '100%';
@@ -186,7 +186,7 @@ export default function MPreloginWrapper({
     const handleFinancingCardClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       
-      // Проверяем, кликнули ли мы на плашку финансирования
+      // Проверяем, кикнули ли мы на плашку финансирования
       const financingCard = target.closest('[data-name="selectFlow"]');
       if (!financingCard) return;
 
@@ -321,7 +321,7 @@ export default function MPreloginWrapper({
     if (!isReady) return;
 
     try {
-      const blackCard = document.querySelector('[data-name="wip6 / M_CredCard"]');
+      const blackCard = document.querySelector('[data-name="M_CredCard"]');
       const replacedCard = document.querySelector('[data-name="M_CredCard-replaced"]');
 
       if (showCredCard && financingItem) {
@@ -346,7 +346,7 @@ export default function MPreloginWrapper({
             updateTitleAndSubtitle(replacedCard, financingItem.selectedFinancingType || "Кредитная линия");
             updateFinancingIcon(replacedCard, financingItem.selectedFinancingType || "Кредитная линия");
             updateFinancingData(replacedCard, financingItem.loanAmount || "1000000", financingItem.loanTerm || "1");
-            makeFinancingTitleClickable(replacedCard, financingItem.selectedFinancingType || "Кредитная линия");
+            makeFinancingTitleClickable(replacedCard, financingItem.selectedFinancingType || "Кредитная лин��я");
           }, 0);
           return;
         }
@@ -367,32 +367,34 @@ export default function MPreloginWrapper({
           container.appendChild(skeleton);
 
           // Удаляем скелетон и рендерим карточку
-          container.innerHTML = "";
-          const root = createRoot(container);
-          root.render(
-            financingItem.financingType === "longfin" 
-              ? <div className="mx-4"><MCredCardLong 
-                  onOpenFinancing={onOpenFinancing} 
-                  onOpenCart={onOpenCart}
-                  loanAmount={financingItem.loanAmount}
-                  loanTerm={financingItem.loanTerm}
-                  financingType={financingItem.financingType}
-                /></div> 
-              : <div className="mx-4"><MCredCardFast 
-                  onOpenFinancing={onOpenFinancing} 
-                  onOpenCart={onOpenCart}
-                  loanAmount={financingItem.loanAmount}
-                  loanTerm={financingItem.loanTerm}
-                  financingType={financingItem.financingType}
-                /></div>
-          );
-
           setTimeout(() => {
-            updateTitleAndSubtitle(container, financingItem.selectedFinancingType || "Кредитная линия");
-            updateFinancingIcon(container, financingItem.selectedFinancingType || "Кредитная линия");
-            updateFinancingData(container, financingItem.loanAmount || "1000000", financingItem.loanTerm || "1");
-            makeFinancingTitleClickable(container, financingItem.selectedFinancingType || "Кредитная линия");
-          }, 0);
+            container.innerHTML = "";
+            const root = createRoot(container);
+            root.render(
+              financingItem.financingType === "longfin" 
+                ? <MCredCardLong 
+                    onOpenFinancing={onOpenFinancing} 
+                    onOpenCart={onOpenCart}
+                    loanAmount={financingItem.loanAmount}
+                    loanTerm={financingItem.loanTerm}
+                    financingType={financingItem.financingType}
+                  />
+                : <MCredCardFast 
+                    onOpenFinancing={onOpenFinancing} 
+                    onOpenCart={onOpenCart}
+                    loanAmount={financingItem.loanAmount}
+                    loanTerm={financingItem.loanTerm}
+                    financingType={financingItem.financingType}
+                  />
+            );
+
+            setTimeout(() => {
+              updateTitleAndSubtitle(container, financingItem.selectedFinancingType || "Кредитная линия");
+              updateFinancingIcon(container, financingItem.selectedFinancingType || "Кредитная линия");
+              updateFinancingData(container, financingItem.loanAmount || "1000000", financingItem.loanTerm || "1");
+              makeFinancingTitleClickable(container, financingItem.selectedFinancingType || "Кредитная линия");
+            }, 100);
+          }, 50);
         }
       } else {
         // Если финансирования нет в корзине - показываем оригинальную карточку
@@ -404,9 +406,9 @@ export default function MPreloginWrapper({
         }
       }
     } catch (error) {
-      console.error("Error in card replacement:", error);
+      console.error("[MPrelogin] Error in card replacement:", error);
     }
-  }, [showCredCard, financingItem?.id, financingItem?.financingType, financingItem?.selectedFinancingType, financingItem?.loanAmount, financingItem?.loanTerm, isReady, onOpenFinancing, onOpenFinancingModal]);
+  }, [showCredCard, financingItem, isReady, onOpenFinancing, onOpenFinancingModal, onOpenCart, items]);
 
   const updateTitleAndSubtitle = (container: Element, financingType: string) => {
     const subtitle = ALL_MODALS_DATA[financingType]?.subtitle;

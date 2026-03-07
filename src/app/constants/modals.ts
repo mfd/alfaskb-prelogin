@@ -26,7 +26,7 @@ export const ALL_MODALS_DATA: Record<string, ModalData> = {
   // Финансирование
   "Кредитная линия": {
     title: "Кредитная линия",
-    subtitle: "Одобрим единый кредитный лимит на всё и сразу",
+    subtitle: "Одобрим единый кредитный лимит на всё и сразу",
     description: "Получите решение в срок от 3 до 7 дней",
     benefits: [
       {

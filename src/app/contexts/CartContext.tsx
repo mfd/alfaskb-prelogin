@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 export interface CartItem {
   id: string;
@@ -26,9 +26,43 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
+const CART_STORAGE_KEY = 'bank-cart-items';
+
+// Функция для загрузки корзины из localStorage
+const loadCartFromStorage = (): CartItem[] => {
+  if (typeof window === 'undefined') return [];
+  
+  try {
+    const stored = localStorage.getItem(CART_STORAGE_KEY);
+    if (stored) {
+      return JSON.parse(stored);
+    }
+  } catch (error) {
+    console.error('[CartContext] Error loading cart from localStorage:', error);
+  }
+  
+  return [];
+};
+
+// Функция для сохранения корзины в localStorage
+const saveCartToStorage = (items: CartItem[]) => {
+  if (typeof window === 'undefined') return;
+  
+  try {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+  } catch (error) {
+    console.error('[CartContext] Error saving cart to localStorage:', error);
+  }
+};
+
 export function CartProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [items, setItems] = useState<CartItem[]>([]);
+  const [items, setItems] = useState<CartItem[]>(loadCartFromStorage);
+
+  // Сохраняем корзину в localStorage при каждом изменении
+  useEffect(() => {
+    saveCartToStorage(items);
+  }, [items]);
 
   const openCart = () => setIsOpen(true);
   const closeCart = () => setIsOpen(false);
