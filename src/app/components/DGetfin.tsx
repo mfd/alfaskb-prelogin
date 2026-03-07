@@ -52,7 +52,7 @@ function Frame8() {
 
 
 
-function fastFin() {
+function FastFin() {
   return (
     <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-[169px]">
       <StatusBadge variant="fastFinContrast" />
@@ -71,7 +71,7 @@ function fastFin() {
 }
 
 
-function longFin() {
+function LongFin() {
   return (
     <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-[187px]">
       <StatusBadge variant="longFinContrast" />
@@ -92,7 +92,7 @@ function longFin() {
 function Frame9() {
   return (
     <div className="content-stretch flex gap-[32px] items-start relative shrink-0">
-      <fastFin />
+      <FastFin />
       <div className="h-[74.5px] relative shrink-0 w-0">
         <div className="absolute inset-[0_-1px]">
           <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 2 74.5">
@@ -100,7 +100,7 @@ function Frame9() {
           </svg>
         </div>
       </div>
-      <longFin />
+      <LongFin />
     </div>
   );
 }
