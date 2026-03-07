@@ -2,6 +2,7 @@ import svgPaths from "./svg-xe87gnk8kz";
 import imgIconView from "figma:asset/cdc94f594ce360f650b3258f60a9e696e28cfae9.png";
 import { imgShapeContent } from "./svg-d7vce";
 import StatusBadge from "../app/components/StatusBadge";
+import DProductButton from "../app/components/DProductButton";
 
 function ShapeContent() {
   return (
@@ -114,91 +115,34 @@ function Content() {
   );
 }
 
-function Fixer() {
-  return (
-    <div className="relative shrink-0 size-[24px]" data-name="Fixer">
-      <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
-        <g id="Fixer">
-          <path d={svgPaths.p28d167f0} fill="var(--fill-0, white)" fillOpacity="0.94" id="PaintMe" />
-        </g>
-      </svg>
-    </div>
-  );
+interface DCredCardLongProps {
+  onOpenCart?: () => void;
+  onOpenFinancing?: () => void;
 }
 
-function LeftAddon() {
-  return (
-    <div className="content-stretch flex items-start relative shrink-0" data-name="LeftAddon">
-      <div className="content-stretch flex flex-col items-center justify-center max-h-[24px] max-w-[24px] min-h-[24px] min-w-[24px] relative shrink-0" data-name="LeftAddon">
-        <Fixer />
-      </div>
-    </div>
-  );
-}
-
-function Text3() {
-  return (
-    <div className="content-stretch flex flex-col items-center px-[4px] relative shrink-0" data-name="Text">
-      <div className="flex flex-col font-['SF_Pro_Text:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[16px] text-[rgba(255,255,255,0.94)] whitespace-nowrap">
-        <p className="leading-[24px]">В корзине</p>
-      </div>
-    </div>
-  );
-}
-
-function Fixer1() {
-  return (
-    <div className="relative shrink-0 size-[24px]" data-name="Fixer">
-      <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
-        <g id="Fixer">
-          <path d={svgPaths.p23ff1b00} fill="var(--fill-0, #030306)" fillOpacity="0.88" id="PaintMe" />
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-function LeftAddon1() {
-  return (
-    <div className="content-stretch flex items-start relative shrink-0" data-name="LeftAddon">
-      <div className="content-stretch flex flex-col items-center justify-center max-h-[24px] max-w-[24px] min-h-[24px] min-w-[24px] relative shrink-0" data-name="LeftAddon">
-        <Fixer1 />
-      </div>
-    </div>
-  );
-}
-
-function Text4() {
-  return (
-    <div className="content-stretch flex flex-col items-center px-[4px] relative shrink-0" data-name="Text">
-      <div className="flex flex-col font-['SF_Pro_Text:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[16px] text-[rgba(3,3,6,0.88)] whitespace-nowrap">
-        <p className="leading-[24px]">Изменить</p>
-      </div>
-    </div>
-  );
-}
-
-export default function DCredCardLong() {
+export default function DCredCardLong({ onOpenCart, onOpenFinancing }: DCredCardLongProps) {
   return (
     <div className="bg-[#1c1c1e] content-stretch flex items-start justify-between overflow-clip p-[32px] relative rounded-[32px] size-full" data-name="DesktopCredCard">
       <Content />
       <div className="content-stretch flex flex-col gap-[12px] items-end relative shrink-0 w-[158px]" data-name="wip6 / kredBtns-wip6">
-        <div className="bg-[#0cc44d] min-h-[48px] min-w-[104px] relative rounded-[8px] shrink-0 w-full" data-name="[D] CustomButton">
-          <div className="flex flex-row items-center justify-center min-h-[inherit] min-w-[inherit] overflow-clip rounded-[inherit] size-full">
-            <div className="content-stretch flex gap-[4px] items-center justify-center min-h-[inherit] min-w-[inherit] px-[20px] py-[4px] relative w-full">
-              <LeftAddon />
-              <Text3 />
-            </div>
-          </div>
-        </div>
-        <div className="bg-white min-h-[48px] min-w-[104px] relative rounded-[8px] shrink-0 w-full" data-name="[D] CustomButton">
-          <div className="flex flex-row items-center justify-center min-h-[inherit] min-w-[inherit] overflow-clip rounded-[inherit] size-full">
-            <div className="content-stretch flex gap-[4px] items-center justify-center min-h-[inherit] min-w-[inherit] px-[20px] py-[4px] relative w-full">
-              <LeftAddon1 />
-              <Text4 />
-            </div>
-          </div>
-        </div>
+        <DProductButton 
+          variant="inCart" 
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onOpenCart?.();
+          }}
+          className="w-full"
+        />
+        <DProductButton 
+          variant="edit" 
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onOpenFinancing?.();
+          }}
+          className="w-full"
+        />
       </div>
     </div>
   );

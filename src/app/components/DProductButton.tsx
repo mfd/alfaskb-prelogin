@@ -63,7 +63,7 @@ export default function DProductButton({ variant, onClick, className = '', hideI
   return (
     <button
       onClick={onClick}
-      className={`${bg} content-stretch flex gap-[4px] items-center justify-center min-h-[48px] min-w-[104px] overflow-clip px-[20px] py-[4px] relative rounded-[8px] shrink-0 ${hover} transition-colors cursor-pointer ${className}`}
+      className={`${bg} content-stretch flex gap-[4px] items-center justify-center min-h-[48px] overflow-clip px-[20px] py-[4px] relative rounded-[8px] shrink-0 w-[156px] ${hover} transition-colors cursor-pointer ${className}`}
       data-name={config.dataName}
     >
       {!hideIcon && (

@@ -80,8 +80,14 @@ export default function DPreloginWrapper({
           const root = createRoot(container);
           root.render(
             financingItem.financingType === "longfin" 
-              ? <DCredCardLong /> 
-              : <DCredCardFast />
+              ? <DCredCardLong 
+                  onOpenCart={openCart}
+                  onOpenFinancing={onOpenFinancing}
+                /> 
+              : <DCredCardFast 
+                  onOpenCart={openCart}
+                  onOpenFinancing={onOpenFinancing}
+                />
           );
 
           // Ждем пока карточка отрендерится в DOM
@@ -124,7 +130,7 @@ export default function DPreloginWrapper({
     } catch (error) {
       console.error("Error in card replacement:", error);
     }
-  }, [showCredCard, financingItem, isReady]);
+  }, [showCredCard, financingItem, isReady, openCart, onOpenFinancing]);
 
   // Обновляем заголовок и подзаголовок в замененной карточке
   const updateTitleAndSubtitle = (container: Element, financingType: string) => {
@@ -224,66 +230,6 @@ export default function DPreloginWrapper({
       });
     }
   };
-
-  useEffect(() => {
-    // Добавляем CSS классы для кнопок в замененной карточке финансирования
-    const updateReplacedCardButtons = () => {
-      const replacedCard = document.querySelector('[data-name="DesktopCredCard-replaced"]');
-
-      if (replacedCard) {
-        const buttons = replacedCard.querySelectorAll('[data-name="[D] CustomButton"]');
-        buttons.forEach((button) => {
-          const buttonEl = button as HTMLElement;
-          const buttonText = buttonEl.textContent?.trim();
-
-          if (buttonText === "Изменить") {
-            buttonEl.classList.add("btn-edit");
-          } else if (buttonText === "В корзине") {
-            buttonEl.classList.add("btn-in-cart");
-          }
-        });
-      }
-    };
-
-    updateReplacedCardButtons();
-    
-    // Дополнительный вызов с задержкой для обновления после рендеринга
-    const timeoutId = setTimeout(updateReplacedCardButtons, 100);
-    
-    return () => clearTimeout(timeoutId);
-  }, [items, isInCart]);
-
-  useEffect(() => {
-    // Обработчики кликов на кнопки
-    const handleClick = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      const buttonCustom = target.closest('[data-name="[D] CustomButton"]');
-
-      // Обработка кастомных кнопок в замененной карточке финансирования
-      if (buttonCustom) {
-        const buttonText = buttonCustom.textContent?.trim();
-
-        if (buttonCustom.closest('[data-name="DesktopCredCard-replaced"]')) {
-          if (buttonText === "В корзине") {
-            event.preventDefault();
-            event.stopPropagation();
-            openCart();
-            return;
-          }
-
-          if (buttonText === "Изменить") {
-            event.preventDefault();
-            event.stopPropagation();
-            onOpenFinancing();
-            return;
-          }
-        }
-      }
-    };
-
-    document.addEventListener("click", handleClick);
-    return () => document.removeEventListener("click", handleClick);
-  }, [openCart, onOpenFinancing]);
 
   useEffect(() => {
     // Обработчики кликов на заголовки карточек продуктов

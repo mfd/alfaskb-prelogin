@@ -198,7 +198,7 @@ function Text19() {
   return (
     <div className="content-stretch flex flex-col items-center px-[4px] relative shrink-0" data-name="Text">
       <div className="flex flex-col font-['SF_Pro_Text:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[14px] text-[rgba(255,255,255,0.94)] whitespace-nowrap">
-        <p className="leading-[20px]">Выйти</p>
+        <p className="leading-[20px]">Выйти</p> 
       </div>
     </div>
   );
@@ -215,7 +215,7 @@ function Frame4({ openCart, itemsCount }: { openCart: () => void; itemsCount: nu
   );
 }
 
-function Frame2({ openCart, itemsCount }: { openCart: () => void; itemsCount: number }) {
+function HeaderBtns({ openCart, itemsCount }: { openCart: () => void; itemsCount: number }) {
   return (
     <div className="content-stretch flex gap-[48px] items-center relative shrink-0">
       <Frame3 />
@@ -228,17 +228,23 @@ function Content16({ openCart, itemsCount }: { openCart: () => void; itemsCount:
   return (
     <div className="content-stretch flex items-center justify-between relative shrink-0 w-full" data-name="Content">
       <Links />
-      <Frame2 openCart={openCart} itemsCount={itemsCount} />
+      <HeaderBtns openCart={openCart} itemsCount={itemsCount} />
     </div>
   );
 }
 
 function Content15({ openCart, itemsCount }: { openCart: () => void; itemsCount: number }) {
   return (
-    <div className="content-stretch flex flex-col items-start justify-center relative shrink-0 w-[1140px] z-[1]" data-name="Content">
-      <div className="h-[16px] shrink-0 w-[1140px]" data-name="PaddingTop" />
-      <Content16 openCart={openCart} itemsCount={itemsCount} />
-      <div className="h-[16px] shrink-0 w-[1140px]" data-name="PaddingBot" />
+    <div className="bg-[#121213] sticky top-0 z-50 w-full" data-name=".MainHeaderV3">
+      <div className="flex flex-col items-center size-full">
+        <div className="content-stretch flex flex-col isolate items-center px-[150px] relative w-full">
+          <div className="content-stretch flex flex-col items-start justify-center relative shrink-0 w-[1140px] z-[1]" data-name="Content">
+            <div className="h-[16px] shrink-0 w-[1140px]" data-name="PaddingTop" />
+            <Content16 openCart={openCart} itemsCount={itemsCount} />
+            <div className="h-[16px] shrink-0 w-[1140px]" data-name="PaddingBot" />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -247,12 +253,6 @@ export default function Header() {
   const { openCart, items } = useCart();
   
   return (
-    <div className="bg-[#121213] sticky top-0 z-50 w-full" data-name=".MainHeaderV3">
-      <div className="flex flex-col items-center size-full">
-        <div className="content-stretch flex flex-col isolate items-center px-[150px] relative w-full">
           <Content15 openCart={openCart} itemsCount={items.length} />
-        </div>
-      </div>
-    </div>
   );
 }

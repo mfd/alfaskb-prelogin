@@ -2,8 +2,14 @@ import svgPaths from "./svg-g3h07tdvev";
 import imgWip6DCredCard from "figma:asset/fba7823a1d9ed597ed66bef65724a783078389b5.png";
 import { imgWip6DCredCard1 } from "./svg-sbhrw";
 import StatusBadge from "../app/components/StatusBadge";
+import DProductButton from "../app/components/DProductButton";
 
-export default function DCredCardFast() {
+interface DCredCardFastProps {
+  onOpenCart?: () => void;
+  onOpenFinancing?: () => void;
+}
+
+export default function DCredCardFast({ onOpenCart, onOpenFinancing }: DCredCardFastProps) {
   return (
     <div className="bg-[#1c1c1e] content-stretch flex items-start justify-between overflow-clip p-[32px] relative rounded-[32px] size-full" data-name="DesktopCredCard">
       <div className="content-stretch flex flex-[1_0_0] gap-[48px] items-start min-h-px min-w-px relative" data-name="content">
@@ -62,50 +68,24 @@ export default function DCredCardFast() {
         </div>
       </div>
       <div className="content-stretch flex flex-col gap-[12px] items-end relative shrink-0 w-[158px]" data-name="wip6 / kredBtns-wip6">
-        <div className="bg-[#0cc44d] min-h-[48px] min-w-[104px] relative rounded-[8px] shrink-0 w-full" data-name="[D] CustomButton">
-          <div className="flex flex-row items-center justify-center min-h-[inherit] min-w-[inherit] overflow-clip rounded-[inherit] size-full">
-            <div className="content-stretch flex gap-[4px] items-center justify-center min-h-[inherit] min-w-[inherit] px-[20px] py-[4px] relative w-full">
-              <div className="content-stretch flex items-start relative shrink-0" data-name="LeftAddon">
-                <div className="content-stretch flex flex-col items-center justify-center max-h-[24px] max-w-[24px] min-h-[24px] min-w-[24px] relative shrink-0" data-name="LeftAddon">
-                  <div className="relative shrink-0 size-[24px]" data-name="Fixer">
-                    <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
-                      <g id="Fixer">
-                        <path d={svgPaths.p28d167f0} fill="var(--fill-0, white)" fillOpacity="0.94" id="PaintMe" />
-                      </g>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-              <div className="content-stretch flex flex-col items-center px-[4px] relative shrink-0" data-name="Text">
-                <div className="flex flex-col font-['SF_Pro_Text:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[16px] text-[rgba(255,255,255,0.94)] whitespace-nowrap">
-                  <p className="leading-[24px]">В корзине</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="bg-white min-h-[48px] min-w-[104px] relative rounded-[8px] shrink-0 w-full" data-name="[D] CustomButton">
-          <div className="flex flex-row items-center justify-center min-h-[inherit] min-w-[inherit] overflow-clip rounded-[inherit] size-full">
-            <div className="content-stretch flex gap-[4px] items-center justify-center min-h-[inherit] min-w-[inherit] px-[20px] py-[4px] relative w-full">
-              <div className="content-stretch flex items-start relative shrink-0" data-name="LeftAddon">
-                <div className="content-stretch flex flex-col items-center justify-center max-h-[24px] max-w-[24px] min-h-[24px] min-w-[24px] relative shrink-0" data-name="LeftAddon">
-                  <div className="relative shrink-0 size-[24px]" data-name="Fixer">
-                    <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
-                      <g id="Fixer">
-                        <path d={svgPaths.p23ff1b00} fill="var(--fill-0, #030306)" fillOpacity="0.88" id="PaintMe" />
-                      </g>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-              <div className="content-stretch flex flex-col items-center px-[4px] relative shrink-0" data-name="Text">
-                <div className="flex flex-col font-['SF_Pro_Text:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[16px] text-[rgba(3,3,6,0.88)] whitespace-nowrap">
-                  <p className="leading-[24px]">Изменить</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <DProductButton 
+          variant="inCart" 
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onOpenCart?.();
+          }}
+          className="w-full"
+        />
+        <DProductButton 
+          variant="edit" 
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onOpenFinancing?.();
+          }}
+          className="w-full"
+        />
       </div>
     </div>
   );

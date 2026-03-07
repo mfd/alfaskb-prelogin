@@ -4,24 +4,17 @@ import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  plugins: [
-    // The React and Tailwind plugins are both required for Make, even if
-    // Tailwind is not being actively used – do not remove them
-    react(),
-    tailwindcss(),
-  ],
+  base: '/alfaskb-prelogin/',  // ← Для GitHub Pages поддиректории
+  
+  plugins: [react(), tailwindcss()],
   resolve: {
     alias: [
-      // Существующий алиас @ для src
       { find: '@', replacement: path.resolve(__dirname, './src') },
-      // Динамический резолвер для figma:asset/xxx.png -> src/assets/xxx.png
       {
-        find: /^figma:asset\/(.+\.(png|jpg|jpeg|svg|gif|webp))$/,
+        find: /^figma:asset\/(.+\.(png|jpg|jpeg|svg|gif|webp))?$/,
         replacement: path.resolve(__dirname, 'src/assets/$1')
       }
     ],
   },
-
-  // File types to support raw imports. Never add .css, .tsx, or .ts files to this.
-  assetsInclude: ['**/*.svg', '**/*.csv'],
+  assetsInclude: ['**/*.svg', '**/*.csv', '**/*.png', '**/*.jpg', '**/*.gif', '**/*.webp'],
 })

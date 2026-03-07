@@ -131,26 +131,6 @@ export default function FinancingSidebar({
   );
   const isEditMode = Boolean(financingInCart);
 
-  // Блокировка скролла страницы когда сайдбар открыт
-  useEffect(() => {
-    if (isOpen) {
-      // Вычисляем ширину скроллбара
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-      
-      // Блокируем скролл и компенсируем смещение
-      document.body.style.overflow = 'hidden';
-      document.body.style.paddingRight = `${scrollbarWidth}px`;
-    } else {
-      document.body.style.overflow = '';
-      document.body.style.paddingRight = '';
-    }
-
-    return () => {
-      document.body.style.overflow = '';
-      document.body.style.paddingRight = '';
-    };
-  }, [isOpen]);
-
   // При открытии загружаем данные из корзины, если они есть
   useEffect(() => {
     if (isOpen && financingInCart) {
