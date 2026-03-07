@@ -237,7 +237,7 @@ function Content15({ openCart, itemsCount }: { openCart: () => void; itemsCount:
   return (
     <div className="bg-[#121213] sticky top-0 z-50 w-full dprelogin-header" data-name=".MainHeaderV3">
       <div className="flex flex-col items-center size-full">
-        <div className="content-stretch flex flex-col isolate items-center px-[150px] relative w-full">
+        <div className="content-stretch flex flex-col isolate items-center justify-center px-[150px] relative w-full h-[84px]">
           <div className="content-stretch flex flex-col items-start justify-center relative shrink-0 w-[1140px] z-[1]" data-name="Content">
             <div className="h-[16px] shrink-0 w-[1140px]" data-name="PaddingTop" />
             <Content16 openCart={openCart} itemsCount={itemsCount} />
