@@ -1,4 +1,4 @@
-import { BENEFIT_ICONS } from './UnifiedModal';
+import { MOBILE_BENEFIT_ICONS } from './icons/MobileBenefitIcons';
 import BenefitIconBackground from './icons/BenefitIconBackground';
 import { ALL_MODALS_DATA } from '../constants/modals';
 import svgPaths from "../../imports/svg-ojwadded7q";
@@ -7,6 +7,9 @@ import imgIconViewFactoring from "figma:asset/d1d40253624769c706b16443669c207d45
 import imgIconViewGuarantee from "figma:asset/42c1815a218a3d04336231b42bf5ce9f92b014e5.png";
 import imgIconViewOverdraft from "figma:asset/cdc94f594ce360f650b3258f60a9e696e28cfae9.png";
 import { imgShapeContent as imgMaskCreditLine } from "../../imports/svg-0t3pi";
+import { imgShapeContent as imgMaskFactoring } from "../../imports/svg-0t3pi";
+import { imgShapeContent as imgMaskGuarantee } from "../../imports/svg-0t3pi";
+import { imgShapeContent as imgMaskOverdraft } from "../../imports/svg-0t3pi";
 
 interface MobileFinancingBottomSheetProps {
   financingType: string;
@@ -21,14 +24,28 @@ const FINANCING_ICONS: Record<string, string> = {
 
 const FINANCING_MASKS: Record<string, string> = {
   'Кредитная линия': imgMaskCreditLine,
+  'Факторинг': imgMaskFactoring,
+  'Банковская гарантия': imgMaskGuarantee,
+  'Овердрафт': imgMaskOverdraft,
 };
 
-const FINANCING_ICON_POSITIONS: Record<string, { left: string, top: string, width: string, height: string }> = {
-  'Кредитная линия': { left: '1.4%', top: '0', width: '100%', height: '100%' },
+const FINANCING_ICON_POSITIONS: Record<string, { left: string; top: string; width: string; height: string }> = {
+  'Кредитная линия': { left: '0', top: '0', width: '100%', height: '100%' },
   'Факторинг': { left: '0', top: '0', width: '100%', height: '100%' },
   'Банковская гарантия': { left: '0', top: '0', width: '100%', height: '100%' },
   'Овердрафт': { left: '0', top: '0', width: '100%', height: '100%' },
 };
+
+// Обёртка для иконок без фона (24x24)
+function MobileIconWrapper({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0" data-name="Icon">
+      <div className="col-1 ml-0 mt-0 overflow-clip relative row-1 size-[24px]" data-name="Size=m">
+        {children}
+      </div>
+    </div>
+  );
+}
 
 function Cross() {
   return (
@@ -115,10 +132,11 @@ export default function MobileFinancingBottomSheet({ financingType }: MobileFina
                             className="absolute max-w-none" 
                             src={iconSrc}
                             style={{
-                              left: iconPosition.left,
-                              top: iconPosition.top,
-                              width: iconPosition.width,
-                              height: iconPosition.height,
+                              left: '0',
+                              top: '0',
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'contain'
                             }}
                           />
                         </div>
@@ -128,7 +146,20 @@ export default function MobileFinancingBottomSheet({ financingType }: MobileFina
                             data-name="ShapeContent" 
                             style={{ maskImage: `url('${iconMask}')` }}
                           >
-                            <div className="absolute left-0 overflow-clip size-[64px] top-0" data-name="BgImg" />
+                            <div className="absolute left-0 overflow-clip size-[64px] top-0" data-name="BgImg">
+                              <img 
+                                alt="" 
+                                className="absolute max-w-none" 
+                                src={iconSrc}
+                                style={{
+                                  left: '0',
+                                  top: '0',
+                                  width: '100%',
+                                  height: '100%',
+                                  objectFit: 'contain'
+                                }}
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -168,7 +199,7 @@ export default function MobileFinancingBottomSheet({ financingType }: MobileFina
                 {/* Benefits List */}
                 <div className="content-stretch flex flex-col gap-[12px] items-start relative shrink-0 w-full">
                   {modalData.benefits.map((benefit) => {
-                    const IconComponent = BENEFIT_ICONS[benefit.key];
+                    const IconComponent = MOBILE_BENEFIT_ICONS[benefit.key];
                     
                     return (
                       <div key={benefit.key} className="content-stretch flex flex-col items-start max-w-[328px] min-w-[270px] relative shrink-0 w-full" data-name="PureCard">
@@ -176,9 +207,9 @@ export default function MobileFinancingBottomSheet({ financingType }: MobileFina
                           <div className="content-stretch flex flex-[1_0_0] items-start min-h-px min-w-px relative" data-name="TopSlot">
                             <div className="content-stretch flex flex-col items-start justify-center min-h-[40px] pr-[8px] relative self-stretch shrink-0" data-name="Graphic">
                               <div className="content-stretch flex gap-[10px] items-start px-[8px] relative shrink-0" data-name="Graphic">
-                                <BenefitIconBackground>
+                                <MobileIconWrapper>
                                   {IconComponent && <IconComponent />}
-                                </BenefitIconBackground>
+                                </MobileIconWrapper>
                               </div>
                               <div className="flex-[1_0_0] min-h-px min-w-px w-[40px]" data-name="Filler" />
                             </div>

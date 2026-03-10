@@ -26,29 +26,28 @@ export const ALL_MODALS_DATA: Record<string, ModalData> = {
   // Финансирование
   "Кредитная линия": {
     title: "Кредитная линия",
-    subtitle: "Одобрим единый кредитный лимит на всё и сразу",
+    subtitle: "Одобрим единый кредитный лимит на всё и сразу",
     description: "Получите решение в срок от 3 до 7 дней",
     benefits: [
       {
-        key: "limit",
-        title: "Единый лимит",
-        description:
-          "Используйте на разные цели без дополнительных согласований",
+        key: "documents",
+        title: "Всего 2 документа",
+        description: "На первом этапе только отчётность по формам 1 и 2",
       },
       {
-        key: "rate",
-        title: "От 17,5%",
-        description: "Процентная ставка в год",
+        key: "fast-decision",
+        title: "Быстрое онлайн‑решение",
+        description: "До 200 млн ₽ за 3 дня и до 500 млн ₽ за 7 дней",
       },
       {
-        key: "term",
-        title: "До 3 лет",
-        description: "Гибкие условия погашения",
+        key: "no-collateral",
+        title: "Без залога",
+        description: "Только поручительство собственника",
       },
       {
-        key: "amount",
-        title: "До 200 млн ₽",
-        description: "Максимальная сумма кредитования",
+        key: "flexibility",
+        title: "Выбирайте, на что тратить",
+        description: "Кредитная линия, гарантия, овердрафт, факторинг",
       },
     ],
     iconKey: "credit-line",
@@ -177,7 +176,7 @@ export const ALL_MODALS_DATA: Record<string, ModalData> = {
   "Торговый эквайринг": {
     title: "Торговый эквайринг",
     subtitle: "Приём платежей онлайн и в торговых точках",
-    description: "Принимайте оплату картами выгодно4",
+    description: "Принимайте оплату картами выгодно",
     cardDescription:
       "Приём платежей онлайн и в торговых точках",
     cardBenefits: [
@@ -205,7 +204,7 @@ export const ALL_MODALS_DATA: Record<string, ModalData> = {
         key: "support",
         title: "Поддержка 24/7",
         description:
-          "Выделенная горячая линия для среднего и крупного бизнеса",
+          "Выделенная горячая линия для среднего и крупного бизнеса",
       },
     ],
     iconKey: "acquiring",
@@ -356,7 +355,7 @@ export const ALL_MODALS_DATA: Record<string, ModalData> = {
     useObjectFit: true, // Используем object-fit для корректного отображения
   },
   "РКО для бизнеса": {
-    title: "РКО для бизнеса",
+    title: "РКО для бизнеса",
     subtitle:
       "Расчётно-кассовое обслуживание для вашего бизнеса",
     description:

@@ -37,7 +37,7 @@ const FINANCING_TYPES = [
 function DesktopProductsPage() {
   const [isFinancingSidebarOpen, setIsFinancingSidebarOpen] = useState(false);
   const [openModal, setOpenModal] = useState<string | null>(null);
-  const { addItem, openCart, isInCart } = useCart();
+  const { addItem, openCart, isInCart, items } = useCart();
 
   const handleAddToCart = (modalKey: string) => {
     const productId = MODAL_TO_PRODUCT_ID[modalKey];
@@ -52,9 +52,17 @@ function DesktopProductsPage() {
 
   const isModalProductInCart = useMemo(() => {
     if (!openModal) return false;
+    
+    // Проверяем, это модалка финансирования или продукта
+    if (FINANCING_TYPES.includes(openModal)) {
+      // Это модалка финансирования - проверяем наличие элемента с id === "financing"
+      return items.some(item => item.id === "financing");
+    }
+    
+    // Это модалка продукта - проверяем по productId
     const productId = MODAL_TO_PRODUCT_ID[openModal];
     return productId ? isInCart(productId) : false;
-  }, [openModal, isInCart]);
+  }, [openModal, isInCart, items]);
 
   return (
     <div className="min-h-screen flex flex-col items-center w-full">

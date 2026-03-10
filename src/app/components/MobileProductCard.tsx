@@ -32,7 +32,7 @@ export function MobileProductCard({
           
           {/* Text Content */}
           <div className="content-stretch flex flex-col gap-[8px] items-start leading-[20px] not-italic relative shrink-0 w-full" data-name="Text Content">
-            <p className="[text-decoration-skip-ink:none] decoration-dotted relative shrink-0 text-[16px] text-[rgba(3,3,6,0.88)] underline w-full">
+            <p className="[text-decoration-skip-ink:none] decoration-dotted decoration-[rgba(3,3,6,0.5)] font-bold leading-[20px] not-italic relative shrink-0 text-[16px] text-[rgba(3,3,6,0.88)] underline w-full">
               {title}
             </p>
             <p className="font-['SF_Pro_Text:Regular',sans-serif] relative shrink-0 text-[14px] text-[rgba(4,4,19,0.55)] w-full">

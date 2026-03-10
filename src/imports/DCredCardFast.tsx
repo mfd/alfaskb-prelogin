@@ -13,7 +13,7 @@ export default function DCredCardFast({ onOpenCart, onOpenFinancing }: DCredCard
   return (
     <div className="bg-[#1c1c1e] content-stretch flex items-start justify-between overflow-clip p-[32px] relative rounded-[32px] size-full" data-name="DesktopCredCard">
       <div className="content-stretch flex flex-[1_0_0] gap-[48px] items-start min-h-px min-w-px relative" data-name="content">
-        <div className="content-stretch flex gap-[16px] items-start relative shrink-0 w-[332px]" data-name="title">
+        <div className="content-stretch flex gap-[24px] items-start relative shrink-0 w-[332px]" data-name="title">
           <div className="content-stretch flex flex-col items-start relative shrink-0 w-[72px]" data-name="PreloginProductsIcon">
             <div className="content-stretch flex flex-col items-center justify-center max-h-[80px] max-w-[72px] min-h-[72px] min-w-[72px] relative shrink-0 size-[72px]" data-name="IconView">
               <div className="absolute inset-0 overflow-hidden pointer-events-none">

@@ -3,7 +3,7 @@ import DPrelogin from "../../imports/DPrelogin";
 import DCredCardFast from "../../imports/DCredCardFast";
 import DCredCardLong from "../../imports/DCredCardLong";
 import { PRODUCTS } from "./ProductCard";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { createRoot } from "react-dom/client";
 import svgPaths from "../../imports/svg-w578t1oyss";
 import svgPathsPlus from "../../imports/svg-pnkyyxs7im";
@@ -26,6 +26,28 @@ export default function DPreloginWrapper({
 }: DPreloginWrapperProps) {
   const { toggleItem, isInCart, openCart, items } = useCart();
   const [isReady, setIsReady] = useState(false);
+
+  // Используем refs для хранения актуальных версий функций
+  const openCartRef = useRef(openCart);
+  const onOpenFinancingRef = useRef(onOpenFinancing);
+
+  // Обновляем refs при изменении функций
+  useEffect(() => {
+    openCartRef.current = openCart;
+  }, [openCart]);
+
+  useEffect(() => {
+    onOpenFinancingRef.current = onOpenFinancing;
+  }, [onOpenFinancing]);
+
+  // Создаем стабильные обертки для функций
+  const stableOpenCart = useRef(() => {
+    openCartRef.current();
+  }).current;
+
+  const stableOnOpenFinancing = useRef(() => {
+    onOpenFinancingRef.current();
+  }).current;
 
   // Проверяем, есть ли финансирование в корзине
   const financingItem = items.find((item) => item.id === "financing");
@@ -73,20 +95,21 @@ export default function DPreloginWrapper({
           skeleton.style.borderRadius = "32px";
           container.appendChild(skeleton);
 
-          // Рендерим карточку финансирования
-          // Удаляем скелетон
-          container.innerHTML = "";
+          // Рендерим карточку финансирования скрыто
+          const cardWrapper = document.createElement("div");
+          cardWrapper.style.opacity = "0";
+          cardWrapper.style.transition = "opacity 0.2s ease-in-out";
 
-          const root = createRoot(container);
+          const root = createRoot(cardWrapper);
           root.render(
             financingItem.financingType === "longfin" 
               ? <DCredCardLong 
-                  onOpenCart={openCart}
-                  onOpenFinancing={onOpenFinancing}
+                  onOpenCart={stableOpenCart}
+                  onOpenFinancing={stableOnOpenFinancing}
                 /> 
               : <DCredCardFast 
-                  onOpenCart={openCart}
-                  onOpenFinancing={onOpenFinancing}
+                  onOpenCart={stableOpenCart}
+                  onOpenFinancing={stableOnOpenFinancing}
                 />
           );
 
@@ -94,32 +117,41 @@ export default function DPreloginWrapper({
           setTimeout(() => {
             // Обновляем заголовок и подзаголовок
             updateTitleAndSubtitle(
-              container,
+              cardWrapper,
               financingItem.selectedFinancingType || "Кредитная линия"
             );
 
             // Обновляем иконку
             updateFinancingIcon(
-              container,
+              cardWrapper,
               financingItem.selectedFinancingType || "Кредитная линия"
             );
 
             // Обновляем суммы и сроки
             updateFinancingData(
-              container,
+              cardWrapper,
               financingItem.loanAmount || "75000000",
               financingItem.loanTerm || "30"
             );
 
             // Делаем заголовок кликабельным
             makeFinancingTitleClickable(
-              container,
+              cardWrapper,
               financingItem.selectedFinancingType || "Кредитная линия"
             );
-          }, 0);
+
+            // Убираем скелетон и показываем готовую карточку
+            container.innerHTML = "";
+            container.appendChild(cardWrapper);
+            
+            // Небольшая задержка для плавного появления
+            requestAnimationFrame(() => {
+              cardWrapper.style.opacity = "1";
+            });
+          }, 50);
         }
       } else {
-        // Показываем черную карточку, скрываем замененную
+        // Показываем черную карочку, скрываем замененную
         if (blackCard) {
           (blackCard as HTMLElement).style.display = "";
         }
@@ -130,7 +162,7 @@ export default function DPreloginWrapper({
     } catch (error) {
       console.error("Error in card replacement:", error);
     }
-  }, [showCredCard, financingItem, isReady, openCart, onOpenFinancing]);
+  }, [showCredCard, financingItem, isReady]); // Убрали openCart и onOpenFinancing из зависимостей
 
   // Обновляем заголовок и подзаголовок в замененной карточке
   const updateTitleAndSubtitle = (container: Element, financingType: string) => {

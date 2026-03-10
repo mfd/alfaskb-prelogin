@@ -1,33 +1,8 @@
 import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import svgPaths from "../../imports/svg-pnraektoeb";
+import svgPaths from "../../imports/svg-4h2301ea2p";
 import BenefitIconBackground from './icons/BenefitIconBackground';
-import StarIcon from './icons/StarIcon';
-import CardPaymentIcon from './icons/CardPaymentIcon';
-import TerminalIcon from './icons/TerminalIcon';
-import ClockIcon from './icons/ClockIcon';
-import CardsStackIcon from './icons/CardsStackIcon';
-import ExpenseManagementIcon from './icons/ExpenseManagementIcon';
-import CardTransferIcon from './icons/CardTransferIcon';
-import GpiTrackerIcon from './icons/GpiTrackerIcon';
-import InternetBankIcon from './icons/InternetBankIcon';
-import NotificationIcon from './icons/NotificationIcon';
-import HeadsetIcon from './icons/HeadsetIcon';
-import TimeManagementIcon from './icons/TimeManagementIcon';
-import BankIcon from './icons/BankIcon';
-import UserManagerIcon from './icons/UserManagerIcon';
-import LightningIcon from './icons/LightningIcon';
-import OnlineIcon from './icons/OnlineIcon';
-import PercentIcon from './icons/PercentIcon';
-import MoneyIcon from './icons/MoneyIcon';
-import CheckShieldIcon from './icons/CheckShieldIcon';
-import DocumentAnalyticsIcon from './icons/DocumentAnalyticsIcon';
-import ControlIcon from './icons/ControlIcon';
-import TenderIcon from './icons/TenderIcon';
-import ContractIcon from './icons/ContractIcon';
-import CustomsIcon from './icons/CustomsIcon';
-import AutomaticIcon from './icons/AutomaticIcon';
-import AvailabilityIcon from './icons/AvailabilityIcon';
+import { DESKTOP_BENEFIT_ICONS } from './icons/DesktopBenefitIcons';
 import imgIconViewAcquiring from "figma:asset/b116ede83d918c70ee33b67dd684fee5df30c0ea.png";
 import imgIconViewCards from "figma:asset/2d8f436e8926b098b31a198377f23d2e9a55c7d7.png";
 import imgIconViewVed from "figma:asset/17fe6d92a7c017a237c968c627a7c792bf116508.png";
@@ -72,48 +47,6 @@ const MODAL_MASKS: Record<string, string> = {
   rko: imgMaskRko,
   deposits: imgMaskDeposits,
   'credit-line': imgMaskCreditLine,
-};
-
-export const BENEFIT_ICONS: Record<string, React.ComponentType> = {
-  // Продукты
-  flexible: StarIcon,
-  'all-methods': CardPaymentIcon,
-  terminals: TerminalIcon,
-  support: ClockIcon,
-  unlimited: StarIcon,
-  choice: CardsStackIcon,
-  management: ExpenseManagementIcon,
-  transfers: CardTransferIcon,
-  gpi: GpiTrackerIcon,
-  'internet-bank': InternetBankIcon,
-  fast: ClockIcon,
-  notifications: NotificationIcon,
-  minute: CardTransferIcon,
-  'support-24': HeadsetIcon,
-  time: ClockIcon,
-  free: BankIcon,
-  tech: BankIcon,
-  '24-7': TimeManagementIcon,
-  personal: UserManagerIcon,
-  convenient: LightningIcon,
-  online: OnlineIcon,
-  'from-day': TimeManagementIcon,
-  rate: PercentIcon,
-  amount: MoneyIcon,
-  // Финансирование
-  limit: StarIcon,
-  term: TimeManagementIcon,
-  protection: CheckShieldIcon,
-  analytics: DocumentAnalyticsIcon,
-  control: ControlIcon,
-  tender: TenderIcon,
-  contract: ContractIcon,
-  customs: CustomsIcon,
-  'fast-issue': ClockIcon,
-  automatic: AutomaticIcon,
-  availability: AvailabilityIcon,
-  payment: MoneyIcon,
-  'limit-amount': MoneyIcon,
 };
 
 export default function UnifiedModal({ isOpen, onClose, modalKey, onAddToCart, isInCart = false, onOpenCart }: UnifiedModalProps) {
@@ -272,7 +205,7 @@ export default function UnifiedModal({ isOpen, onClose, modalKey, onAddToCart, i
                   }, []).map((row, rowIndex) => (
                     <div key={rowIndex} className="content-stretch flex gap-[16px] items-start relative shrink-0 w-full">
                       {row.map((benefit) => {
-                        const IconComponent = BENEFIT_ICONS[benefit.key];
+                        const IconComponent = DESKTOP_BENEFIT_ICONS[benefit.key];
                         
                         return (
                           <div key={benefit.key} className="content-stretch flex flex-[1_0_0] flex-col items-start max-w-[558px] min-h-px min-w-[267px] relative" data-name="PureCard">

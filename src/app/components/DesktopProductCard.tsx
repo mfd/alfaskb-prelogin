@@ -25,7 +25,7 @@ export function DesktopProductCard({
     >
       <div className="content-stretch flex flex-[1_0_0] gap-[48px] items-start min-h-px min-w-px relative" data-name="content">
         <div
-          className="content-stretch flex gap-[16px] items-start relative shrink-0 w-[332px]"
+          className="content-stretch flex gap-[24px] items-start relative shrink-0 w-[332px]"
           data-name="title"
         >
           <div

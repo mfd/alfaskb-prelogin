@@ -39,7 +39,7 @@ function Text() {
 
 function Title() {
   return (
-    <div className="content-stretch flex gap-[16px] items-start relative shrink-0 w-[332px]" data-name="title">
+    <div className="content-stretch flex gap-[24px] items-start relative shrink-0 w-[332px]" data-name="title">
       <div className="content-stretch flex flex-col items-start relative shrink-0 w-[72px]" data-name="PreloginProductsIcon">
         <div className="content-stretch flex flex-col items-center justify-center max-h-[80px] max-w-[72px] min-h-[72px] min-w-[72px] relative shrink-0 size-[72px]" data-name="IconView">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
