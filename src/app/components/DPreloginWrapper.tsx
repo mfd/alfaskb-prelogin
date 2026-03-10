@@ -267,6 +267,7 @@ export default function DPreloginWrapper({
       onOpenFinancing={onOpenFinancing} 
       toggleItem={toggleItem}
       isInCart={isInCart}
+      openCart={openCart}
     />
   );
 }

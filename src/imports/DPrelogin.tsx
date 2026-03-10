@@ -28,13 +28,19 @@ function IntroSection() {
   );
 }
 
-function Cards({ toggleItem, isInCart }: { toggleItem?: (item: any) => void; isInCart?: (productId: string) => boolean }) {
+function Cards({ toggleItem, isInCart, openCart }: { toggleItem?: (item: any) => void; isInCart?: (productId: string) => boolean; openCart?: () => void }) {
   const handleAddClick = (productId: string) => {
-    if (!toggleItem) return;
+    if (!toggleItem || !isInCart) return;
     
     const product = PRODUCTS.find((p) => p.id === productId);
     if (product) {
-      toggleItem({ ...product, productId });
+      // Если продукт уже в корзине - открываем корзину
+      if (isInCart(productId)) {
+        openCart?.();
+      } else {
+        // Если не в корзине - добавляем
+        toggleItem({ ...product, productId });
+      }
     }
   };
 
@@ -55,7 +61,7 @@ function Cards({ toggleItem, isInCart }: { toggleItem?: (item: any) => void; isI
   );
 }
 
-function ProductsSection({ onOpenFinancing, toggleItem, isInCart }: { onOpenFinancing?: () => void; toggleItem?: (item: any) => void; isInCart?: (productId: string) => boolean }) {
+function ProductsSection({ onOpenFinancing, toggleItem, isInCart, openCart }: { onOpenFinancing?: () => void; toggleItem?: (item: any) => void; isInCart?: (productId: string) => boolean; openCart?: () => void }) {
   const handleFinancingClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -67,7 +73,7 @@ function ProductsSection({ onOpenFinancing, toggleItem, isInCart }: { onOpenFina
     <div className="relative shrink-0 w-full" data-name="section">
       <div className="content-stretch flex flex-col gap-[24px] items-center px-[70px] relative w-full">
         <DGetfin onAddClick={handleFinancingClick} />
-        <Cards toggleItem={toggleItem} isInCart={isInCart} />
+        <Cards toggleItem={toggleItem} isInCart={isInCart} openCart={openCart} />
       </div>
     </div>
   );
@@ -75,12 +81,12 @@ function ProductsSection({ onOpenFinancing, toggleItem, isInCart }: { onOpenFina
 
 
 
-function Desktop({ onOpenFinancing, toggleItem, isInCart }: { onOpenFinancing?: () => void; toggleItem?: (item: any) => void; isInCart?: (productId: string) => boolean }) {
+function Desktop({ onOpenFinancing, toggleItem, isInCart, openCart }: { onOpenFinancing?: () => void; toggleItem?: (item: any) => void; isInCart?: (productId: string) => boolean; openCart?: () => void }) {
   return (
     <div className="bg-white content-stretch flex flex-col items-center pt-[72px] top-0 w-[1280px]" data-name="Desktop">
       <div className="content-stretch flex flex-col gap-[40px] items-center pb-[128px] relative shrink-0 w-[1280px]" data-name="body">
         <IntroSection />
-        <ProductsSection onOpenFinancing={onOpenFinancing} toggleItem={toggleItem} isInCart={isInCart} />
+        <ProductsSection onOpenFinancing={onOpenFinancing} toggleItem={toggleItem} isInCart={isInCart} openCart={openCart} />
       </div>
     </div>
   );
@@ -90,13 +96,14 @@ interface DPreloginProps {
   onOpenFinancing?: () => void;
   toggleItem?: (item: any) => void;
   isInCart?: (productId: string) => boolean;
+  openCart?: () => void;
 }
 
-export default function DPrelogin({ onOpenFinancing, toggleItem, isInCart }: DPreloginProps = {}) {
+export default function DPrelogin({ onOpenFinancing, toggleItem, isInCart, openCart }: DPreloginProps = {}) {
   return (
     <div className="relative w-full min-h-screen flex flex-col" data-name="DPrelogin">
       <div className="flex flex-col items-center w-full">
-        <Desktop onOpenFinancing={onOpenFinancing} toggleItem={toggleItem} isInCart={isInCart} />
+        <Desktop onOpenFinancing={onOpenFinancing} toggleItem={toggleItem} isInCart={isInCart} openCart={openCart} />
       </div>
       <DFooter />
     </div>
