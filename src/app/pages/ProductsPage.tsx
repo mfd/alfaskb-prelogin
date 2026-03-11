@@ -133,7 +133,7 @@ function MobileProductsPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-white relative md:hidden">
+    <div className="min-h-screen w-full bg-white relative">
       {/* Основной контент */}
       <MPreloginWrapper 
         onOpenFinancing={() => setIsFinancingSidebarOpen(true)}
@@ -207,6 +207,9 @@ export default function ProductsPage() {
   const [isMobileWidth, setIsMobileWidth] = useState(false);
 
   useEffect(() => {
+    // Устанавливаем title страницы
+    document.title = 'Персональные предложения для вашего бизнеса';
+    
     const checkMobileWidth = () => {
       const width = window.innerWidth;
       const height = window.innerHeight;

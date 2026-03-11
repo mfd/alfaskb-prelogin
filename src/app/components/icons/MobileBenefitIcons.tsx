@@ -512,4 +512,10 @@ export const MOBILE_BENEFIT_ICONS: Record<string, () => JSX.Element> = {
   // ФИНАНСИРОВАНИЕ - Овердрафт (обновленные иконки из BottomSheet-120-13834)
   "limit": MobileWalletIcon, // "Лимит" - рассчитывается индивидуально
   "term": MobileCalendarIcon, // "36 месяцев" - максимальный срок договора
+  
+  // Старые ключи для совместимости (можно удалить после обновления modals.ts)
+  "automatic": MobileSettingsIcon,
+  "availability": MobileSettingsIcon,
+  "payment": MobileMoneyIcon,
+  "limit-amount": MobileMoneyIcon,
 };
