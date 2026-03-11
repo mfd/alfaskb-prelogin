@@ -1,5 +1,4 @@
-import svgPathsEdit from "../../imports/svg-x1ydv67pv3";
-import svgPathsCheckmark from "../../imports/svg-x1ydv67pv3";
+import svgPaths from "../../imports/svg-x1ydv67pv3";
 
 export type MButtonVariant = 'add' | 'inCart' | 'edit';
 
@@ -21,7 +20,7 @@ export function MButton({ variant = 'add', onClick, text }: MButtonProps) {
     },
     edit: {
       bg: 'bg-white',
-      icon: svgPathsEdit.p11e0fc00,
+      icon: svgPaths.p11e0fc00,
       iconFill: '#030306',
       iconOpacity: '0.88',
       text: text || 'Изменить',
@@ -29,7 +28,7 @@ export function MButton({ variant = 'add', onClick, text }: MButtonProps) {
     },
     inCart: {
       bg: 'bg-[#0cc44d]',
-      icon: svgPathsCheckmark.p30c53c80,
+      icon: svgPaths.p30c53c80,
       iconFill: 'white',
       iconOpacity: '0.94',
       text: text || 'В корзине',

@@ -410,6 +410,42 @@ export function MobileControlFinancingIcon() {
   );
 }
 
+// Замок - для no-collateral (кредитная линия)
+export function MobileLockIcon() {
+  return (
+    <div className="absolute inset-[8.33%_16.67%]" data-name="icon">
+      <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 16 20">
+        <path clipRule="evenodd" d={svgPaths.p25945e00} fill="var(--fill-0, #030306)" fillOpacity="0.88" fillRule="evenodd" id="icon" />
+      </svg>
+    </div>
+  );
+}
+
+// Календарь - для term (овердрафт: "36 месяцев")
+export function MobileCalendarIcon() {
+  return (
+    <div className="absolute inset-[8.33%_12.5%_4.17%_12.5%]" data-name="icon">
+      <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 18 21">
+        <path d={svgPaths.p3169f800} fill="var(--fill-0, #212124)" id="icon" />
+      </svg>
+    </div>
+  );
+}
+
+// Кошелёк - для limit (овердрафт: "Лимит")
+export function MobileWalletIcon() {
+  return (
+    <div className="absolute inset-[16.67%_4.17%]" data-name="icon">
+      <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 22 16">
+        <g id="icon">
+          <path d={svgPaths.p31008580} fill="var(--fill-0, #212124)" />
+          <path clipRule="evenodd" d={svgPaths.p27c08200} fill="var(--fill-0, #212124)" fillRule="evenodd" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
 // ============================================
 // МАППИНГ ИКОНОК
 // ============================================
@@ -457,14 +493,10 @@ export const MOBILE_BENEFIT_ICONS: Record<string, () => JSX.Element> = {
   "amount": MobileMoneyIcon,
   
   // ФИНАНСИРОВАНИЕ - Кредитная линия
-  "limit": MobileStarIcon,
-  "term": MobileClockFinancingIcon,
-  
-  // Кредитная линия - новые ключи из BottomSheet.tsx
   "documents": MobileDocumentIcon, // "Всего 2 документа"
   "fast-decision": MobileClockFinancingIcon, // "Быстрое онлайн‑решение"
-  "no-collateral": MobileShieldIcon, // "Без залога"
-  "flexibility": MobileStarIcon, // "Выбирайте, на что тратить" - используем звезду как символ гибкости
+  "no-collateral": MobileShieldIcon, // "Без залога" (используется и в Кредитной линии, и в Овердрафт)
+  "flexibility": MobileSettingsIcon, // "Гибкие условия" (для Овердрафт) / "Выбирайте, на что тратить" (используем настройки как символ гибкости)
   
   // ФИНАНСИРОВАНИЕ - Факторинг  
   "protection": MobileShieldIcon,
@@ -477,9 +509,7 @@ export const MOBILE_BENEFIT_ICONS: Record<string, () => JSX.Element> = {
   "customs": MobileDocumentIcon,
   "fast-issue": MobileClockFinancingIcon,
   
-  // ФИНАНСИРОВАНИЕ - Овердрафт
-  "automatic": MobileSettingsIcon,
-  "availability": MobileSettingsIcon,
-  "payment": MobileMoneyIcon,
-  "limit-amount": MobileMoneyIcon,
+  // ФИНАНСИРОВАНИЕ - Овердрафт (обновленные иконки из BottomSheet-120-13834)
+  "limit": MobileWalletIcon, // "Лимит" - рассчитывается индивидуально
+  "term": MobileCalendarIcon, // "36 месяцев" - максимальный срок договора
 };

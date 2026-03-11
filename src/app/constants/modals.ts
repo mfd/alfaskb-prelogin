@@ -32,12 +32,12 @@ export const ALL_MODALS_DATA: Record<string, ModalData> = {
       {
         key: "documents",
         title: "Всего 2 документа",
-        description: "На первом этапе только отчётность по формам 1 и 2",
+        description: "На первом этапе только отчётность по формам 1 и 2",
       },
       {
         key: "fast-decision",
         title: "Быстрое онлайн‑решение",
-        description: "До 200 млн ₽ за 3 дня и до 500 млн ₽ за 7 дней",
+        description: "До 200 млн ₽ за 3 дня и до 500 млн ₽ за 7 дней",
       },
       {
         key: "no-collateral",
@@ -105,13 +105,13 @@ export const ALL_MODALS_DATA: Record<string, ModalData> = {
         key: "tender",
         title: "Для тендеров",
         description:
-          "Обеспечение заявок на участие в госзакупках",
+          "Обеспечение заявок на участие в госзакупках",
       },
       {
         key: "contract",
         title: "Контрактные",
         description:
-          "Гарантия исполнения обязательств по договору",
+          "Гарантия исполнения обязательств по договору",
       },
       {
         key: "customs",
@@ -141,25 +141,24 @@ export const ALL_MODALS_DATA: Record<string, ModalData> = {
       "Если деньги от покупателей поступят на счёт позже",
     benefits: [
       {
-        key: "automatic",
-        title: "Автоматически",
-        description: "Подключается к расчётному счёту",
+        key: "limit",
+        title: "Лимит",
+        description: "Рассчитывается индивидуально",
       },
       {
-        key: "availability",
-        title: "Всегда доступен",
-        description: "Используйте при необходимости",
+        key: "term",
+        title: "36 месяцев",
+        description: "Максимальный срок договора",
       },
       {
-        key: "payment",
-        title: "Плата за использование",
-        description:
-          "Процент начисляется только на сумму овердрафта",
+        key: "no-collateral",
+        title: "Без залога",
+        description: "Только поручительство собственника",
       },
       {
-        key: "limit-amount",
-        title: "До 30 млн ₽",
-        description: "Максимальный лимит овердрафта",
+        key: "flexibility",
+        title: "Гибкие условия",
+        description: "Для погашения долга и процентов",
       },
     ],
     iconKey: "overdraft",
