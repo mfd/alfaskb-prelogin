@@ -117,29 +117,35 @@ function Content() {
 
 interface DCredCardLongProps {
   onOpenCart?: () => void;
-  onOpenFinancing?: () => void;
+  onEditClick?: () => void;
 }
 
-export default function DCredCardLong({ onOpenCart, onOpenFinancing }: DCredCardLongProps) {
+export default function DCredCardLong({ onOpenCart, onEditClick }: DCredCardLongProps) {
   return (
     <div className="bg-[#1c1c1e] content-stretch flex items-start justify-between overflow-clip p-[32px] relative rounded-[32px] size-full" data-name="DesktopCredCard">
       <Content />
       <div className="content-stretch flex flex-col gap-[12px] items-end relative shrink-0 w-[158px]" data-name="wip6 / kredBtns-wip6">
         <DProductButton 
-          variant="inCart" 
+          text="В корзине"
+          color="green"
+          icon="checkmark"
           onClick={(e) => {
             e.preventDefault();
-            e.stopPropagation();
-            onOpenCart?.();
+            if (onOpenCart) {
+              onOpenCart();
+            }
           }}
           className="w-full"
         />
         <DProductButton 
-          variant="edit" 
+          text="Изменить"
+          color="white"
+          icon="edit"
           onClick={(e) => {
             e.preventDefault();
-            e.stopPropagation();
-            onOpenFinancing?.();
+            if (onEditClick) {
+              onEditClick();
+            }
           }}
           className="w-full"
         />

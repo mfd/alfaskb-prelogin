@@ -14,6 +14,7 @@ export interface CartItem {
 interface CartContextType {
   isOpen: boolean;
   items: CartItem[];
+  isLoading: boolean;
   openCart: () => void;
   closeCart: () => void;
   addItem: (item: CartItem) => void;
@@ -57,12 +58,26 @@ const saveCartToStorage = (items: CartItem[]) => {
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [items, setItems] = useState<CartItem[]>(loadCartFromStorage);
+  const [items, setItems] = useState<CartItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Загружаем корзину из localStorage при монтировании
+  useEffect(() => {
+    setIsLoading(true);
+    const loadedItems = loadCartFromStorage();
+    setItems(loadedItems);
+    // Небольшая задержка чтобы избежать мигания
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 100);
+  }, []);
 
   // Сохраняем корзину в localStorage при каждом изменении
   useEffect(() => {
-    saveCartToStorage(items);
-  }, [items]);
+    if (!isLoading) {
+      saveCartToStorage(items);
+    }
+  }, [items, isLoading]);
 
   const openCart = () => setIsOpen(true);
   const closeCart = () => setIsOpen(false);
@@ -109,7 +124,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <CartContext.Provider value={{ isOpen, items, openCart, closeCart, addItem, removeItem, toggleItem, isInCart, updateItem, clearCart }}>
+    <CartContext.Provider value={{ isOpen, items, isLoading, openCart, closeCart, addItem, removeItem, toggleItem, isInCart, updateItem, clearCart }}>
       {children}
     </CartContext.Provider>
   );
@@ -126,6 +141,7 @@ export function useCart(): CartContextType {
     const fallbackContext: CartContextType = {
       isOpen: false,
       items: [],
+      isLoading: false,
       openCart: () => console.warn('[CartContext] openCart called on fallback'),
       closeCart: () => console.warn('[CartContext] closeCart called on fallback'),
       addItem: () => console.warn('[CartContext] addItem called on fallback'),

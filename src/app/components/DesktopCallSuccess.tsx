@@ -1,13 +1,28 @@
 import { motion } from 'motion/react';
 import { X } from 'lucide-react';
 import { UI_TEXT } from '../constants/modals';
+import { useUser } from '../contexts/UserContext';
+import { COMPANY_INFO } from '../constants/company';
 import imgSidePanel from "figma:asset/3763c4a9aa567a9deb9504e7af991955fe4dcc27.png";
 
 interface DesktopCallSuccessProps {
   phoneNumber?: string;
 }
 
-export default function DesktopCallSuccess({ phoneNumber = '+7 (999) 999-99-99' }: DesktopCallSuccessProps) {
+export default function DesktopCallSuccess({ phoneNumber }: DesktopCallSuccessProps) {
+  const { userData } = useUser();
+  
+  // Форматирование телефона для отображения
+  const formatPhoneForDisplay = (phoneStr: string) => {
+    const digits = phoneStr.replace(/\D/g, '');
+    if (digits.length === 11) {
+      return `+7 (${digits.slice(1, 4)}) ${digits.slice(4, 7)}-${digits.slice(7, 9)}-${digits.slice(9)}`;
+    }
+    return phoneStr;
+  };
+
+  const displayPhone = phoneNumber || (userData?.phone ? formatPhoneForDisplay(userData.phone) : COMPANY_INFO.phone);
+
   return (
     <div className="flex-[1_0_0] min-h-px min-w-px relative w-full" data-name="[Custom Content Part]">
       <div className="flex flex-col items-center justify-center size-full">
@@ -28,7 +43,7 @@ export default function DesktopCallSuccess({ phoneNumber = '+7 (999) 999-99-99' 
                     <p className="leading-[36px] relative shrink-0 text-[30px] tracking-[0.38px] w-full font-bold">{UI_TEXT.callSuccessTitle}</p>
                     <p className="leading-[0] relative shrink-0 text-[0px] text-[16px] w-full whitespace-pre-wrap">
                       <span className="leading-[24px] text-[16px]">{UI_TEXT.callSuccessTextPrefix} </span>
-                      <span className="font-bold leading-[20px] text-[14px]">{phoneNumber} </span>
+                      <span className="font-bold leading-[20px] text-[14px]">{displayPhone} </span>
                       <span className="leading-[24px] text-[16px]">{UI_TEXT.callSuccessTextSuffix}</span>
                     </p>
                   </div>

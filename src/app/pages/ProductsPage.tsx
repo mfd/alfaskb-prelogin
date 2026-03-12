@@ -14,6 +14,7 @@ import MobileFinBottomSheet from '../components/MobileFinBottomSheet';
 import MobileCartIcon from '../components/MobileCartIcon';
 import { motion, AnimatePresence } from 'motion/react';
 import { useState, useMemo, useEffect } from 'react';
+import { PRODUCT_ID_TO_NAME } from '../constants/modals';
 
 // Маппинг названий продуктов из модалок на productId
 const MODAL_TO_PRODUCT_ID: Record<string, string> = {
@@ -26,12 +27,10 @@ const MODAL_TO_PRODUCT_ID: Record<string, string> = {
 };
 
 // Типы финансирования для BottomSheet
-const FINANCING_TYPES = [
-  "Кредитная линия",
-  "Банковская гарантия",
-  "Овердрафт",
-  "Факторинг"
-];
+const FINANCING_TYPES = {
+  fastFin: ["Кредитная линия", "Банковская гарантия"],
+  longFin: ["Овердрафт", "Факторинг"]
+};
 
 // Desktop версия страницы продуктов
 function DesktopProductsPage() {
@@ -40,6 +39,15 @@ function DesktopProductsPage() {
   const { addItem, openCart, isInCart, items } = useCart();
 
   const handleAddToCart = (modalKey: string) => {
+    // Проверяем, это модалка финансирования или продукта
+    if (FINANCING_TYPES.fastFin.includes(modalKey) || FINANCING_TYPES.longFin.includes(modalKey)) {
+      // Это модалка финансирования - открываем сайдбар финансирования
+      setOpenModal(null); // Закрываем модалку
+      setIsFinancingSidebarOpen(true);
+      return;
+    }
+    
+    // Это модалка продукта - добавляем в корзину
     const productId = MODAL_TO_PRODUCT_ID[modalKey];
     if (productId) {
       const product = PRODUCTS.find((p) => p.id === productId);
@@ -54,7 +62,7 @@ function DesktopProductsPage() {
     if (!openModal) return false;
     
     // Проверяем, это модалка финансирования или продукта
-    if (FINANCING_TYPES.includes(openModal)) {
+    if (FINANCING_TYPES.fastFin.includes(openModal) || FINANCING_TYPES.longFin.includes(openModal)) {
       // Это модалка финансирования - проверяем наличие элемента с id === "financing"
       return items.some(item => item.id === "financing");
     }
@@ -108,6 +116,9 @@ function MobileProductsPage() {
     term: Number(financingInCart.loanTerm) || 12,
   } : undefined;
 
+  // Все возможные типы финансирования
+  const ALL_FINANCING_TYPES = [...FINANCING_TYPES.fastFin, ...FINANCING_TYPES.longFin];
+
   const handleAddFinancingToCart = (productName: string, financingType: 'fastfin' | 'longfin', amount: number, term: number) => {
     const financingProduct = PRODUCTS.find((p) => p.id === "financing");
     if (!financingProduct) return;
@@ -143,7 +154,7 @@ function MobileProductsPage() {
         }}
         onOpenFinancingModal={(financingType) => {
           // Открываем BottomSheet для типов финансирования
-          if (FINANCING_TYPES.includes(financingType)) {
+          if (ALL_FINANCING_TYPES.includes(financingType)) {
             setOpenFinancingType(financingType);
           }
         }}
@@ -172,8 +183,13 @@ function MobileProductsPage() {
       <MobileCartSidebar 
         onOpenFinancing={() => setIsFinancingSidebarOpen(true)} 
         onOpenProductModal={(productId) => {
-          // Открываем BottomSheet для продуктов из корзины
-          setOpenProductId(productId);
+          // Проверяем, является ли это типом финансирования
+          if (ALL_FINANCING_TYPES.includes(productId)) {
+            setOpenFinancingType(productId);
+          } else {
+            // Это обычный продукт - открываем BottomSheet для продуктов
+            setOpenProductId(productId);
+          }
         }}
       />
 
@@ -227,7 +243,7 @@ export default function ProductsPage() {
         'Device Pixel Ratio': window.devicePixelRatio,
         'Разрешение экрана': `${window.screen.width}x${window.screen.height}`,
         'Ориентация': window.innerWidth > window.innerHeight ? 'Landscape (Горизонтальная)' : 'Portrait (Вертикальная)',
-        'Платформа': navigator.platform,
+        'латформа': navigator.platform,
       };
       
       console.groupCollapsed('🖥️ Информация об устройстве');

@@ -29,6 +29,20 @@ export function MobileFinancingSidebar({
   const isEditMode = Boolean(financingInCart);
   const [step, setStep] = useState(1);
   
+  // Блокируем скролл body когда сайдбар открыт
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    
+    // Очистка при размонтировании
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+  
   // Инициализируем с учетом переданных значений из корзины
   const getInitialFinancingType = () => {
     if (editData?.financingType === 'fastfin') return 'fast';

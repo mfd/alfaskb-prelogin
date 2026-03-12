@@ -17,7 +17,7 @@ import { imgModalV3 as imgMaskCards } from "../../imports/svg-8bzsp";
 import { imgModalV3 as imgMaskVed } from "../../imports/svg-mlh0v";
 import { imgModalV3 as imgMaskRko } from "../../imports/svg-u69pn";
 import { imgShapeContent as imgMaskCreditLine } from "../../imports/svg-7vz8u";
-import { ALL_MODALS_DATA, UI_TEXT } from '../constants/modals';
+import { ALL_MODALS_DATA, UI_TEXT, PRODUCT_ID_TO_NAME } from '../constants/modals';
 import DProductButton from './DProductButton';
 
 interface UnifiedModalProps {
@@ -67,8 +67,13 @@ export default function UnifiedModal({ isOpen, onClose, modalKey, onAddToCart, i
     };
   }, [isOpen, onClose]);
 
-  const content = ALL_MODALS_DATA[modalKey];
-  if (!content && isOpen) return null;
+  // Если modalKey это productId (rko, acquiring и т.д.), конвертируем в название
+  const productName = PRODUCT_ID_TO_NAME[modalKey] || modalKey;
+  
+  const content = ALL_MODALS_DATA[productName];
+  if (!content && isOpen) {
+    return null;
+  }
 
   const iconSrc = content?.iconKey ? MODAL_ICONS[content.iconKey] : undefined;
   const iconMask = content?.maskKey ? MODAL_MASKS[content.maskKey] : undefined;
@@ -242,20 +247,12 @@ export default function UnifiedModal({ isOpen, onClose, modalKey, onAddToCart, i
           {/* Footer */}
           <div className="bg-white relative shrink-0 w-full" data-name="Footer">
             <div className="content-stretch flex flex-col gap-[12px] items-start pb-[40px] pt-[24px] px-[40px] relative w-full">
-              <div className="content-stretch flex gap-[12px] items-center relative shrink-0" data-name="Buttons">
-                {isInCart ? (
+              {!isInCart && (
+                <div className="content-stretch flex gap-[12px] items-center relative shrink-0" data-name="Buttons">
                   <DProductButton
-                    variant="inCart"
-                    onClick={() => {
-                      if (onOpenCart) {
-                        onOpenCart();
-                      }
-                      onClose();
-                    }}
-                  />
-                ) : (
-                  <DProductButton
-                    variant="add"
+                    text="Добавить"
+                    color="red"
+                    icon="plus"
                     onClick={() => {
                       if (onAddToCart) {
                         onAddToCart(modalKey);
@@ -263,8 +260,8 @@ export default function UnifiedModal({ isOpen, onClose, modalKey, onAddToCart, i
                       onClose();
                     }}
                   />
-                )}
-              </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

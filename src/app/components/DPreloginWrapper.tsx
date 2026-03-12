@@ -24,7 +24,7 @@ export default function DPreloginWrapper({
   onOpenProductModal,
   onOpenFinancingModal,
 }: DPreloginWrapperProps) {
-  const { toggleItem, isInCart, openCart, items } = useCart();
+  const { toggleItem, isInCart, openCart, items, isLoading } = useCart();
   const [isReady, setIsReady] = useState(false);
 
   // Используем refs для хранения актуальных версий функций
@@ -62,7 +62,7 @@ export default function DPreloginWrapper({
   }, []);
 
   useEffect(() => {
-    if (!isReady) return;
+    if (!isReady || isLoading) return;
 
     try {
       // Управляем видимостью черной и новой карточек
@@ -106,10 +106,12 @@ export default function DPreloginWrapper({
               ? <DCredCardLong 
                   onOpenCart={stableOpenCart}
                   onOpenFinancing={stableOnOpenFinancing}
+                  onEditClick={stableOnOpenFinancing}
                 /> 
               : <DCredCardFast 
                   onOpenCart={stableOpenCart}
                   onOpenFinancing={stableOnOpenFinancing}
+                  onEditClick={stableOnOpenFinancing}
                 />
           );
 
@@ -162,7 +164,7 @@ export default function DPreloginWrapper({
     } catch (error) {
       console.error("Error in card replacement:", error);
     }
-  }, [showCredCard, financingItem, isReady]); // Убрали openCart и onOpenFinancing из зависимостей
+  }, [showCredCard, financingItem, isReady, isLoading]); // Убрали openCart и onOpenFinancing из зависимостей
 
   // Обновляем заголовок и подзаголовок в замененной карточке
   const updateTitleAndSubtitle = (container: Element, financingType: string) => {

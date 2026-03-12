@@ -1,5 +1,6 @@
 import { useCart } from '../contexts/CartContext';
 import svgPaths from "../../imports/svg-ojwadded7q";
+import svgPathsDelete from "../../imports/svg-ejf9naee6j";
 import { imgSidePanel1 } from "../../imports/svg-o3edg";
 import { PRODUCTS, PRODUCT_ICONS } from './ProductCard';
 import { PRODUCT_DATA } from '../constants/modals';
@@ -101,18 +102,25 @@ export default function MobileCartContent({ items, onRemoveItem, onItemClick, on
                     <div className={`content-stretch flex flex-[1_0_0] flex-col gap-[4px] items-start min-h-px min-w-px relative ${!hasDescription ? 'justify-center self-stretch' : ''}`} data-name="Text Content">
                       <p 
                         className="leading-[20px] not-italic relative shrink-0 text-[16px] text-[rgba(3,3,6,0.88)] w-full cursor-pointer"
-                        onClick={() => onItemClick?.(item.productId)}
+                        onClick={() => {
+                          // Для финансирования открываем BottomSheet с описанием типа финансирования
+                          if (item.id === 'financing' && item.selectedFinancingType) {
+                            onItemClick?.(item.selectedFinancingType);
+                          } else {
+                            onItemClick?.(item.productId);
+                          }
+                        }}
                       >
                         {title}
                       </p>
                       {description && (
-                        <p className="pr-[24px] leading-[20px] not-italic relative shrink-0 text-[14px] text-[rgba(4,4,19,0.55)] w-full whitespace-nowrap overflow-hidden text-ellipsis">
+                        <p className="pr-[32px] leading-[20px] not-italic relative shrink-0 text-[14px] text-[rgba(4,4,19,0.55)] w-full whitespace-nowrap overflow-hidden text-ellipsis">
                           {description}
                         </p>
                       )}
                     </div>
                     <div className="content-stretch flex gap-[16px] items-center justify-center relative self-stretch shrink-0" data-name="RightAddon">
-                      {item.productId === 'financing' && (
+                      {item.id === 'financing' && (
                         <button 
                           onClick={onEditFinancing}
                           className="bg-[rgba(255,255,255,0)] content-stretch flex items-center justify-center overflow-clip relative shrink-0 cursor-pointer hover:opacity-70 transition-opacity" 
@@ -123,7 +131,7 @@ export default function MobileCartContent({ items, onRemoveItem, onItemClick, on
                               <div className="relative shrink-0 size-[24px]" data-name="Fixer">
                                 <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
                                   <g id="Fixer">
-                                    <path d={svgPaths.p3dd0a800} fill="var(--fill-0, #040413)" fillOpacity="0.55" id="PaintMe" />
+                                    <path d={svgPaths.p3dd0a800} fill="var(--fill-0, #898991)" id="PaintMe" />
                                   </g>
                                 </svg>
                               </div>
@@ -136,16 +144,15 @@ export default function MobileCartContent({ items, onRemoveItem, onItemClick, on
                         className="bg-[rgba(255,255,255,0)] content-stretch flex items-center justify-center overflow-clip relative shrink-0 cursor-pointer hover:opacity-70 transition-opacity" 
                         data-name="[D] Button"
                       >
-                        <div className="content-stretch flex items-start relative shrink-0" data-name="LeftAddon">
-                          <div className="content-stretch flex flex-col items-center justify-center max-h-[24px] max-w-[24px] min-h-[24px] min-w-[24px] relative shrink-0" data-name="LeftAddon">
-                            <div className="relative shrink-0 size-[24px]" data-name="Fixer">
-                              <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
-                                <g id="Fixer">
-                                  <path d={svgPaths.p194aa200} fill="var(--fill-0, #040413)" fillOpacity="0.55" id="PaintMe" />
-                                </g>
-                              </svg>
-                            </div>
-                          </div>
+                        <div className="relative shrink-0 size-[24px]" data-name="LeftAddon">
+                          <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
+                            <g id="LeftAddon">
+                              <g id="icon">
+                                <path d={svgPathsDelete.pd855200} fill="var(--fill-0, #898991)" />
+                                <path clipRule="evenodd" d={svgPathsDelete.p5e3de00} fill="var(--fill-0, #898991)" fillRule="evenodd" />
+                              </g>
+                            </g>
+                          </svg>
                         </div>
                       </button>
                     </div>

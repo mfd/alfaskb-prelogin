@@ -105,7 +105,9 @@ export default function DPrelogin({ onOpenFinancing, toggleItem, isInCart, openC
       <div className="flex flex-col items-center w-full">
         <Desktop onOpenFinancing={onOpenFinancing} toggleItem={toggleItem} isInCart={isInCart} openCart={openCart} />
       </div>
-      <DFooter />
+      <div className="content-stretch flex flex-col items-center relative shrink-0 w-full max-w-[1280px] mx-auto" data-name="LocalHeader">
+        <DFooter />
+      </div>
     </div>
   );
 }

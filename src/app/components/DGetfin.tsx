@@ -123,12 +123,17 @@ export default function DGetfin({ onAddClick }: DGetfinProps) {
     <div className="bg-[#1c1c1e] content-stretch flex h-[172px] items-start justify-between overflow-clip p-[32px] relative rounded-[32px] shrink-0 w-[1140px]" data-name="DesktopCredCard">
       <Content2 />
       <div className="content-stretch flex flex-col gap-[8px] items-end relative shrink-0" data-name="wip6 / kredBtns-wip6">
-        <DProductButton variant="add" onClick={onAddClick} />
+        <DProductButton 
+          text="Добавить" 
+          color="red" 
+          icon="plus" 
+          onClick={onAddClick} 
+        />
         <div className="flex flex-col justify-center leading-[0] not-italic relative shrink-0 text-[11px] text-[rgba(238,238,251,0.55)] text-center w-[153px]">
-          <p className="leading-[16px] text-right">
+          <p className="leading-[16px] text-center">
             Настройте сумму
             <br aria-hidden="true" />
-            и условия финансирования
+            и срок кредита
           </p>
         </div>
       </div>

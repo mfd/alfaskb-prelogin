@@ -197,6 +197,20 @@ export default function MobileCartSidebar({ onOpenFinancing, onOpenProductModal 
   const { items, removeItem, isOpen, closeCart, clearCart } = useCart();
   const [showSuccess, setShowSuccess] = useState(false);
 
+  // Блокируем скролл body когда сайдбар открыт
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    
+    // Очистка при размонтировании
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
   const handleSubmit = () => {
     setShowSuccess(true);
     clearCart();
@@ -213,13 +227,21 @@ export default function MobileCartSidebar({ onOpenFinancing, onOpenProductModal 
 
   // Обработка клика на заголовок продукта
   const handleProductClick = (productId: string) => {
+    // Если это финансирование, открываем сайдбар финансирования
+    if (productId === 'financing') {
+      handleEditFinancing();
+      return;
+    }
     onOpenProductModal(productId);
   };
 
   // Обработка клика на кнопку редактирования финансирования
   const handleEditFinancing = () => {
     closeCart(); // Закрываем корзину перед открытием сайдпанели финансирования
-    onOpenFinancing();
+    // Небольшая задержка, чтобы анимация закрытия корзины успела начаться
+    setTimeout(() => {
+      onOpenFinancing();
+    }, 100);
   };
 
   return (
@@ -266,7 +288,7 @@ export default function MobileCartSidebar({ onOpenFinancing, onOpenProductModal 
                 </div>
                 
                 {/* Success Content */}
-                <MobileCallSuccess phoneNumber={COMPANY_INFO.phone} />
+                <MobileCallSuccess />
                 
                 {/* Footer пустой */}
                 <div className="bg-white min-h-[16px] relative shrink-0 w-full" data-name="Footer">

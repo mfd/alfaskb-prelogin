@@ -781,38 +781,20 @@ export default function FinancingSidebar({
               className="bg-white content-stretch flex gap-[12px] items-end justify-end pb-[40px] pt-[24px] px-[40px] relative shrink-0 w-[500px]"
               data-name="Footer"
             >
-              <button
-                onClick={onClose}
-                className="backdrop-blur-[40px] bg-[rgba(15,25,55,0.1)] flex-[1_0_0] min-h-[48px] min-w-[104px] relative rounded-[8px] cursor-pointer hover:bg-[rgba(15,25,55,0.15)] transition-colors"
-                data-name="Button_1"
-              >
-                <div className="flex flex-row items-center justify-center min-h-[inherit] min-w-[inherit] overflow-clip rounded-[inherit] size-full">
-                  <div className="content-stretch flex gap-[4px] items-center justify-center min-h-[inherit] min-w-[inherit] px-[20px] py-[4px] relative w-full">
-                    <div
-                      className="content-stretch flex flex-col items-center px-[4px] relative shrink-0"
-                      data-name="Text"
-                    >
-                      <div className="flex flex-col font-['SF_Pro_Text:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[16px] text-[rgba(3,3,6,0.88)] whitespace-nowrap">
-                        <p className="leading-[24px]">
-                          Отменить
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </button>
               <DProductButton
-                variant={isEditMode ? "edit" : "add"}
+                text="Отменить"
+                color="gray"
+                icon={null}
+                onClick={onClose}
+                className="flex-[1_0_0]"
+              />
+              <DProductButton
+                text={isEditMode ? "Изменить" : "Добавить"}
+                color="red"
+                icon={null}
                 onClick={handleAddToCart}
                 className="flex-[1_0_0]"
-                hideIcon={true}
-                overrideColors={isEditMode ? {
-                  bg: 'bg-[#ef3124]',
-                  hover: 'hover:bg-[#d82a1f]',
-                  textColor: 'text-[rgba(255,255,255,0.94)]'
-                } : undefined}
               />
-              <Border1 />
             </div>
           </motion.div>
         </>

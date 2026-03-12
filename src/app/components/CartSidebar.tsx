@@ -267,7 +267,7 @@ function CartRow({ title, icon, onRemove, onEdit, onTitleClick, financingType, i
 
   const displayDescription = getProductDescription();
 
-  // Для продукта финансирования используем картинку в зависимости от selectedFinancingType
+  // Для продукта финансирования испльзуем картинку в зависимости от selectedFinancingType
   const displayIcon = itemId === 'financing' && selectedFinancingType && FINANCING_IMAGES[selectedFinancingType]
     ? FINANCING_IMAGES[selectedFinancingType]
     : icon;
@@ -376,9 +376,9 @@ function CustomContentPartWithItems({ items, removeItem, onOpenFinancing, onOpen
               if (item.id === 'financing' && item.selectedFinancingType) {
                 // Для финансирования открываем модалку соответствующего типа
                 onOpenProductModal(item.selectedFinancingType);
-              } else if (item.id !== 'financing') {
-                // Для остальных продуктов открываем их модалки
-                onOpenProductModal(item.title);
+              } else if (item.id !== 'financing' && item.productId) {
+                // Для остальных продуктов открываем их модалки по productId
+                onOpenProductModal(item.productId);
               }
             };
 
@@ -484,7 +484,7 @@ export default function CartSidebar({ onOpenFinancing, onOpenProductModal }: { o
                   </div>
                   
                   {/* Success Message */}
-                  <DesktopCallSuccess phoneNumber={COMPANY_INFO.phone} />
+                  <DesktopCallSuccess />
                   
                   {/* Footer для Success экрана */}
                   <div className="bg-white content-stretch flex items-end justify-end min-h-[40px] pt-[24px] relative shrink-0 w-[500px]" data-name=" Canadiens Footer">

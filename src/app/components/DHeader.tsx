@@ -1,7 +1,9 @@
 import svgPaths from "../../imports/svg-958eq3f4f2";
 import { imgPrimaryDarkColor, imgPrimaryDarkColor1 } from "../../imports/svg-yw5gu";
 import { useCart } from '../contexts/CartContext';
+import { useUser } from '../contexts/UserContext';
 import { COMPANY_INFO } from '../constants/company';
+import { Link } from 'react-router';
 
 function LogoContainer() {
   return (
@@ -104,40 +106,40 @@ function Component1() {
   );
 }
 
-function Frame1() {
+function Frame1({ phone }: { phone: string }) {
   return (
     <div className="content-stretch flex items-end relative shrink-0">
       <div className="content-stretch flex items-center relative shrink-0" data-name="Paragraph.Typography">
-        <p className="font-['SF_Pro_Text:Bold',sans-serif] leading-[20px] not-italic relative shrink-0 text-[14px] text-[rgba(255,255,255,0.94)] whitespace-nowrap">{COMPANY_INFO.phone}</p>
+        <p className="font-['SF_Pro_Text:Bold',sans-serif] leading-[20px] not-italic relative shrink-0 text-[14px] text-[rgba(255,255,255,0.94)] whitespace-nowrap">{phone}</p>
       </div>
     </div>
   );
 }
 
-function Text17() {
+function Text17({ phone }: { phone: string }) {
   return (
     <div className="content-stretch flex flex-col items-end relative shrink-0" data-name="Text">
       <div className="content-stretch flex items-start max-w-[751px] relative shrink-0 w-[144px]" data-name="Paragraph.Typography">
         <p className="flex-[1_0_0] font-['SF_Pro_Text:Regular',sans-serif] leading-[20px] max-w-[751px] min-h-px min-w-px not-italic relative text-[14px] text-[rgba(238,238,251,0.55)]">Вы вошли по номеру</p>
       </div>
-      <Frame1 />
+      <Frame1 phone={phone} />
     </div>
   );
 }
 
-function Component2() {
+function Component2({ phone }: { phone: string }) {
   return (
     <div className="content-stretch flex gap-[16px] items-center justify-end relative shrink-0" data-name="112">
-      <Text17 />
+      <Text17 phone={phone} />
     </div>
   );
 }
 
-function Frame3() {
+function Frame3({ phone }: { phone: string }) {
   return (
     <div className="content-stretch flex gap-[24px] items-center relative shrink-0">
       <Component1 />
-      <Component2 />
+      <Component2 phone={phone} />
     </div>
   );
 }
@@ -208,39 +210,39 @@ function Frame4({ openCart, itemsCount }: { openCart: () => void; itemsCount: nu
   return (
     <div className="content-stretch flex gap-[16px] items-center relative shrink-0">
       <Frame5 openCart={openCart} itemsCount={itemsCount} />
-      <div className="backdrop-blur-[40px] bg-[rgba(222,222,238,0.13)] content-stretch flex gap-[2px] items-center justify-center min-h-[40px] min-w-[88px] overflow-clip px-[16px] py-[4px] relative rounded-[8px] shrink-0" data-name="[D] Button">
+      <Link to="/login" className="backdrop-blur-[40px] bg-[rgba(222,222,238,0.13)] content-stretch flex gap-[2px] items-center justify-center min-h-[40px] min-w-[88px] overflow-clip px-[16px] py-[4px] relative rounded-[8px] shrink-0 hover:bg-[rgba(222,222,238,0.2)] transition-colors" data-name="[D] Button">
         <Text19 />
-      </div>
+      </Link>
     </div>
   );
 }
 
-function HeaderBtns({ openCart, itemsCount }: { openCart: () => void; itemsCount: number }) {
+function HeaderBtns({ openCart, itemsCount, phone }: { openCart: () => void; itemsCount: number; phone: string }) {
   return (
     <div className="content-stretch flex gap-[48px] items-center relative shrink-0">
-      <Frame3 />
+      <Frame3 phone={phone} />
       <Frame4 openCart={openCart} itemsCount={itemsCount} />
     </div>
   );
 }
 
-function Content16({ openCart, itemsCount }: { openCart: () => void; itemsCount: number }) {
+function Content16({ openCart, itemsCount, phone }: { openCart: () => void; itemsCount: number; phone: string }) {
   return (
     <div className="content-stretch flex items-center justify-between relative shrink-0 w-full" data-name="Content">
       <Links />
-      <HeaderBtns openCart={openCart} itemsCount={itemsCount} />
+      <HeaderBtns openCart={openCart} itemsCount={itemsCount} phone={phone} />
     </div>
   );
 }
 
-function Content15({ openCart, itemsCount }: { openCart: () => void; itemsCount: number }) {
+function Content15({ openCart, itemsCount, phone }: { openCart: () => void; itemsCount: number; phone: string }) {
   return (
     <div className="bg-[#121213] sticky top-0 z-50 w-full dprelogin-header" data-name=".MainHeaderV3">
       <div className="flex flex-col items-center size-full">
         <div className="content-stretch flex flex-col isolate items-center justify-center px-[150px] relative w-full h-[84px]">
           <div className="content-stretch flex flex-col items-start justify-center relative shrink-0 w-[1140px] z-[1]" data-name="Content">
             <div className="h-[16px] shrink-0 w-[1140px]" data-name="PaddingTop" />
-            <Content16 openCart={openCart} itemsCount={itemsCount} />
+            <Content16 openCart={openCart} itemsCount={itemsCount} phone={phone} />
             <div className="h-[16px] shrink-0 w-[1140px]" data-name="PaddingBot" />
           </div>
         </div>
@@ -251,8 +253,20 @@ function Content15({ openCart, itemsCount }: { openCart: () => void; itemsCount:
 
 export default function DHeader() {
   const { openCart, items } = useCart();
+  const { userData } = useUser();
+  
+  // Форматирование телефона для отображения
+  const formatPhoneForDisplay = (phoneStr: string) => {
+    const digits = phoneStr.replace(/\D/g, '');
+    if (digits.length === 11) {
+      return `+7 (${digits.slice(1, 4)}) ${digits.slice(4, 7)}-${digits.slice(7, 9)}-${digits.slice(9)}`;
+    }
+    return phoneStr;
+  };
+
+  const displayPhone = userData?.phone ? formatPhoneForDisplay(userData.phone) : COMPANY_INFO.phone;
   
   return (
-          <Content15 openCart={openCart} itemsCount={items.length} />
+          <Content15 openCart={openCart} itemsCount={items.length} phone={displayPhone} />
   );
 }

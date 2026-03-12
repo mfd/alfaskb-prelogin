@@ -192,7 +192,7 @@ export const ALL_MODALS_DATA: Record<string, ModalData> = {
       {
         key: "all-methods",
         title: "Все способы оплаты",
-        description: "Картами, через СБП и бесконтактно",
+        description: "Картами, через СБП и бесконтактно",
       },
       {
         key: "terminals",
@@ -203,7 +203,7 @@ export const ALL_MODALS_DATA: Record<string, ModalData> = {
         key: "support",
         title: "Поддержка 24/7",
         description:
-          "Выделенная горячая линия для среднего и крупного бизнеса",
+          "Выделенная горячая линия для среднего и крупного бизнеса",
       },
     ],
     iconKey: "acquiring",
@@ -262,7 +262,7 @@ export const ALL_MODALS_DATA: Record<string, ModalData> = {
     title: "Бизнес-карты",
     subtitle: "Единая корпоративная карта",
     description:
-      "Настраивается под ваши потребности, другие карты не нужны",
+      "Настраивается под ваши потребности, другие карты не нужны",
     cardDescription:
       "Настраивается под ваши потребности, другие карты не нужны",
     cardBenefits: [
@@ -275,25 +275,25 @@ export const ALL_MODALS_DATA: Record<string, ModalData> = {
         key: "unlimited",
         title: "Неограниченное количество карт",
         description:
-          "Заменяет подотчётные средства и командировочные",
+          "Заменяет подотчётные средства и командировочные",
       },
       {
         key: "choice",
         title: "Карта на выбор",
         description:
-          "Пластиковая, металл, стикер, виртуальная с возможностью довыпуска в любое время",
+          "Пластиковая, металл, стикер, виртуальная с возможностью довыпуска в любое время",
       },
       {
         key: "management",
         title: "Управление расходами онлайн",
         description:
-          "Настраивайте лимиты по картам и ограничивайте круг трат",
+          "Настраивайте лимиты по картам и ограничивайте круг трат",
       },
       {
         key: "transfers",
         title: "Переводы с карты",
         description:
-          "На другие карты до 1,5 млн ₽ в месяц с назначением платежа",
+          "На другие карты до 1,5 млн ₽ в месяц с назначением платежа",
       },
     ],
     iconKey: "cards",
@@ -322,7 +322,7 @@ export const ALL_MODALS_DATA: Record<string, ModalData> = {
         key: "gpi",
         title: "GPI-трекер",
         description:
-          "Отслеживайте статус платежей в реальном времени бесплатно",
+          "Отслеживайте статус платежей в реальном времени бесплатно",
       },
       {
         key: "internet-bank",
@@ -356,9 +356,9 @@ export const ALL_MODALS_DATA: Record<string, ModalData> = {
   "РКО для бизнеса": {
     title: "РКО для бизнеса",
     subtitle:
-      "Расчётно-кассовое обслуживание для вашего бизнеса",
+      "Расчётно-кассовое обслуживание для вашего бизнеса",
     description:
-      "Всё необходимое для ведения бизнеса в одном месте",
+      "Всё необходимое для ведения бизнеса в одном месте",
     cardDescription: "Откроем за 1 день и онлайн",
     cardBenefits: [
       "Открытие счёта без визита в отделение",
@@ -464,4 +464,14 @@ export const PRODUCT_DATA = {
   ved: ALL_MODALS_DATA["ВЭД"],
   rko: ALL_MODALS_DATA["РКО для бизнеса"],
   deposits: ALL_MODALS_DATA["Депозиты для бизнеса"],
+};
+
+// Обратный маппинг: от productId к названию продукта
+export const PRODUCT_ID_TO_NAME: Record<string, string> = {
+  acquiring: "Торговый эквайринг",
+  salary: "Зарплатный проект",
+  cards: "Бизнес-карты",
+  ved: "ВЭД",
+  rko: "РКО для бизнеса",
+  deposits: "Депозиты для бизнеса",
 };

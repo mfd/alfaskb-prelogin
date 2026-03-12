@@ -73,7 +73,9 @@ export function DesktopProductCard({
       </div>
       <div className="content-stretch flex items-start justify-end relative shrink-0" data-name="wip6 / prodBtns-wip6">
         <DProductButton
-          variant={isInCart ? 'inCart' : 'add'}
+          text={isInCart ? 'В корзине' : 'Добавить'}
+          color={isInCart ? 'green' : 'red'}
+          icon={isInCart ? 'checkmark' : 'plus'}
           onClick={onAddClick}
         />
       </div>

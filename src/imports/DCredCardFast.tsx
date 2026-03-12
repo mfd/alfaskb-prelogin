@@ -6,10 +6,10 @@ import DProductButton from "../app/components/DProductButton";
 
 interface DCredCardFastProps {
   onOpenCart?: () => void;
-  onOpenFinancing?: () => void;
+  onEditClick?: () => void;
 }
 
-export default function DCredCardFast({ onOpenCart, onOpenFinancing }: DCredCardFastProps) {
+export default function DCredCardFast({ onOpenCart, onEditClick }: DCredCardFastProps) {
   return (
     <div className="bg-[#1c1c1e] content-stretch flex items-start justify-between overflow-clip p-[32px] relative rounded-[32px] size-full" data-name="DesktopCredCard">
       <div className="content-stretch flex flex-[1_0_0] gap-[48px] items-start min-h-px min-w-px relative" data-name="content">
@@ -69,20 +69,26 @@ export default function DCredCardFast({ onOpenCart, onOpenFinancing }: DCredCard
       </div>
       <div className="content-stretch flex flex-col gap-[12px] items-end relative shrink-0 w-[158px]" data-name="wip6 / kredBtns-wip6">
         <DProductButton 
-          variant="inCart" 
+          text="В корзине"
+          color="green"
+          icon="checkmark"
           onClick={(e) => {
             e.preventDefault();
-            e.stopPropagation();
-            onOpenCart?.();
+            if (onOpenCart) {
+              onOpenCart();
+            }
           }}
           className="w-full"
         />
         <DProductButton 
-          variant="edit" 
+          text="Изменить"
+          color="white"
+          icon="edit"
           onClick={(e) => {
             e.preventDefault();
-            e.stopPropagation();
-            onOpenFinancing?.();
+            if (onEditClick) {
+              onEditClick();
+            }
           }}
           className="w-full"
         />

@@ -23,7 +23,7 @@ export default function MPreloginWrapper({
   onOpenFinancingModal,
   onOpenCart,
 }: MPreloginWrapperProps) {
-  const { toggleItem, isInCart, items } = useCart();
+  const { toggleItem, isInCart, items, isLoading } = useCart();
   const [mounted, setMounted] = useState(false);
   const [isReady, setIsReady] = useState(false);
 
@@ -199,7 +199,7 @@ export default function MPreloginWrapper({
       if (statusText?.includes('быстро и без проверок')) {
         e.preventDefault();
         e.stopPropagation();
-        // Открываем BottomSheet для быстрого финансирования (Кредитная линия)
+        // Открываем BottomSheet для быстрого финансирования (Кредитная л��ния)
         onOpenFinancingModal('Кредитная линия');
       } else if (statusText?.includes('потребуются проверки')) {
         e.preventDefault();
@@ -318,7 +318,7 @@ export default function MPreloginWrapper({
 
   // Эффект для подмены черной карточки финансирования
   useEffect(() => {
-    if (!isReady) return;
+    if (!isReady || isLoading) return;
 
     try {
       const blackCard = document.querySelector('[data-name="M_CredCard"]');
@@ -346,7 +346,7 @@ export default function MPreloginWrapper({
             updateTitleAndSubtitle(replacedCard, financingItem.selectedFinancingType || "Кредитная линия");
             updateFinancingIcon(replacedCard, financingItem.selectedFinancingType || "Кредитная линия");
             updateFinancingData(replacedCard, financingItem.loanAmount || "1000000", financingItem.loanTerm || "1");
-            makeFinancingTitleClickable(replacedCard, financingItem.selectedFinancingType || "Кредитная лин��я");
+            makeFinancingTitleClickable(replacedCard, financingItem.selectedFinancingType || "Кредитная линя");
           }, 0);
           return;
         }
@@ -408,7 +408,7 @@ export default function MPreloginWrapper({
     } catch (error) {
       console.error("[MPrelogin] Error in card replacement:", error);
     }
-  }, [showCredCard, financingItem, isReady, onOpenFinancing, onOpenFinancingModal, onOpenCart, items]);
+  }, [showCredCard, financingItem, isReady, isLoading, onOpenFinancing, onOpenFinancingModal, onOpenCart, items]);
 
   const updateTitleAndSubtitle = (container: Element, financingType: string) => {
     const subtitle = ALL_MODALS_DATA[financingType]?.subtitle;

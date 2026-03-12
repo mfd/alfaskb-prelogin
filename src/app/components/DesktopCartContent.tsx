@@ -2,7 +2,7 @@ import { useCart } from '../contexts/CartContext';
 import svgPaths from "../../imports/svg-a5942q3te2";
 import { imgSidePanel1 } from "../../imports/svg-o3edg";
 import { PRODUCTS, PRODUCT_ICONS } from './ProductCard';
-import { PRODUCT_DATA } from '../constants/modals';
+import { PRODUCT_DATA, PRODUCT_ID_TO_NAME } from '../constants/modals';
 import { ALL_MODALS_DATA } from '../constants/modals';
 import { FINANCING_IMAGES } from '../constants/financingImages';
 import { formatAmount } from '../utils/formatAmount';
@@ -94,7 +94,16 @@ export default function DesktopCartContent({ items, onRemoveItem, onItemClick }:
                       <div className={`content-stretch flex flex-[1_0_0] flex-col gap-[4px] items-start min-h-px min-w-px relative ${!hasDescription ? 'justify-center self-stretch' : 'leading-[20px] not-italic'}`} data-name="Text Content">
                         <p 
                           className="font-['SF_Pro_Text:Medium',sans-serif] leading-[20px] not-italic relative shrink-0 text-[16px] text-[rgba(3,3,6,0.88)] w-full cursor-pointer"
-                          onClick={() => onItemClick?.(item.productId)}
+                          onClick={() => {
+                            // Для финансирования передаем название типа (например, "Овердрафт")
+                            if (item.id === 'financing' && item.selectedFinancingType) {
+                              onItemClick?.(item.selectedFinancingType);
+                            } else {
+                              // Для обычных продуктов передаем название из PRODUCT_ID_TO_NAME
+                              const productName = PRODUCT_ID_TO_NAME[item.productId];
+                              onItemClick?.(productName || item.productId);
+                            }
+                          }}
                         >
                           {title}
                         </p>
