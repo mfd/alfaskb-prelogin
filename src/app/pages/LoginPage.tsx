@@ -5,6 +5,7 @@ import DFooter from '../components/DFooter';
 import LoginForm from '../components/LoginForm';
 import SmsVerification from '../components/SmsVerification';
 import { useUser } from '../contexts/UserContext';
+import { useCart } from '../contexts/CartContext';
 
 function Content() {
   return (
@@ -82,6 +83,7 @@ function SmsZone({ phone, onVerify, onChangePhone }: { phone: string, onVerify: 
 export default function LoginPage() {
   const navigate = useNavigate();
   const { setUserData } = useUser();
+  const { clearCart } = useCart();
   const [step, setStep] = useState<'login' | 'sms'>('login');
   const [phoneData, setPhoneData] = useState('');
   const [innData, setInnData] = useState('');
@@ -98,6 +100,8 @@ export default function LoginPage() {
     console.log('SMS code verified:', code);
     // Сохраняем данные пользователя в контекст
     setUserData({ phone: phoneData, inn: innData });
+    // Очищаем корзину
+    clearCart();
     // Переход на главную страницу после верификации
     navigate('/products');
   };
