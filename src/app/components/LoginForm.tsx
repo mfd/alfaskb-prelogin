@@ -13,7 +13,7 @@ function Fixer() {
 
 export default function LoginForm({ onSubmit }: LoginFormProps) {
   const [phone, setPhone] = useState('+7 (');
-  const [inn, setInn] = useState('');
+  const [inn, setInn] = useState('0278109628');
   const [phoneError, setPhoneError] = useState(false);
 
   const formatPhone = (value: string) => {

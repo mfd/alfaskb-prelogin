@@ -1,6 +1,3 @@
-import BasketEmptySvg from "../../imports/BasketEmpty-1.svg?react";
-import BasketFullSvg from "../../imports/Basket-1.svg?react";
-
 interface MobileCartIconSvgProps {
   itemCount: number;
 }
