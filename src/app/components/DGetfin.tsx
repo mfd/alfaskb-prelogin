@@ -4,51 +4,6 @@ import { imgShapeContent } from "../../imports/svg-073oh";
 import StatusBadge from "./StatusBadge";
 import DProductButton from "./DProductButton";
 
-function ShapeContent() {
-  return (
-    <div className="absolute left-0 mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[0px_0px] mask-size-[72px_72px] size-[72px] top-0" data-name="ShapeContent" style={{ maskImage: `url('${imgShapeContent}')` }}>
-      <div className="absolute left-0 overflow-clip size-[72px] top-0" data-name="BgImg" />
-    </div>
-  );
-}
-
-function Content3() {
-  return (
-    <div className="relative shrink-0 size-[72px]" data-name="Content">
-      <ShapeContent />
-    </div>
-  );
-}
-
-function Text4() {
-  return (
-    <div className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-[301px]" data-name="text">
-      <div className="content-stretch flex flex-col gap-[8px] items-start not-italic relative shrink-0 w-full whitespace-nowrap" data-name="wrap">
-        <p className='font-bold leading-[26px] relative shrink-0 text-[22px] text-[rgba(255,255,255,0.94)]'>Получите<br aria-hidden="true" />финансирование</p>
-        <p className="leading-[24px] relative shrink-0 text-[16px] text-[rgba(238,238,251,0.55)]">
-          Без залога, по 2 документам
-          <br aria-hidden="true" />и всего за 3 дня
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function Frame8() {
-  return (
-    <div className="content-stretch flex gap-[24px] items-start relative shrink-0 w-[332px]">
-      <div className="content-stretch flex flex-col items-start relative shrink-0 w-[72px]" data-name="PreloginProductsIcon">
-        <div className="content-stretch flex flex-col items-center justify-center max-h-[80px] max-w-[72px] min-h-[72px] min-w-[72px] relative shrink-0 size-[72px]" data-name="IconView">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <img alt="" className="absolute left-[1.4%] max-w-none size-full top-0" src={imgIconView} />
-          </div>
-          <Content3 />
-        </div>
-      </div>
-      <Text4 />
-    </div>
-  );
-}
 
 
 
@@ -89,27 +44,44 @@ function LongFin() {
   );
 }
 
-function Frame9() {
-  return (
-    <div className="content-stretch flex gap-[32px] items-start relative shrink-0">
-      <FastFin />
-      <div className="h-[74.5px] relative shrink-0 w-0">
-        <div className="absolute inset-[0_-1px]">
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 2 74.5">
-            <path d="M1 0V74.5" id="Vector 2" stroke="var(--stroke-0, #353539)" strokeWidth="2" />
-          </svg>
-        </div>
-      </div>
-      <LongFin />
-    </div>
-  );
-}
 
 function Content2() {
   return (
     <div className="content-stretch flex gap-[48px] items-start relative shrink-0" data-name="content">
-      <Frame8 />
-      <Frame9 />
+      <div className="content-stretch flex gap-[24px] items-start relative shrink-0 w-[332px]">
+        <div className="content-stretch flex flex-col items-start relative shrink-0 w-[72px]" data-name="PreloginProductsIcon">
+          <div className="content-stretch flex flex-col items-center justify-center max-h-[80px] max-w-[72px] min-h-[72px] min-w-[72px] relative shrink-0 size-[72px]" data-name="IconView">
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              <img alt="" className="absolute left-[1.4%] max-w-none size-full top-0" src={imgIconView} />
+            </div>
+            <div className="relative shrink-0 size-[72px]" data-name="Content">
+              <div className="absolute left-0 mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[0px_0px] mask-size-[72px_72px] size-[72px] top-0" data-name="ShapeContent" style={{ maskImage: `url('${imgShapeContent}')` }}>
+                <div className="absolute left-0 overflow-clip size-[72px] top-0" data-name="BgImg" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-[301px]" data-name="text">
+          <div className="content-stretch flex flex-col gap-[8px] items-start not-italic relative shrink-0 w-full whitespace-nowrap" data-name="wrap">
+            <p className='font-bold leading-[26px] relative shrink-0 text-[22px] text-[rgba(255,255,255,0.94)]'>Получите<br aria-hidden="true" />финансирование</p>
+            <p className="leading-[24px] relative shrink-0 text-[16px] text-[rgba(238,238,251,0.55)]">
+              Без залога, по 2 документам
+              <br aria-hidden="true" />и всего за 3 дня
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="content-stretch flex gap-[32px] items-start relative shrink-0">
+        <FastFin />
+        <div className="h-[74.5px] relative shrink-0 w-0">
+          <div className="absolute inset-[0_-1px]">
+            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 2 74.5">
+              <path d="M1 0V74.5" id="Vector 2" stroke="var(--stroke-0, #353539)" strokeWidth="2" />
+            </svg>
+          </div>
+        </div>
+        <LongFin />
+      </div>
     </div>
   );
 }
@@ -122,7 +94,7 @@ export default function DGetfin({ onAddClick }: DGetfinProps) {
   return (
     <div className="bg-[#1c1c1e] content-stretch flex h-[172px] items-start justify-between overflow-clip p-[32px] relative rounded-[32px] shrink-0 w-[1140px]" data-name="DesktopCredCard">
       <Content2 />
-      <div className="content-stretch flex flex-col gap-[8px] items-end relative shrink-0" data-name="wip6 / kredBtns-wip6">
+      <div className="content-stretch flex flex-col gap-[8px] items-end relative shrink-0" data-name="kredBtns">
         <DProductButton 
           text="Добавить" 
           color="red" 

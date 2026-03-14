@@ -1,6 +1,6 @@
 import { isMobile as isMobileDevice } from 'react-device-detect';
 import { useCart } from '../contexts/CartContext';
-import DHeader from '../components/DHeader';
+import { DHeaderDark } from '../components/DHeader';
 import { PRODUCTS } from '../components/ProductCard';
 import DPreloginWrapper from '../components/DPreloginWrapper';
 import CartSidebar from '../components/CartSidebar';
@@ -74,7 +74,7 @@ function DesktopProductsPage() {
 
   return (
     <div className="min-h-screen flex flex-col items-center w-full">
-      <DHeader />
+      <DHeaderDark />
       <DPreloginWrapper 
         onOpenFinancing={() => setIsFinancingSidebarOpen(true)}
         onOpenProductModal={(productId) => setOpenModal(productId)}

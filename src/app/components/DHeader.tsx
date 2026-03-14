@@ -1,5 +1,7 @@
 import svgPaths from "../../imports/svg-958eq3f4f2";
 import { imgPrimaryDarkColor, imgPrimaryDarkColor1 } from "../../imports/svg-yw5gu";
+import svgPathsLight from "../../imports/svg-79xk717r3t";
+import { imgPrimaryDarkColor as imgPrimaryDarkColorLight, imgPrimaryDarkColor1 as imgPrimaryDarkColor1Light } from "../../imports/svg-ig9tz";
 import { useCart } from '../contexts/CartContext';
 import { useUser } from '../contexts/UserContext';
 import { COMPANY_INFO } from '../constants/company';
@@ -251,7 +253,7 @@ function Content15({ openCart, itemsCount, phone }: { openCart: () => void; item
   );
 }
 
-export default function DHeader() {
+export function DHeaderDark() {
   const { openCart, items } = useCart();
   const { userData } = useUser();
   
@@ -268,5 +270,163 @@ export default function DHeader() {
   
   return (
           <Content15 openCart={openCart} itemsCount={items.length} phone={displayPhone} />
+  );
+}
+
+// Default export для обратной совместимости
+export default DHeaderDark;
+
+// ==================== LIGHT HEADER VARIANT ====================
+
+function LogoContainerLight() {
+  return (
+    <div className="h-[40px] relative shrink-0 w-[28px]" data-name="LogoContainer">
+      <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 28 40">
+        <g id="LogoContainer">
+          <path clipRule="evenodd" d={svgPathsLight.p12878700} fill="var(--fill-0, #EF3124)" fillRule="evenodd" id="a-logo" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function PrimaryDarkColorLight() {
+  return <div className="absolute bg-[rgba(255,255,255,0.94)] inset-[0_4px] mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[1.414px_6.188px] mask-size-[39.234px_11.977px]" data-name="PrimaryDarkColor" style={{ maskImage: `url('${imgPrimaryDarkColorLight}')` }} />;
+}
+
+function PrimaryLightColorLight() {
+  return <div className="absolute bg-[rgba(3,3,6,0.88)] inset-[0_4px] mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[1.414px_6.188px] mask-size-[39.234px_11.977px]" data-name="PrimaryLightColor" style={{ maskImage: `url('${imgPrimaryDarkColorLight}')` }} />;
+}
+
+function TabLabelLight() {
+  return (
+    <div className="content-stretch flex items-start px-[4px] relative shrink-0" data-name="TabLabel">
+      <PrimaryDarkColorLight />
+      <PrimaryLightColorLight />
+    </div>
+  );
+}
+
+function TabLight() {
+  return (
+    <div className="content-stretch flex gap-[4px] items-center justify-center min-w-[80px] overflow-clip px-[16px] py-[12px] relative rounded-[99px] shrink-0" data-name="Tab_1">
+      <div className="absolute bg-[rgba(255,255,255,0.94)] inset-0" data-name="Bg" />
+      <TabLabelLight />
+    </div>
+  );
+}
+
+function PrimaryDarkColor1Light() {
+  return <div className="absolute bg-[rgba(255,255,255,0.94)] inset-[0_4px] mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[1.414px_6.188px] mask-size-[39.234px_11.977px]" data-name="PrimaryDarkColor" style={{ maskImage: `url('${imgPrimaryDarkColor1Light}')` }} />;
+}
+
+function TabLabel1Light() {
+  return (
+    <div className="content-stretch flex items-start px-[4px] relative shrink-0" data-name="TabLabel">
+      <PrimaryDarkColor1Light />
+    </div>
+  );
+}
+
+function Tab1Light() {
+  return (
+    <div className="content-stretch flex gap-[4px] items-center justify-center min-w-[80px] overflow-clip px-[16px] py-[12px] relative rounded-[99px] shrink-0" data-name="Tab_2">
+      <TabLabel1Light />
+    </div>
+  );
+}
+
+function LinksLight() {
+  return (
+    <div className="content-stretch flex flex-[1_0_0] gap-[48px] items-center min-h-px min-w-px relative" data-name="Links">
+      <div className="content-stretch flex items-center relative shrink-0" data-name=".Logo">
+        <LogoContainerLight />
+      </div>
+      <div className="bg-[rgba(225,225,248,0.09)] content-stretch flex items-start max-w-[1140px] opacity-0 overflow-x-auto overflow-y-clip p-[2px] relative rounded-[99px] shrink-0" data-name="TabsPanel">
+        <TabLight />
+        <Tab1Light />
+      </div>
+    </div>
+  );
+}
+
+function FrameLight() {
+  return (
+    <div className="content-stretch flex items-end relative shrink-0">
+      <div className="content-stretch flex items-center relative shrink-0" data-name="Paragraph.Typography">
+        <p className="font-['SF_Pro_Text:Bold',sans-serif] leading-[24px] not-italic relative shrink-0 text-[18px] text-[rgba(255,255,255,0.94)] whitespace-nowrap">+7 (900) 999-000-22</p>
+      </div>
+    </div>
+  );
+}
+
+function TextLight() {
+  return (
+    <div className="content-stretch flex flex-col items-end relative shrink-0" data-name="Text">
+      <div className="content-stretch flex items-start max-w-[751px] relative shrink-0 w-[144px]" data-name="Paragraph.Typography">
+        <p className="flex-[1_0_0] font-['SF_Pro_Text:Regular',sans-serif] leading-[20px] max-w-[751px] min-h-px min-w-px not-italic relative text-[14px] text-[rgba(255,255,255,0.94)]">Вы вошли по номеру</p>
+      </div>
+      <FrameLight />
+    </div>
+  );
+}
+
+function Text1Light() {
+  return (
+    <div className="content-stretch flex flex-col items-center px-[4px] relative shrink-0" data-name="Text">
+      <div className="flex flex-col font-['SF_Pro_Text:Medium',sans-serif] justify-center leading-[0] not-italic relative shrink-0 text-[14px] text-[rgba(255,255,255,0.94)] whitespace-nowrap">
+        <p className="leading-[20px]">Выйти</p>
+      </div>
+    </div>
+  );
+}
+
+function ComponentLight() {
+  return (
+    <div className="content-stretch flex gap-[16px] items-center justify-end opacity-0 relative shrink-0" data-name="111">
+      <TextLight />
+      <div className="backdrop-blur-[40px] bg-[rgba(222,222,238,0.13)] content-stretch flex gap-[2px] items-center justify-center min-h-[40px] min-w-[88px] overflow-clip px-[16px] py-[4px] relative rounded-[8px] shrink-0" data-name="[D] Button">
+        <Text1Light />
+      </div>
+    </div>
+  );
+}
+
+function Content1Light() {
+  return (
+    <div className="content-stretch flex items-center justify-between relative shrink-0 w-full" data-name="Content">
+      <LinksLight />
+      <ComponentLight />
+    </div>
+  );
+}
+
+function ContentLight() {
+  return (
+    <div className="content-stretch flex flex-col items-start justify-center relative shrink-0 w-[1140px] z-[1]" data-name="Content">
+      <div className="h-[16px] shrink-0 w-[1140px]" data-name="PaddingTop" />
+      <Content1Light />
+      <div className="h-[16px] shrink-0 w-[1140px]" data-name="PaddingBot" />
+    </div>
+  );
+}
+
+function MainHeaderVLight() {
+  return (
+    <div className="relative shrink-0 w-full" data-name=".MainHeaderV3">
+      <div className="flex flex-col items-center size-full">
+        <div className="content-stretch flex flex-col isolate items-center px-[150px] relative w-full">
+          <ContentLight />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function DHeaderLight() {
+  return (
+    <div className="content-stretch flex flex-col items-center relative size-full" data-name="Header">
+      <MainHeaderVLight />
+    </div>
   );
 }

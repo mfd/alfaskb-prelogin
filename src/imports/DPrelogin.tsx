@@ -7,23 +7,17 @@ import DFooter from "../app/components/DFooter";
 
 function IntroSection() {
   return (
-      <div className="relative shrink-0 w-full content-stretch flex flex-col items-center px-[70px] relative w-full" data-name="introSection">
-        <div className="content-stretch flex flex-col gap-[16px] items-start relative shrink-0 w-[1140px]" data-name="headline">
-          <div className="content-stretch flex items-center relative shrink-0 w-[751px]" data-name="Headline.Typography">
-            <p className='flex-[1_0_0] font-bold leading-[48px] min-h-px min-w-px not-italic relative text-[40px] text-[rgba(3,3,6,0.88)]'>
-              Подобрали для вас
-              <br aria-hidden="true" />
-              лучшие продукты и условия
-            </p>
-          </div>
-          <div className="content-stretch flex items-center max-w-[751px] relative shrink-0 w-full" data-name="Paragraph.Typography">
-            <p className="flex-[1_0_0] leading-[24px] max-w-[751px] min-h-px min-w-px not-italic relative text-[18px] text-[rgba(4,4,19,0.55)]">
-              Мы проанализировали деятельность вашей компании
-              <br aria-hidden="true" />
-              и предлагаем персональные спецпредложения по следующим продуктам:
-            </p>
-          </div>
-        </div>
+      <div className="relative shrink-0 w-full gap-[16px] content-stretch flex flex-col px-[70px] w-[1140px] relative w-full" data-name="introSection">
+        <h1 className='max-w-[751px] font-bold leading-[48px] min-h-px min-w-px not-italic relative text-[40px] text-[rgba(3,3,6,0.88)]'>
+          Подобрали для вас
+          <br aria-hidden="true" />
+          лучшие продукты и условия
+        </h1>
+        <p className="max-w-[751px] leading-[24px] min-h-px min-w-px not-italic relative text-[18px] text-[rgba(4,4,19,0.55)]">
+          Мы проанализировали деятельность вашей компании
+          <br aria-hidden="true" />
+          и предлагаем персональные спецпредложения по следующим продуктам:
+        </p>
       </div>
   );
 }
@@ -101,7 +95,7 @@ interface DPreloginProps {
 
 export default function DPrelogin({ onOpenFinancing, toggleItem, isInCart, openCart }: DPreloginProps = {}) {
   return (
-    <div className="relative w-full min-h-screen flex flex-col" data-name="DPrelogin">
+    <div className="relative w-full min-h-screen flex flex-col " data-name="DPrelogin">
       <div className="flex flex-col items-center w-full">
         <Desktop onOpenFinancing={onOpenFinancing} toggleItem={toggleItem} isInCart={isInCart} openCart={openCart} />
       </div>
